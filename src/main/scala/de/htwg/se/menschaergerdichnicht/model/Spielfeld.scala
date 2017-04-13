@@ -1,5 +1,7 @@
 package de.htwg.se.menschaergerdichnicht.model
 
-class Spielfeld(feldtyp: String) {
-  //spielfeld, startbox, zielbox
+import Array._
+
+case class Spielfeld(spielFeld: Int, startFeld: Int, zielFeld: Int) {
 }
+
