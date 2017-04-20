@@ -2,6 +2,11 @@ package de.htwg.se.menschaergerdichnicht.model
 
 import Array._
 
-case class Spielfeld(spielFeld: Int, startFeld: Int, zielFeld: Int) {
+class Spielfeld() {
+  
+  var spielfeldArray = new Array[Int](40)
+  var startboxArray = Array.ofDim(2, 4)
+  var zielboxArray = new Array[Int](4)
+  
 }
 
