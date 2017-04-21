@@ -5,6 +5,8 @@ import de.htwg.se.menschaergerdichnicht.model.Spieler
 import de.htwg.se.menschaergerdichnicht.model.Spielfigur
 import de.htwg.se.menschaergerdichnicht.model.Wuerfel
 
+// should try idea ultimate for worksheets
+
 object Hello {
   def main(args: Array[String]): Unit = {
     //val student = Student("Your Name")
