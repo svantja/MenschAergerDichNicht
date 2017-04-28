@@ -1,4 +1,4 @@
-package de.htwg.se.yourgame.model
+package de.htwg.se.AergerDichNicht.model
 
 import scala.util._
 
