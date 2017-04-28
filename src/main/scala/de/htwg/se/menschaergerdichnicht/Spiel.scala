@@ -6,8 +6,10 @@ import de.htwg.se.menschaergerdichnicht.model.Spielfigur
 import de.htwg.se.menschaergerdichnicht.model.Wuerfel
 
 // should try idea ultimate for worksheets
+// datenstrukturen sollten runterskalieren, auf skalierbarkeit achten
+// fuer einfache testfaelle
 
-object Hello {
+object Spiel {
   def main(args: Array[String]): Unit = {
     //val student = Student("Your Name")
     //println("Hello, " + student.name)
