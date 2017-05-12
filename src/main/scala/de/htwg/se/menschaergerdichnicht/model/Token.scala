@@ -1,6 +1,5 @@
 package de.htwg.se.menschaergerdichnicht.model
 
-
 case class Token (farbe:String, number: Int, position:Field){
   def f(x: Int) : Int = x + 2
   
@@ -12,4 +11,4 @@ case class Token (farbe:String, number: Int, position:Field){
       println("Es muss mindestens eine 6 gewürfelt werden um starten zu können")
     }else{figur.position.move(figur.position, num)} 
   }
-  
+} 

@@ -14,7 +14,7 @@ class Tui {
       val wuerfel = new Dice
       
       input match {
-        case "2" => {val p1 = Player("Spieler1", "rot", 1)
+        case "2" => {val p1 = Player("Spieler1", "rot", 1) //change so it matches to new player/players
                      val p2 = Player("Spieler2", "gelb", 2)
                      var f1 = p1.get_all_figures(p1.farbe)
                      var f2 = p2.get_all_figures(p2.farbe)

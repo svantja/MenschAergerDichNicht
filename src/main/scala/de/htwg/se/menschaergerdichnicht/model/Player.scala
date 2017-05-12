@@ -6,7 +6,7 @@ import scala.collection.mutable.ArrayBuffer
   * Created by Anastasia on 29.04.17.
   */
 case class Player(name: String) {
-
+/*
   def tokens: Unit = {
     val tokens = new ArrayBuffer[Token]
     var position = 0;
@@ -15,7 +15,7 @@ case class Player(name: String) {
       position += 1
     }
   }
-  
+*/  
   def get_all_figures(farbe:String): Array[Token] ={
     var f1 = Token(farbe, 1, Field(0, 0, farbe))
     var f2 = Token(farbe, 2, Field(1, 0, farbe))
