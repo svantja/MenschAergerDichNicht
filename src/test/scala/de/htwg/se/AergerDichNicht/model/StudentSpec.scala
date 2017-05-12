@@ -4,7 +4,7 @@ import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
-import de.htwg.se.AergerDichNicht.model.Wuerfel;
+//import de.htwg.se.AergerDichNicht.model.Wuerfel;
 
 @RunWith(classOf[JUnitRunner])
 class StudentSpec extends FlatSpec with Matchers {
