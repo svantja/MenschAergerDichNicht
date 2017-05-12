@@ -8,20 +8,19 @@ import scala.util._
 /**
   * Created by Anastasia on 01.05.17.
   */
-case class Controller() extends Observable {
+case class Controller(var players: Players = Players(), var message: String = ("test")) extends Observable {
 
-  var players = Players()
-  var gameState: GameState = Prepare(this)
-  var message = ("test")
+  //var gameState: GameState = Prepare(this)
 
   //def newGame(): Unit = {}
 def getCurPlayer: Player = {
   players.getCurPlayer
 }
 
-  def addPlayer(name: String): Try[String] = doIt(AddPlayer(name))
+  def addPlayer(name: String): Try[Controller] = doIt(AddPlayer(name, this))
 
   def addTeam(): Unit = {}
+
 
   def doIt(com: Command): Try[String] = {
     val explored = gameState.exploreCommand(com)
@@ -41,52 +40,61 @@ def getCurPlayer: Player = {
 
 // ##################### Controller Commands #######################
 trait Command {
-  def doIt(c: Controller): Try[String]
-  def undo(c: Controller): Try[String]
+  def doIt(): Try[_]
+  def undo(): Try[_]
 }
 
-case class AddPlayer(name: String) extends Command {
+case class AddPlayer(name: String, c: Controller) extends Command {
   val player = Player(name)
 
-  override def doIt(c: Controller): Success[String] = {
+  override def doIt(): Try[_] = {
     c.players = c.players.addPlayer(player)
-    Success("Spieler" + name + "wurde hinzugefuegt!")
+    c.message = "Spieler " + name + " wurde hinzugefuegt"
+    Success()
   }
 
-  override def undo(c: Controller): Try[String] = {
+  override def undo(): Try[_] = {
     c.players = c.players.removePlayer()
-    Success("Spieler geloescht")
+    c.message = "Geloeschter Spieler: " + name
+    Success()
   }
 
 }
 
-abstract case class NextPlayer() extends Command {
-  override def doIt(c: Controller): Try[String] = {
-    c.players = c.players.nextPlayer()
-    //c.prepareNewPlayer()
-    Success("Player " + c.getCurPlayer.name + " it is your turn!")
-  }
-}
+//abstract case class NextPlayer(c: Controller) extends Command {
+//  override def doIt(c: Controller): Try[_] = {
+//    c.players = c.players.nextPlayer()
+//
+//    Success()
+//  }
+//}
 
-trait GameState {
-  def exploreCommand(com: Command): Try[String]
-}
+//abstract case class StartGame() extends Command {
+//  override def doIt(c: Controller): Unit = {
+//    println(c.players)
+//  }
+//}
+//
+//trait GameState {
+//  def exploreCommand(com: Command): Try[_]
+//}
+//
+//case class Prepare(c: Controller) extends GameState {
+//  override def exploreCommand(com: Command): Try[_] = {
+//    com match {
+//      case command: AddPlayer => com.doIt(c)
+//      case _ => Failure(new Exception("ILLEGAL COMMAND"))
+//    }
+//  }
+//}
+//
+//case class Play(c: Controller) extends GameState {
+//  override def exploreCommand(com: Command): Try[_] = {
+//    com match {
+//      case command: NextPlayer => command.doIt(c)
+//      //case command: SetStone => command.doIt(c)
+//      case _ => Failure(new Exception("ILLEGAL COMMAND"))
+//    }
+//  }
+//}
 
-case class Prepare(c: Controller) extends GameState {
-  override def exploreCommand(com: Command): Try[String] = {
-    com match {
-      case command: AddPlayer => command.doIt(c)
-      case _ => Failure(new Exception("ILLEGAL COMMAND"))
-    }
-  }
-}
-
-case class Play(c: Controller) extends GameState {
-  override def exploreCommand(com: Command): Try[String] = {
-    com match {
-      case command: NextPlayer => command.doIt(c)
-      //case command: SetStone => command.doIt(c)
-      case _ => Failure(new Exception("ILLEGAL COMMAND"))
-    }
-  }
-}
