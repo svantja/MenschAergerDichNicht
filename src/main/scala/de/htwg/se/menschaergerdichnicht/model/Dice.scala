@@ -1,4 +1,4 @@
-package de.htwg.se.menschaergerdichnicht.model
+package de.htwg.se.menschaergerdichnicht.model;
 
 import scala.util._
 
@@ -15,3 +15,4 @@ class Dice {
     n
   }
 }
+

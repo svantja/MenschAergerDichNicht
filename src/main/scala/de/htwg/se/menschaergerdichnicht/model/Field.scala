@@ -27,3 +27,4 @@ case class Field (var number: Int, var typ: Int, farbe:String){
     Array(f1, f2, f3, f4)
   }
 }
+
