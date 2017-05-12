@@ -1,6 +1,6 @@
 package de.htwg.se.menschaergerdichnicht
 
-import de.htwg.se.menschaergerdichnicht.model.{Feld, Figur, Spieler, Wuerfel}
+import de.htwg.se.menschaergerdichnicht.model.{Field, Token, Player, Dice}
 import de.htwg.se.menschaergerdichnicht.view.Tui
 
 import scala.io.StdIn.readLine

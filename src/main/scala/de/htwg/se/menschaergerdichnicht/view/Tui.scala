@@ -1,7 +1,7 @@
 package de.htwg.se.menschaergerdichnicht.view
 
 import de.htwg.se.menschaergerdichnicht.model
-import de.htwg.se.menschaergerdichnicht.model.{Feld, Figur, Spieler, Wuerfel}
+import de.htwg.se.menschaergerdichnicht.model.{Field, Token, Player, Dice}
 import scala.util._
 
 class Tui {
@@ -11,11 +11,11 @@ class Tui {
   
   var play = true
     while(play == true){
-      val wuerfel = new Wuerfel
+      val wuerfel = new Dice
       
       input match {
-        case "2" => {val p1 = Spieler("Spieler1", "rot", 1)
-                     val p2 = Spieler("Spieler2", "gelb", 2)
+        case "2" => {val p1 = Player("Spieler1", "rot", 1)
+                     val p2 = Player("Spieler2", "gelb", 2)
                      var f1 = p1.get_all_figures(p1.farbe)
                      var f2 = p2.get_all_figures(p2.farbe)
                      for (i <- f1) println(i, i.position)
@@ -44,9 +44,9 @@ class Tui {
                          }else {play = false; println("ENDE")}
                      }
         }
-        case "3" => {val p1 = Spieler("Spieler1", "rot", 1) 
-                             val p2 = Spieler("Spieler2", "gelb", 2) 
-                             val p3 = Spieler("Spieler3", "gruen", 3)
+        case "3" => {val p1 = Player("Spieler1", "rot", 1) 
+                             val p2 = Player("Spieler2", "gelb", 2) 
+                             val p3 = Player("Spieler3", "gruen", 3)
                              var f1 = p1.get_all_figures(p1.farbe)
                              var f2 = p2.get_all_figures(p2.farbe)
                              var f3 = p3.get_all_figures(p3.farbe)
@@ -86,10 +86,10 @@ class Tui {
                           
                             }
         }
-        case "4" => {val p1 = Spieler("Spieler1", "rot", 1) 
-                             val p2 = Spieler("Spieler2", "gelb", 2)
-                             val p3 = Spieler("Spieler3", "gruen", 3)
-                             val p4 = Spieler("Spieler4", "blau", 4);
+        case "4" => {val p1 = Player("Spieler1", "rot", 1) 
+                             val p2 = Player("Spieler2", "gelb", 2)
+                             val p3 = Player("Spieler3", "gruen", 3)
+                             val p4 = Player("Spieler4", "blau", 4);
                              var f1 = p1.get_all_figures(p1.farbe)
                              var f2 = p2.get_all_figures(p2.farbe)
                              var f3 = p3.get_all_figures(p3.farbe)

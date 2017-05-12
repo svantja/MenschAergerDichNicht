@@ -2,7 +2,7 @@ package de.htwg.se.menschaergerdichnicht.model
 
 import scala.util._
 
-class Wuerfel {
+class Dice {
 
   def random_result : Int = {
     

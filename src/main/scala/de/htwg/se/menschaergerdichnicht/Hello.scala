@@ -1,8 +1,8 @@
 package de.htwg.se.menschaergerdichnicht
 
-import de.htwg.se.menschaergerdichnicht.model.Spieler
-import de.htwg.se.menschaergerdichnicht.model.Wuerfel
-import de.htwg.se.menschaergerdichnicht.model.Figur
+import de.htwg.se.menschaergerdichnicht.model.Player
+import de.htwg.se.menschaergerdichnicht.model.Dice
+import de.htwg.se.menschaergerdichnicht.model.Token
 
 object Hello {
   def main(args: Array[String]): Unit = {
@@ -10,12 +10,12 @@ object Hello {
     var play = true
     while(play == true){
       println("Wieviele Spieler? - Type 'q' to exit")
-      val wuerfel = new Wuerfel
+      val wuerfel = new Dice
       val anzahl = scala.io.StdIn.readLine()
       
       anzahl match {
-        case "2" => {val p1 = Spieler("Spieler1", "rot", 1)
-                     val p2 = Spieler("Spieler2", "gelb", 2)
+        case "2" => {val p1 = Player("Spieler1", "rot", 1)
+                     val p2 = Player("Spieler2", "gelb", 2)
                      var f1 = p1.get_all_figures(p1.farbe)
                      var f2 = p2.get_all_figures(p2.farbe)
                      for (i <- f1) println(i, i.position)
@@ -44,9 +44,9 @@ object Hello {
                          }else {play = false; println("ENDE")}
                      }
         }
-        case "3" => {val p1 = Spieler("Spieler1", "rot", 1) 
-                             val p2 = Spieler("Spieler2", "gelb", 2) 
-                             val p3 = Spieler("Spieler3", "gruen", 3)
+        case "3" => {val p1 = Player("Spieler1", "rot", 1) 
+                             val p2 = Player("Spieler2", "gelb", 2) 
+                             val p3 = Player("Spieler3", "gruen", 3)
                              var f1 = p1.get_all_figures(p1.farbe)
                              var f2 = p2.get_all_figures(p2.farbe)
                              var f3 = p3.get_all_figures(p3.farbe)
@@ -86,10 +86,10 @@ object Hello {
                           
                             }
         }
-        case "4" => {val p1 = Spieler("Spieler1", "rot", 1) 
-                             val p2 = Spieler("Spieler2", "gelb", 2)
-                             val p3 = Spieler("Spieler3", "gruen", 3)
-                             val p4 = Spieler("Spieler4", "blau", 4);
+        case "4" => {val p1 = Player("Spieler1", "rot", 1) 
+                             val p2 = Player("Spieler2", "gelb", 2)
+                             val p3 = Player("Spieler3", "gruen", 3)
+                             val p4 = Player("Spieler4", "blau", 4);
                              var f1 = p1.get_all_figures(p1.farbe)
                              var f2 = p2.get_all_figures(p2.farbe)
                              var f3 = p3.get_all_figures(p3.farbe)
