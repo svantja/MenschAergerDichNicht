@@ -1,4 +1,4 @@
-package de.htwg.se.AergerDichNicht.model
+package de.htwg.se.menschaergerdichnicht.model
 
 import scala.util._
 

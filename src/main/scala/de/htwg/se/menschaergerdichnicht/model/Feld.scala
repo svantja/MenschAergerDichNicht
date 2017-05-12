@@ -1,4 +1,4 @@
-package de.htwg.se.AergerDichNicht.model
+package de.htwg.se.menschaergerdichnicht.model
 
 case class Feld (var number: Int, var typ: Int, farbe:String){
   //Homefeld -> 0 

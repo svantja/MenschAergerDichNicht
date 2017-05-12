@@ -1,19 +1,19 @@
-package de.htwg.se.AergerDichNicht.view
+package de.htwg.se.menschaergerdichnicht
 
-import de.htwg.se.AergerDichNicht.model
-import de.htwg.se.AergerDichNicht.model.{Feld, Figur, Spieler, Wuerfel}
-import scala.util._
+import de.htwg.se.menschaergerdichnicht.model.Spieler
+import de.htwg.se.menschaergerdichnicht.model.Wuerfel
+import de.htwg.se.menschaergerdichnicht.model.Figur
 
-class Tui {
-  
-  def processInputLine(input: String):Unit = {
-  
-  
-  var play = true
+object Hello {
+  def main(args: Array[String]): Unit = {
+    //val fig = Figur("rot", 0)
+    var play = true
     while(play == true){
+      println("Wieviele Spieler? - Type 'q' to exit")
       val wuerfel = new Wuerfel
+      val anzahl = scala.io.StdIn.readLine()
       
-      input match {
+      anzahl match {
         case "2" => {val p1 = Spieler("Spieler1", "rot", 1)
                      val p2 = Spieler("Spieler2", "gelb", 2)
                      var f1 = p1.get_all_figures(p1.farbe)
@@ -95,7 +95,7 @@ class Tui {
                              var f3 = p3.get_all_figures(p3.farbe)
                              var f4 = p4.get_all_figures(p4.farbe)
                            
-                             while(play == true) {
+                             while(play == true){
                               println("Welcher Spieler würfelt? - (p1, p2, p3, p4)")
                               val turn = scala.io.StdIn.readLine()
                               if(turn == "p1") {

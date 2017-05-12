@@ -1,4 +1,4 @@
-package de.htwg.se.AergerDichNicht.model
+package de.htwg.se.menschaergerdichnicht.model
 
 case class Spieler(name: String, farbe:String, reihenfolge:Int) {
   def f(x: Int) : Int = x + 1

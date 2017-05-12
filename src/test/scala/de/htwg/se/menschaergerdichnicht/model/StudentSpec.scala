@@ -1,8 +1,10 @@
-package de.htwg.se.AergerDichNicht.model
+package de.htwg.se.menschaergerdichnicht.model
 
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
+
+import de.htwg.se.menschaergerdichnicht.model.Wuerfel;
 
 //import de.htwg.se.AergerDichNicht.model.Wuerfel;
 

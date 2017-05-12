@@ -1,7 +1,7 @@
-package de.htwg.se.AergerDichNicht
+package de.htwg.se.menschaergerdichnicht
 
-import de.htwg.se.AergerDichNicht.model.{Feld, Figur, Spieler, Wuerfel}
-import de.htwg.se.AergerDichNicht.view.Tui
+import de.htwg.se.menschaergerdichnicht.model.{Feld, Figur, Spieler, Wuerfel}
+import de.htwg.se.menschaergerdichnicht.view.Tui
 
 import scala.io.StdIn.readLine
 

@@ -1,4 +1,4 @@
-package de.htwg.se.AergerDichNicht.model
+package de.htwg.se.menschaergerdichnicht.model
 
 case class Figur (farbe:String, number: Int, position:Feld){
   def f(x: Int) : Int = x + 2
