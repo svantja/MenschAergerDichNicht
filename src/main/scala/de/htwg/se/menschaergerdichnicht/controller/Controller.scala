@@ -1,55 +1,53 @@
 package de.htwg.se.menschaergerdichnicht.controller
-
 import de.htwg.se.menschaergerdichnicht.model._
 import de.htwg.se.menschaergerdichnicht.util.Observable
+import scala.collection.mutable
 
 import scala.util._
 
 /**
   * Created by Anastasia on 01.05.17.
   */
-case class Controller(var players: Players = Players(), var message: String = ("test")) extends Observable {
+case class Controller(/*var players: Players = Players(), var message: String = ("test")*/) extends Observable {
 
-  //var gameState: GameState = Prepare(this)
+  var players = new Players()
+  var message = ""
+  var gameState: GameState = Prepare(this)
+  var undoStack: mutable.Stack[Command] = mutable.Stack()
+  var redoStack: mutable.Stack[Command] = mutable.Stack()
 
   //def newGame(): Unit = {}
 def getCurPlayer: Player = {
-  players.getCurPlayer
+  players.getCurrentPlayer
 }
 
-  def addPlayer(name: String): Try[Controller] = doIt(AddPlayer(name, this))
+  def addPlayer(name: String): Try[_] = action(AddPlayer(name, this))
 
-  def addTeam(): Unit = {}
-
-
-  def doIt(com: Command): Try[String] = {
-    val explored = gameState.exploreCommand(com)
-    explored match {
-      case Success(s) => {
-        //undoStack.push(com)
-        //redoStack.clear()
-        message = s
-      }
-      case Failure(e) => message = e.getMessage
+  def action(com: Command): Try[_] = {
+    //val explored = gameState.exploreCommand(com)
+    val result = com.action()
+    if (result.isSuccess) {
+      undoStack.push(com)
+      redoStack.clear()
     }
-    //notifyObservers()
-    explored
+    result
   }
 
 }
 
 // ##################### Controller Commands #######################
 trait Command {
-  def doIt(): Try[_]
+  def action(): Try[_]
   def undo(): Try[_]
 }
 
 case class AddPlayer(name: String, c: Controller) extends Command {
   val player = Player(name)
 
-  override def doIt(): Try[_] = {
+  override def action(): Try[_] = {
     c.players = c.players.addPlayer(player)
-    c.message = "Spieler " + name + " wurde hinzugefuegt"
+    //c.message = "Spieler " + name + " wurde hinzugefuegt"
+    println("Spieler " + name + " wurde hinzugefuegt")
     Success()
   }
 
@@ -61,32 +59,33 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 
 }
 
-//abstract case class NextPlayer(c: Controller) extends Command {
-//  override def doIt(c: Controller): Try[_] = {
-//    c.players = c.players.nextPlayer()
-//
-//    Success()
-//  }
-//}
+abstract case class NextPlayer(c: Controller) extends Command {
+  override def action(): Try[_] = {
+    c.players = c.players.nextPlayer()
 
-//abstract case class StartGame() extends Command {
-//  override def doIt(c: Controller): Unit = {
-//    println(c.players)
-//  }
-//}
-//
-//trait GameState {
-//  def exploreCommand(com: Command): Try[_]
-//}
-//
-//case class Prepare(c: Controller) extends GameState {
-//  override def exploreCommand(com: Command): Try[_] = {
-//    com match {
-//      case command: AddPlayer => com.doIt(c)
-//      case _ => Failure(new Exception("ILLEGAL COMMAND"))
-//    }
-//  }
-//}
+    Success()
+  }
+}
+
+abstract case class StartGame(c: Controller) extends Command {
+  override def action(): Try[_] = {
+    println(c.players)
+    Success()
+  }
+}
+
+trait GameState {
+  def exploreCommand(com: Command): Try[_]
+}
+
+case class Prepare(c: Controller) extends GameState {
+  override def exploreCommand(com: Command): Try[_] = {
+    com match {
+      case command: AddPlayer => com.action()
+      case _ => Failure(new Exception("ILLEGAL COMMAND"))
+    }
+  }
+}
 //
 //case class Play(c: Controller) extends GameState {
 //  override def exploreCommand(com: Command): Try[_] = {

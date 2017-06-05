@@ -15,13 +15,16 @@ import scala.io.StdIn.readLine
 
 object Game {
 
+  val controller = new Controller()
+  val tui = new Tui(controller)
   def main(args: Array[String]): Unit = {
 
+    var input: String = ""
 
-    val controller = new Controller()
-    val tui = new Tui(controller)
-    while (tui.processInputLine(readLine())) {}
-
+    do {
+      input = readLine()
+      tui.processInputLine(input)
+    } while (input != "q")
 
   }
 }

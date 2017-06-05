@@ -1,6 +1,6 @@
 package de.htwg.se.menschaergerdichnicht.aview
 
-import de.htwg.se.menschaergerdichnicht.controller.{Controller, Play, Prepare}
+import de.htwg.se.menschaergerdichnicht.controller.{Controller, Prepare}
 import de.htwg.se.menschaergerdichnicht.util.Observer
 
 import scala.collection.mutable.Map
@@ -26,7 +26,7 @@ class Tui(controller: Controller) extends Observer{
   private def processMoreParameters(input: String): Unit = {
     input.split(" ").toList match {
       case "add" :: player :: Nil => controller.addPlayer(player)
-      case "team" :: team :: Nil => controller.addTeam()
+
       case _ => controller.message = "False input"
     }
   }
@@ -36,10 +36,7 @@ class Tui(controller: Controller) extends Observer{
   override def update: Unit =  printTui()
   def printTui(): Unit = {
     if (controller.gameState.isInstanceOf[Prepare]) {
-      println("               add-AddPlayer [Name], team-AddTeam [team], s-StartGame, q-QuitGame")
-    }
-    if (controller.gameState.isInstanceOf[Play]) {
-      println("               SetStone [row] [col], n-NextPlayer")
+      println("add: Add Player, q-QuitGame")
     }
   }
 }
