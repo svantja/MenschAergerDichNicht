@@ -28,7 +28,7 @@ case class Player(var name: String) {
   def addTokens(): ArrayBuffer[Token] = {
     val tokens = new ArrayBuffer[Token]
     for (i <- 1 to 4) {
-      tokens += new Token(this, house.house(i-1))
+      tokens += new Token(this, (house.house(i-1), i-1))
       house.house(i-1).setToken(tokens(i-1))
     }
     tokens
