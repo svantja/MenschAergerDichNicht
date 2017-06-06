@@ -10,7 +10,7 @@ class TargetField() {
   val targetField = new ArrayBuffer[Field]
 
   for (i <- 1 to 4) {
-    targetField += new Field(false)
+    targetField += new Field()
   }
 
 }

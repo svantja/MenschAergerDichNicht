@@ -17,7 +17,7 @@ class Tui(controller: Controller) extends Observer{
     var continue = true
     input match {
       case "q" => continue = false
-      //case "s" => controller.startGame()
+      case "start" => controller.startGame()
       case _ => processMoreParameters(input)
     }
     continue

@@ -1,6 +1,6 @@
 package de.htwg.se.menschaergerdichnicht.model
 
-case class Token(var player: Player, var position: String) {
+case class Token(var player: Player, var position: Field) {
 
   // player token numbers 1 - 4
   val number = Token.setNumber
@@ -17,9 +17,11 @@ case class Token(var player: Player, var position: String) {
 
   def getPlayer(): Player = player
 
-  def setPosition(position: String) { this.position = position}
+  def setPosition(position: Field) { this.position = position}
 
-  def getPosition(): String = position
+  def getPosition(): Field = position
+
+  //def getTokenById()
 
 }
 

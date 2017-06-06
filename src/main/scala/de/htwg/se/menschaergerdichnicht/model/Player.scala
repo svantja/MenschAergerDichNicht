@@ -7,26 +7,32 @@ import scala.collection.mutable.ArrayBuffer
   */
 case class Player(var name: String) {
 
+  val playerId = Player.newIdNum
+
+  val house = new House(this)
+
   var finished: Boolean = false
+
+  var tokens = addTokens()
+
+  def getTokens(): ArrayBuffer[Token] = tokens
 
   def setFinished(finished: Boolean) { this.finished = finished}
 
   def getFinished(): Boolean = finished
 
- /* def tokens: Unit = {
-    val tokens = new ArrayBuffer[Token]
-    var position = 0;
-    for (i <- 1 to 4) {
-      tokens += Token(position, area = 0)
-      position += 1
-    }
-  }*/
-
-  val playerId = Player.newIdNum
-
   this.setName(name)
 
   def setName(name: String) { this.name = name }
+
+  def addTokens(): ArrayBuffer[Token] = {
+    val tokens = new ArrayBuffer[Token]
+    for (i <- 1 to 4) {
+      tokens += new Token(this, house.house(i-1))
+      house.house(i-1).setToken(tokens(i-1))
+    }
+    tokens
+  }
 
 
   override def toString: String = name
@@ -55,6 +61,7 @@ case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) {
   }
   def nextPlayer(): Players = {
     copy(currentPlayer = (currentPlayer + 1) % players.length)
+    //players(currentPlayer)
   }
   def getCurrentPlayer: Player = {
     players(currentPlayer)

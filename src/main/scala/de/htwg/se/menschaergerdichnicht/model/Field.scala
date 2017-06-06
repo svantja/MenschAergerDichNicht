@@ -5,14 +5,15 @@ package de.htwg.se.menschaergerdichnicht.model
   */
 
 
-case class Field(occupied: Boolean) {
+case class Field() {
 
-  val houseField = Array.ofDim[Int](2, 4);
+  var tokenId: Int = -1
 
-  val targetField = new Array[Int](4);
+  def setToken(token: Token) { this.tokenId = token.tokenId}
 
-  val playingField = new Array[Int](40);
+  def getToken(): Int = tokenId
 
+  def removeToken() {this.tokenId = -1}
 
 
 
