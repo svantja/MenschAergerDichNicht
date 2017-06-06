@@ -1,8 +1,10 @@
 package de.htwg.se.menschaergerdichnicht.controller
-import de.htwg.se.menschaergerdichnicht.model._
-import de.htwg.se.menschaergerdichnicht.util.Observable
-import scala.collection.mutable
 
+import de.htwg.se.menschaergerdichnicht.model._
+import de.htwg.se.menschaergerdichnicht.util.{Command, Observable}
+import de.htwg.se.menschaergerdichnicht.controller._
+
+import scala.collection.mutable
 import scala.util._
 
 /**
@@ -38,30 +40,6 @@ def getCurPlayer: Player = {
 
 }
 
-// ##################### Controller Commands #######################
-trait Command {
-  def action(): Try[_]
-  def undo(): Try[_]
-}
-
-case class AddPlayer(name: String, c: Controller) extends Command {
-  val player = Player(name)
-
-  override def action(): Try[_] = {
-    c.players = c.players.addPlayer(player)
-    //c.message = "Spieler " + name + " wurde hinzugefuegt"
-    println("Spieler " + name + " wurde hinzugefuegt")
-    println(player.tokens)
-    Success()
-  }
-
-  override def undo(): Try[_] = {
-    c.players = c.players.removePlayer()
-    c.message = "Geloeschter Spieler: " + name
-    Success()
-  }
-
-}
 
 //abstract case class NextPlayer(c: Controller) extends Command {
 //  override def action(): Try[_] = {
@@ -71,38 +49,7 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 //  }
 //}
 
-case class Play(c: Controller) extends Command {
-  val dice = new Dice()
-  override def action(): Try[_] = {
-    while (true) {
 
-      val player = c.players.getCurrentPlayer
-      val num = dice.rollDice(c.players.getCurrentPlayer)
-      if (num == 9) {
-        println("Cannot move, next player.")
-        c.players = c.players.nextPlayer()
-        println(c.players.getCurrentPlayer)
-        //c.players.updateCurrentPlayer(c.players.nextPlayer())
-      } else {
-        if (player.house.isFull(player)) {
-          println("move to startfield")
-          c.playingField.moveToStart(player.tokens(0))
-          println(player.house.house(1).tokenId)
-        } else {
-          //println("move")
-          c.players = c.players.nextPlayer()
-          //c.players.updateCurrentPlayer(c.players.nextPlayer())
-        }
-      }
-    }
-    Success()
-  }
-
-  override def undo(): Try[_] = {
-    println("Undo")
-    Success()
-  }
-}
 
 trait GameState {
   def exploreCommand(com: Command): Try[_]
