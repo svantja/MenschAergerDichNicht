@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by Anastasia on 01.05.17.
   */
-class TargetField() {
+class TargetField(player: Player) {
 
   val targetField = new ArrayBuffer[Field]
 
@@ -13,4 +13,12 @@ class TargetField() {
     targetField += new Field()
   }
 
+  def isFull(player: Player): Boolean = {
+    for (field <- player.target.targetField) {
+      if (field.tokenId == -1) {
+        return false
+      }
+    }
+    true
+  }
 }

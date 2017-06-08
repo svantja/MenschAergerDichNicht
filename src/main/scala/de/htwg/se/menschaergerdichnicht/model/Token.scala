@@ -45,7 +45,7 @@ object Token{
 
   private def setColor = {
 
-    if (idNumber % 4 == 0) round += 1
+    if (idNumber % 5 == 0) round += 1
 
     colorList(round)
   }

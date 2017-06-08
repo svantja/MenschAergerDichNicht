@@ -45,7 +45,7 @@ class Tui(controller: Controller) extends Observer{
   override def update: Unit =  printTui()
   def printTui(): Unit = {
     if (controller.gameState.isInstanceOf[Prepare]) {
-      println("add: Add Player, start: Start Game, q: Quit Game")
+      println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
     }
   }
 }

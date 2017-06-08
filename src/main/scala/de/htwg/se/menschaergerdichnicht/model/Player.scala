@@ -13,6 +13,8 @@ case class Player(var name: String, var diced: Int) {
 
   val house = new House(this)
 
+  val target = new TargetField(this)
+
   var finished: Boolean = false
 
   var tokens = addTokens()
@@ -38,6 +40,15 @@ case class Player(var name: String, var diced: Int) {
       house.house(i-1).setToken(tokens(i-1))
     }
     tokens
+  }
+
+  def getFreeHouse(): Field = {
+    for (h <- house.house) {
+      if (h.tokenId == -1) {
+        return h
+      }
+    }
+    null
   }
 
   def getTokenById(tokenId: Int): Token = {
@@ -94,6 +105,9 @@ case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) {
   }
   def getCurrentPlayer: Player = {
     players(currentPlayer)
+  }
+  def getAllPlayer: Vector[Player] = {
+    players
   }
 
 

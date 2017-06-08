@@ -14,9 +14,8 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 
   override def action(): Try[_] = {
     c.players = c.players.addPlayer(player)
-    //c.message = "Spieler " + name + " wurde hinzugefuegt"
+
     println("Spieler " + name + " wurde hinzugefuegt")
-    println(player.tokens)
     Success()
   }
 
@@ -31,13 +30,32 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 case class ChooseToken(tokenId: Int, c: Controller) extends Command {
   val player = c.players.getCurrentPlayer
   val token = player.getTokenById(tokenId)
+  val dice = new Dice()
 
   override def action(): Try[_] = {
     println(c.players.getCurrentPlayer)
-    c.playingField.moveToken(token, player.getDiced())
-    println(player.tokens)
-    println(player.getDiced())
-    c.players = c.players.nextPlayer()
+    if (player.getDiced() == 6) {
+      if (token.counter == 0) {
+        c.playingField.moveToStart(token)
+        println("Moved Token" + tokenId + " to start")
+        player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
+        c.playingField.moveToken(token, player.getDiced(), c.players)
+        println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+
+        c.players = c.players.nextPlayer()
+      } else {
+        c.playingField.moveToken(token, player.getDiced(), c.players)
+        println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+        player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
+        c.playingField.moveToken(token, player.getDiced(), c.players)
+        println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+      }
+
+    } else {
+      c.playingField.moveToken(token, player.getDiced(), c.players)
+      println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+      c.players = c.players.nextPlayer()
+    }
     Success()
   }
 
@@ -48,39 +66,36 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
 case class Play(c: Controller) extends Command {
   val dice = new Dice()
   override def action(): Try[_] = {
-    //while (true) {
-
+    //while (true)
       val player = c.players.getCurrentPlayer
-      val num = dice.rollDice(c.players.getCurrentPlayer)
-      if (num == 9) {
-        println("Cannot move, next player.")
-        c.players = c.players.nextPlayer()
-        println(c.players.getCurrentPlayer)
-
-      } else {
-        if (player.house.isFull(player)) {
-          println("move to startfield")
-          c.playingField.moveToStart(player.tokens(0))
-          println("moved start", player.tokens)
-          c.playingField.moveToken(player.tokens(0), dice.rollDice(c.players.getCurrentPlayer))
-          println("moved after start", player.tokens)
+      if (!player.getFinished()) {
+        val num = dice.rollDice(c.players.getCurrentPlayer)
+        if (num == 9) {
+          println("Cannot move, next player.")
           c.players = c.players.nextPlayer()
-        } else {
-          player.setDiced(num)
-          if (num == 6) {
-            println("Choose token to move")
-            println(num, "diced", player.getDiced())
-            println("avaiable tokens: ", player.getAvaiableTokens())
-          } else {
-            println("Choose token to move")
-            println(num, "diced", player.getDiced())
-            println("avaiable tokens: ", player.getAvaiableTokens())
-          }
+          println(c.players.getCurrentPlayer)
 
-//          c.playingField.moveToken(player.tokens(0), num)
-//          println(player.tokens)
-//          println(num)
-//          c.players = c.players.nextPlayer()
+        } else {
+          if (player.house.isFull(player)) {
+            c.playingField.moveToStart(player.tokens(0))
+            println("Moved Token" + player.tokens(0).tokenId + " to start")
+            player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
+            c.playingField.moveToken(player.tokens(0), player.getDiced(), c.players)
+            println("Moved Token" + player.tokens(0).tokenId + " " + player.getDiced() + " fields")
+
+            c.players = c.players.nextPlayer()
+          } else {
+            player.setDiced(num)
+            if (num == 6) {
+              println("Choose token to move")
+              println(num + "diced" + player.getDiced())
+              println("avaiable tokens: " + player.getAvaiableTokens())
+            } else {
+              println("Choose token to move")
+              println(num + "diced" + player.getDiced())
+              println("avaiable tokens: " + player.getAvaiableTokens())
+            }
+          }
         }
       }
     //}
