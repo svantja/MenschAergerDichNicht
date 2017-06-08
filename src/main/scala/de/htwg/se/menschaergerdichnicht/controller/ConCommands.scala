@@ -42,7 +42,7 @@ case class Play(c: Controller) extends Command {
         if (player.house.isFull(player)) {
           println("move to startfield")
           c.playingField.moveToStart(player.tokens(0))
-          println(player.house.house(1).tokenId)
+          println(player.tokens)
         } else {
           //println("move")
           c.players = c.players.nextPlayer()
