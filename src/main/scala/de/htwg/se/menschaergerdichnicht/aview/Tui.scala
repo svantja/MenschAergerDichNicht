@@ -10,7 +10,7 @@ import scala.collection.mutable.Map
 class Tui(controller: Controller) extends Observer{
 
   controller.add(this)
-
+  val DEFAULT_TOKEN = 17
   printTui()
 
   def processInputLine(input: String): Boolean = {
@@ -18,6 +18,7 @@ class Tui(controller: Controller) extends Observer{
     input match {
       case "q" => continue = false
       case "start" => controller.startGame()
+      case "ready" => controller.startGame()
       case _ => processMoreParameters(input)
     }
     continue
@@ -26,8 +27,16 @@ class Tui(controller: Controller) extends Observer{
   private def processMoreParameters(input: String): Unit = {
     input.split(" ").toList match {
       case "add" :: player :: Nil => controller.addPlayer(player)
-
+      case "move" :: tokenId :: Nil => controller.chooseToken(strToInt(tokenId, DEFAULT_TOKEN))
       case _ => controller.message = "False input"
+    }
+  }
+
+  def strToInt(s: String, default: Int): Int = {
+    try{
+      s.toInt
+    } catch {
+      case _: Exception => default
     }
   }
 

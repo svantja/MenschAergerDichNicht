@@ -5,9 +5,11 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by Anastasia on 29.04.17.
   */
-case class Player(var name: String) {
+case class Player(var name: String, var diced: Int) {
 
   val playerId = Player.newIdNum
+
+  //var diced = 0
 
   val house = new House(this)
 
@@ -21,15 +23,42 @@ case class Player(var name: String) {
 
   def getFinished(): Boolean = finished
 
-  this.setName(name)
+  //this.setName(name)
 
   def setName(name: String) { this.name = name }
+
+  def setDiced(diced: Int) {this.diced = diced}
+
+  def getDiced(): Int = diced
 
   def addTokens(): ArrayBuffer[Token] = {
     val tokens = new ArrayBuffer[Token]
     for (i <- 1 to 4) {
       tokens += new Token(this, (house.house(i-1), i-1), 0)
       house.house(i-1).setToken(tokens(i-1))
+    }
+    tokens
+  }
+
+  def getTokenById(tokenId: Int): Token = {
+    for (token <- getTokens()) {
+      if (token.tokenId == tokenId) {
+        return token
+      }
+    }
+    null
+  }
+
+  def getAvaiableTokens(): ArrayBuffer[String] = {
+    val tokens = new ArrayBuffer[String]
+    for (token <- getTokens()) {
+      if (diced == 6) {
+        tokens += "Token " + token.tokenId
+      } else {
+        if (token.getCounter() > 0) {
+          tokens += "Token " + token.tokenId
+        }
+      }
     }
     tokens
   }

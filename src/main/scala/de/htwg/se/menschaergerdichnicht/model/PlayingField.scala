@@ -13,8 +13,16 @@ class PlayingField() {
   def getField(id: Int): Field = playingField(id)
 
   def moveToken(token: Token, num: Int): Unit = {
+    val oldPosition = token.getPosition()._2
+    var newPosition = oldPosition + num
+    if (newPosition > 39) {
+      newPosition = newPosition - 39
+    }
     token.position._1.tokenId = -1
 
+    token.setPosition((playingField(newPosition), newPosition))
+    playingField(newPosition).setToken(token)
+    token.setCounter(token.getCounter() + num)
   }
 
   def moveToStart(token: Token): Unit = {

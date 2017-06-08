@@ -28,6 +28,8 @@ def getCurPlayer: Player = {
 
   def startGame(): Try[_] = action(Play(this))
 
+  def chooseToken(tokenId: Int): Try[_] = action(ChooseToken(tokenId, this))
+
   def action(com: Command): Try[_] = {
     //val explored = gameState.exploreCommand(com)
     val result = com.action()
