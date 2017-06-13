@@ -56,12 +56,20 @@ class PlayingField() {
 
   def moveToTarget(token: Token, i: Int): Unit = {
     val player = token.getPlayer()
-    val target = player.target.targetField(i)
-    if (target.tokenId == -1) {
-      target.setToken(token)
-      token.setPosition(target, i)
-      if (player.target.isFull(player)) {
-        player.setFinished(true)
+    // wenn Token noch außerhalb vom Target, dann setze Token auf Target(i)
+    if (i <= 3) {
+      if (token.getPosition()._2 + i <= 3) {
+        val target = player.target.targetField(i)
+        if (target.tokenId == -1) {
+          target.setToken(token)
+          token.setPosition(target, i)
+          if (token.getPosition()._2 == 3) {
+            token.setFinished(true)
+          }
+          if (player.target.isFull(player)) {
+            player.setFinished(true)
+          }
+        }
       }
     }
   }

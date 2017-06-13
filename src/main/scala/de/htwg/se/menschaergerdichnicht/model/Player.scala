@@ -63,11 +63,13 @@ case class Player(var name: String, var diced: Int) {
   def getAvaiableTokens(): ArrayBuffer[String] = {
     val tokens = new ArrayBuffer[String]
     for (token <- getTokens()) {
-      if (diced == 6) {
-        tokens += "Token " + token.tokenId
-      } else {
-        if (token.getCounter() > 0) {
+      if (!token.getFinished()) {
+        if (diced == 6) {
           tokens += "Token " + token.tokenId
+        } else {
+          if (token.getCounter() > 0) {
+            tokens += "Token " + token.tokenId
+          }
         }
       }
     }

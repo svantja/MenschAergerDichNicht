@@ -10,6 +10,7 @@ case class Token(var player: Player, var position: (Field, Int), var counter: In
 
   val color = Token.setColor
 
+  var finished: Boolean = false
 
   def getColor(): Any = color
 
@@ -24,6 +25,10 @@ case class Token(var player: Player, var position: (Field, Int), var counter: In
   def setCounter(counter: Int) { this.counter = counter}
 
   def getCounter(): Int = counter
+
+  def setFinished(finished: Boolean) { this.finished = finished}
+
+  def getFinished(): Boolean = finished
 
   //def getTokenById()
 
