@@ -5,13 +5,14 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class DiceSpec extends WordSpec with Matchers{
+class DiceSpec extends FlatSpec with Matchers{
 
-//  "A Dice" should {
-//    val dice = new Dice(dice = 0)
-//    "return numbers between" in {
-//      dice.rollDice() should (be <= 1 and be <= 7)
-//    }
-//  }
+  "A Dice" should "return values between 0 and 6" in{
+    val player = Player("test", 0)
+    val w = new Dice()
+    w.rollDice(player)
+    assert(!(w.rollDice(player)>6))
+    //assert(!(w.rollDice(player)<0))
+  }
 
 }

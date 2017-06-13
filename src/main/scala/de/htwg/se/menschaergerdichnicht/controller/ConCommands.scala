@@ -70,7 +70,7 @@ case class Play(c: Controller) extends Command {
       val player = c.players.getCurrentPlayer
       if (!player.getFinished()) {
         val num = dice.rollDice(c.players.getCurrentPlayer)
-        if (num == 9) {
+        if (num == 0) {
           println("Cannot move, next player.")
           c.players = c.players.nextPlayer()
           println(c.players.getCurrentPlayer)

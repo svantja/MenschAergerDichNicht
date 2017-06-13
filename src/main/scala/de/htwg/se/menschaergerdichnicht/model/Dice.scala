@@ -18,6 +18,6 @@ case class Dice() {
       } while(dice == 0)
       return dice
     }
-    9
+    0
   }
 }
