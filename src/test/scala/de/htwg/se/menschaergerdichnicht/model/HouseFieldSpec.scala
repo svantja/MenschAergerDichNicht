@@ -27,4 +27,13 @@ class HouseFieldSpec extends FlatSpec with Matchers{
     player.house.isFull(player)
   }
 
+  "A House.house at index 0" should "be Field" in{
+    House(player).house
+  }
+
+  "Each Field in House.house" should "get Token" in{
+    for (h <- House(player).house) {
+      h.getToken()
+    }
+  }
 }

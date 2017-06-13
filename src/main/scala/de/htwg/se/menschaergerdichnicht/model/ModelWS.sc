@@ -1,4 +1,4 @@
-import de.htwg.se.menschaergerdichnicht.model.{Field, Player, Team, Token}
+import de.htwg.se.menschaergerdichnicht.model.{Field, Player, Token}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -24,11 +24,6 @@ case class Dice() {
 }
 
 val player = Player("ana", 0)
-player.house.house(0).removeToken()
-println(player.house.isFull(player))
-
-val player2 = Player("ana", 0)
-println(player2.house.isFull(player2))
 
 
 val dice = new Dice()

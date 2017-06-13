@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by Anastasia on 01.05.17.
   */
-class TargetField(player: Player) {
+case class TargetField(player: Player) {
 
   val targetField = new ArrayBuffer[Field]
 
