@@ -26,4 +26,9 @@ class FieldSpec extends FlatSpec with Matchers{
   "A Field.tokenId" should "be -1" in{
     Field().tokenId
   }
+
+  "A Field.tokenId" should "be integer" in{
+    Field().tokenId
+  }
+
 }
