@@ -1,9 +1,9 @@
-package de.htwg.se.menschaergerdichnicht.model;
+package de.htwg.se.menschaergerdichnicht.model
 
 case class Dice() {
 	var dice: Int = 0
   def rollDice(player: Player) : Int = {
-    val r = scala.util.Random;
+    val r = scala.util.Random
     if (player.house.isFull(player)) {
       for (i <- 1 to 3) {
         do {

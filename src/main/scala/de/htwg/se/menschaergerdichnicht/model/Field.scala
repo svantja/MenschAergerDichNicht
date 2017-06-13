@@ -15,6 +15,4 @@ case class Field() {
 
   def removeToken() {this.tokenId = -1}
 
-
-
 }

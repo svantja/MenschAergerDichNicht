@@ -23,7 +23,14 @@ case class Dice() {
   }
 }
 
-val player = Player("ana")
+val player = Player("ana", 0)
+player.house.house(0).removeToken()
+println(player.house.isFull(player))
+
+val player2 = Player("ana", 0)
+println(player2.house.isFull(player2))
+
+
 val dice = new Dice()
 
 dice.rollDice(player)

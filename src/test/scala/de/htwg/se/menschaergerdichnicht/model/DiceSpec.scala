@@ -12,7 +12,19 @@ class DiceSpec extends FlatSpec with Matchers{
     val w = new Dice()
     w.rollDice(player)
     assert(!(w.rollDice(player)>6))
-    //assert(!(w.rollDice(player)<0))
+    assert(!(w.rollDice(player)<0))
+  }
+
+  "A Dice" should "return 0 or 6" in{
+    val player = Player("test", 0)
+    val w = new Dice()
+    w.rollDice(player)
+    assert((w.rollDice(player)==6 || w.rollDice(player) == 0))
+  }
+
+  "A Dice.dice" should "be integer" in{
+    val w = new Dice()
+    w.dice
   }
 
 }

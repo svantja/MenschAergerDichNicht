@@ -56,7 +56,6 @@ class PlayingField() {
 
   def moveToTarget(token: Token, i: Int): Unit = {
     val player = token.getPlayer()
-    // wenn Token noch außerhalb vom Target, dann setze Token auf Target(i)
     if (i <= 3) {
       if (token.getPosition()._2 + i <= 3) {
         val target = player.target.targetField(i)
