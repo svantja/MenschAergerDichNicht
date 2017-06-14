@@ -1,9 +1,7 @@
-package de.htwg.se.menschaergerdichnicht.aview
+package de.htwg.se.menschaergerdichnicht.aview.tui
 
 import de.htwg.se.menschaergerdichnicht.controller.{Controller, Prepare}
 import de.htwg.se.menschaergerdichnicht.util.Observer
-
-import scala.collection.mutable.Map
 /**
   * Created by Anastasia on 01.05.17.
   */
