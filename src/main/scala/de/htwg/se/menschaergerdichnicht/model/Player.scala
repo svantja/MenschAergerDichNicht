@@ -60,7 +60,7 @@ case class Player(var name: String, var diced: Int) {
     null
   }
 
-  def getAvaiableTokens(): ArrayBuffer[String] = {
+  def getAvailableTokens(): ArrayBuffer[String] = {
     val tokens = new ArrayBuffer[String]
     for (token <- getTokens()) {
       if (!token.getFinished()) {

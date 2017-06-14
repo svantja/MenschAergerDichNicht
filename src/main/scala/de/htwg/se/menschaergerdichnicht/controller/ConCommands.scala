@@ -89,11 +89,11 @@ case class Play(c: Controller) extends Command {
             if (num == 6) {
               println("Choose token to move")
               println(num + "diced" + player.getDiced())
-              println("avaiable tokens: " + player.getAvaiableTokens())
+              println("avaiable tokens: " + player.getAvailableTokens())
             } else {
               println("Choose token to move")
               println(num + "diced" + player.getDiced())
-              println("avaiable tokens: " + player.getAvaiableTokens())
+              println("avaiable tokens: " + player.getAvailableTokens())
             }
           }
         }

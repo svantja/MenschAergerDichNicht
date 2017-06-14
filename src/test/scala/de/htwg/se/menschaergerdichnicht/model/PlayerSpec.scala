@@ -2,6 +2,8 @@ package de.htwg.se.menschaergerdichnicht.model
 
 import org.scalatest.{FlatSpec, Matchers}
 
+import scala.collection.mutable.ArrayBuffer
+
 /**
   * Created by svloeger on 13.06.2017.
   */
@@ -30,6 +32,53 @@ class PlayerSpec extends FlatSpec with Matchers{
 
   "A Player" should "have tokens" in{
     player.tokens
+  }
+
+  "A Player" should "get Tokens" in{
+    player.getTokens()
+  }
+
+  "A Player" should "set Finished" in{
+    player.setFinished(true)
+  }
+
+  "A Player" should "get Finished" in{
+    player.getFinished()
+  }
+
+  "A Player" should "set Name" in{
+    player.setName("test")
+  }
+
+  "A Player" should "set Diced" in{
+    player.setDiced(1)
+  }
+
+  "A Player" should "get Diced" in{
+    player.getDiced()
+  }
+
+  "A Player" should "add Tokens" in{
+    player.addTokens()
+  }
+
+  "A Player" should "get free house" in{
+    player.getFreeHouse()
+  }
+  it should "return the field without token" in{
+    player.house.house(0).removeToken()
+    player.getFreeHouse()
+  }
+
+  "A Player" should "get token by id" in{
+    player.getTokenById(1)
+  }
+  it should "return null" in{
+    player.getTokenById(0)
+  }
+
+  "A Player" should "get available tokens" in{
+    player.getAvailableTokens()
   }
 
 
