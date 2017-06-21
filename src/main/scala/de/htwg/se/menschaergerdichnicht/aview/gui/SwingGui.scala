@@ -11,6 +11,7 @@ import javax.swing.{ImageIcon, JPanel, JLabel}
 import javax.imageio.ImageIO;
 import java.io.File
 import java.awt.image.BufferedImage;
+import java.awt.Image
 
 /**
   * Created by svloeger on 14.06.2017.
@@ -40,16 +41,6 @@ trait HorizontalLines extends Panel {
   }
 }
 
-//trait Circle extends Panel {
-//  override protected def paintComponent(g: Graphics2D): Unit ={
-//    g.setColor(Color.RED)
-//    g.fill(new Ellipse2D.Double(30.0, 30.0, 40.0, 40.0))
-//    g.fill(new Ellipse2D.Double(80.0, 30.0, 40.0, 40.0))
-//    g.fill(new Ellipse2D.Double(80.0, 80.0, 40.0, 40.0))
-//    g.fill(new Ellipse2D.Double(30.0, 80.0, 40.0, 40.0))
-//    g.fill(new Ellipse2D.Double(230.0, 380.0, 40.0, 40.0))
-//  }
-//}
 
 class SwingGui extends MainFrame{
   // (x, y)
@@ -65,23 +56,25 @@ class SwingGui extends MainFrame{
     (230, 480), (230, 430), (230, 380), (230, 330),
     (180, 330), (130, 330), (80, 330), (30, 330), (30, 280))
   val HOMEFIELDPLAYERONE = ArrayBuffer((30, 30), (30, 80), (80, 80), (80, 30))
-  val START_FIELD_PONE = (30, 230)
 
   val HOMEFIELDPLAYERTWO = ArrayBuffer((480, 30), (530, 30), (530, 80), (480, 80))
-  val START_FIELD_PTWO= (330, 30)
 
   val HOMEFIELDPLAYERTHREE = ArrayBuffer((30, 480), (30, 530), (80, 530), (80, 480))
   val HOMEFIELDPLAYERFOUR = ArrayBuffer((480, 480), (530, 480), (530, 530), (480, 530))
 
+
+
   trait HomeFieldOne extends Panel{
     override protected def paintComponent(g: Graphics2D): Unit ={
+      paintBackground(g)
+    }
+    def paintBackground(g: Graphics2D): Unit = {
       g.setBackground(Color.LIGHT_GRAY)
       g.setColor(Color.RED)
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(0)._1,HOMEFIELDPLAYERONE(0)._2 , 40.0, 40.0))
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(1)._1,HOMEFIELDPLAYERONE(1)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(2)._1,HOMEFIELDPLAYERONE(2)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(3)._1,HOMEFIELDPLAYERONE(3)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(START_FIELD_PONE._1,START_FIELD_PONE._2, 40.0, 40.0))
 
       g.setColor(Color.BLUE)
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(0)._1,HOMEFIELDPLAYERTWO(0)._2 , 40.0, 40.0))
@@ -115,29 +108,41 @@ class SwingGui extends MainFrame{
         }
         g.fill(new Ellipse2D.Double(PLAYING_FIELD(i)._1,PLAYING_FIELD(i)._2 , 40.0, 40.0))
       }
+      setFirstPosition(g, "red.png", HOMEFIELDPLAYERONE)
+      setFirstPosition(g, "blue.png", HOMEFIELDPLAYERTWO)
+      setFirstPosition(g, "yellow.png", HOMEFIELDPLAYERTHREE)
+      setFirstPosition(g, "green.png", HOMEFIELDPLAYERFOUR)
+    }
+
+    def setFirstPosition(g: Graphics2D, image: String, start: ArrayBuffer[(Int, Int)]): Unit = {
+      val bufferedImage = ImageIO.read(new File("C:\\Users\\Svant\\Documents\\HTWG\\5.Semester\\SE\\" + image))
+
+      val bi = bufferedImage.getScaledInstance(40, 40, Image.SCALE_SMOOTH)
+
+      if (null != bufferedImage) {
+        g.drawImage(bi, start(0)._1, start(0)._2, null)
+        g.drawImage(bi, start(1)._1, start(1)._2, null)
+        g.drawImage(bi, start(2)._1, start(2)._2, null)
+        g.drawImage(bi, start(3)._1, start(3)._2, null)
+      }
+    }
+
+    def setPosition(): Unit = {
+     //unimplemented!!
     }
   }
-  trait Image extends Panel {
-    override protected def paintComponent(g: Graphics2D): Unit = {
-      val bufferedImage = ImageIO.read(new File("Z:\\5.Semester\\SE\\13751080581705229399spielfigur.png"))
-      val w = bufferedImage.getWidth(null)
-      val h = bufferedImage.getHeight(null)
-      var bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB)
 
-
-
-
-      if (null != bufferedImage) g.drawImage(bufferedImage, 460, 460, null)
-    }
-  }
   title = "Mensch Ärger Dich nicht"
   preferredSize = new Dimension(960, 890)
 
   contents = new GridPanel(1,2) {
-    var panel = new Panel with HomeFieldOne //with Image//with WhiteBackground with HorizontalLines with VerticalLines
+
+    var panel = new Panel with HomeFieldOne//with Image//with WhiteBackground with HorizontalLines with VerticalLines
       //g.drawImage(icon, 0, 0, this)
     contents ++= panel :: Nil
+
   }
+
 }
 
 object GuiProgramOne {
