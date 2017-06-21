@@ -44,8 +44,10 @@ class PlayingField() {
       for (token <- p.getTokens()) {
         if (token.tokenId == tokenId) {
           if (token.getPlayer() != player) {
-            val free = token.getPlayer().getFreeHouse()
+            val player = token.getPlayer()
+            val free = player.house.house(0)
             token.setPosition((free, 0))
+            token.setCounter(0)
             return true
           }
         }

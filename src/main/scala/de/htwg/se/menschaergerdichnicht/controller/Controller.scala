@@ -6,7 +6,7 @@ import de.htwg.se.menschaergerdichnicht.controller._
 
 import scala.collection.mutable
 import scala.util._
-
+import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
 /**
   * Created by Anastasia on 01.05.17.
   */
@@ -18,6 +18,9 @@ case class Controller(/*var players: Players = Players(), var message: String = 
   var gameState: GameState = Prepare(this)
   var undoStack: mutable.Stack[Command] = mutable.Stack()
   var redoStack: mutable.Stack[Command] = mutable.Stack()
+  var gui = new SwingGui(players)
+  gui.visible = true
+
 
   //def newGame(): Unit = {}
 def getCurPlayer: Player = {

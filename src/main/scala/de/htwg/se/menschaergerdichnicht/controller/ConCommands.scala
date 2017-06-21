@@ -3,6 +3,7 @@ package de.htwg.se.menschaergerdichnicht.controller
 import com.sun.net.httpserver.Authenticator.Failure
 import de.htwg.se.menschaergerdichnicht.model.{Dice, Player, Token}
 import de.htwg.se.menschaergerdichnicht.util.Command
+import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
 
 import scala.util.{Success, Try, Failure}
 
@@ -32,6 +33,7 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
   val token = player.getTokenById(tokenId)
   val dice = new Dice()
 
+
   override def action(): Try[_] = {
     println(c.players.getCurrentPlayer)
     if (player.getDiced() == 6) {
@@ -43,18 +45,21 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
         println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
 
         c.players = c.players.nextPlayer()
+        c.gui.repaint()
       } else {
         c.playingField.moveToken(token, player.getDiced(), c.players)
         println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
         player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
         c.playingField.moveToken(token, player.getDiced(), c.players)
         println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+        c.gui.repaint()
       }
 
     } else {
       c.playingField.moveToken(token, player.getDiced(), c.players)
       println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
       c.players = c.players.nextPlayer()
+      c.gui.repaint()
     }
     Success()
   }
@@ -65,6 +70,10 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
 
 case class Play(c: Controller) extends Command {
   val dice = new Dice()
+  c.gui.players = c.players
+  c.gui.repaint()
+  println("alle payers..." + c.gui.players)
+
   override def action(): Try[_] = {
     //while (true)
       val player = c.players.getCurrentPlayer
@@ -84,6 +93,7 @@ case class Play(c: Controller) extends Command {
             println("Moved Token" + player.tokens(0).tokenId + " " + player.getDiced() + " fields")
 
             c.players = c.players.nextPlayer()
+            c.gui.repaint()
           } else {
             player.setDiced(num)
             if (num == 6) {
