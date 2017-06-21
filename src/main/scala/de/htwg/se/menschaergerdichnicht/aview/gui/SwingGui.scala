@@ -97,7 +97,8 @@ case class SwingGui(var players: Players) extends MainFrame{
         g.fill(new Ellipse2D.Double(PLAYING_FIELD(i)._1,PLAYING_FIELD(i)._2 , 40.0, 40.0))
       }
     }
-
+    //TODO: set position checks whether the house of each player is full -> setFirstPosition() -> paints all token into house
+    //TODO: or paints tokens onto specified field (index) or homefield
     def setPosition(g: Graphics2D, players: Players): Unit = {
       for (p <- players.getAllPlayer) {
         if (p.house.isFull(p)) {setFirstPosition(g, p)}
@@ -176,11 +177,9 @@ case class SwingGui(var players: Players) extends MainFrame{
             }
           }
         }
-
       }
     }
   }
-
   title = "Mensch Ärger Dich nicht"
   preferredSize = new Dimension(960, 890)
 
@@ -190,9 +189,6 @@ case class SwingGui(var players: Players) extends MainFrame{
       //g.drawImage(icon, 0, 0, this)
     contents ++= panel :: Nil
   }
-  //var c = new HomeFieldOne {}
-  //c.repaint()
-
 }
 
 object GuiProgramOne {
