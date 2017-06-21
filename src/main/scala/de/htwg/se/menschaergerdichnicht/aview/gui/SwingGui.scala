@@ -115,7 +115,7 @@ class SwingGui extends MainFrame{
     }
 
     def setFirstPosition(g: Graphics2D, image: String, start: ArrayBuffer[(Int, Int)]): Unit = {
-      val bufferedImage = ImageIO.read(new File("C:\\Users\\Svant\\Documents\\HTWG\\5.Semester\\SE\\" + image))
+      val bufferedImage = ImageIO.read(new File("..\\MenschAergerDichNicht\\tokens\\" + image))
 
       val bi = bufferedImage.getScaledInstance(40, 40, Image.SCALE_SMOOTH)
 
