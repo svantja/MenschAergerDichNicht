@@ -34,19 +34,25 @@ case class SwingGui(var players: Players) extends MainFrame{
     (230, 30), (280, 30), (330, 30),
     (330, 80), (330, 130), (330, 180), (330, 230),
     (380, 230), (430, 230), (480, 230),
-    (530, 230), (530, 280), (530, 330),
-    (480, 330), (430, 330), (380, 330), (330, 330),
+    (530, 230), (530, 280), (530, 330), //6.
+    (480, 330), (430, 330), (380, 330), (330, 330), //7.
     (330, 380), (330, 430), (330, 480), (330, 530),
     (280, 530), (230, 530), // 9.Reihe
     (230, 480), (230, 430), (230, 380), (230, 330),
     (180, 330), (130, 330), (80, 330), (30, 330), (30, 280))
 
-  var HOMEFIELDPLAYERONE = ArrayBuffer((30, 30, true), (30, 80, true), (80, 80, true), (80, 30, true))
+  var FINISH_ONE = ArrayBuffer((230, 280), (80, 280), (130, 280), (180, 280))
 
-  var HOMEFIELDPLAYERTWO = ArrayBuffer((480, 30, true), (530, 30, true), (530, 80, true), (480, 80, true))
+  var FINISH_TWO = ArrayBuffer((280, 80), (280, 130), (280,180), (280,230))
 
-  var HOMEFIELDPLAYERTHREE = ArrayBuffer((30, 480, true), (30, 530, true), (80, 530, true), (80, 480, true))
-  var HOMEFIELDPLAYERFOUR = ArrayBuffer((480, 480, true), (530, 480, true), (530, 530, true), (480, 530, true))
+  var FINISH_THREE = ArrayBuffer((480, 280), (430, 280), (380, 280), (330, 280))
+
+  var FINISH_FOUR = ArrayBuffer((280, 480), (280, 430), (280, 380), (280, 330))
+
+  var HOMEFIELDPLAYERONE = ArrayBuffer((30, 30), (30, 80), (80, 80), (80, 30))
+  var HOMEFIELDPLAYERTWO = ArrayBuffer((480, 30), (530, 30), (530, 80), (480, 80))
+  var HOMEFIELDPLAYERTHREE = ArrayBuffer((30, 480), (30, 530), (80, 530), (80, 480))
+  var HOMEFIELDPLAYERFOUR = ArrayBuffer((480, 480), (530, 480), (530, 530), (480, 530))
 
 
 
@@ -64,23 +70,41 @@ case class SwingGui(var players: Players) extends MainFrame{
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(2)._1,HOMEFIELDPLAYERONE(2)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(3)._1,HOMEFIELDPLAYERONE(3)._2, 40.0, 40.0))
 
+      g.fill(new Ellipse2D.Double(FINISH_ONE(0)._1, FINISH_ONE(0)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_ONE(1)._1, FINISH_ONE(1)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_ONE(2)._1, FINISH_ONE(2)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_ONE(3)._1, FINISH_ONE(3)._2, 40.0, 40.0))
+
       g.setColor(Color.BLUE)
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(0)._1,HOMEFIELDPLAYERTWO(0)._2 , 40.0, 40.0))
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(1)._1,HOMEFIELDPLAYERTWO(1)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(2)._1,HOMEFIELDPLAYERTWO(2)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(3)._1,HOMEFIELDPLAYERTWO(3)._2, 40.0, 40.0))
 
+      g.fill(new Ellipse2D.Double(FINISH_TWO(0)._1, FINISH_TWO(0)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_TWO(1)._1, FINISH_TWO(1)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_TWO(2)._1, FINISH_TWO(2)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_TWO(3)._1, FINISH_TWO(3)._2, 40.0, 40.0))
+
       g.setColor(Color.YELLOW)
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTHREE(0)._1,HOMEFIELDPLAYERTHREE(0)._2 , 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTHREE(1)._1,HOMEFIELDPLAYERTHREE(1)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTHREE(2)._1,HOMEFIELDPLAYERTHREE(2)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTHREE(3)._1,HOMEFIELDPLAYERTHREE(3)._2, 40.0, 40.0))
+      for (field <- HOMEFIELDPLAYERTHREE) {
+        g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
+      }
+
+      g.fill(new Ellipse2D.Double(FINISH_THREE(0)._1, FINISH_THREE(0)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_THREE(1)._1, FINISH_THREE(1)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_THREE(2)._1, FINISH_THREE(2)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_THREE(3)._1, FINISH_THREE(3)._2, 40.0, 40.0))
 
       g.setColor(Color.GREEN)
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERFOUR(0)._1,HOMEFIELDPLAYERFOUR(0)._2 , 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERFOUR(1)._1,HOMEFIELDPLAYERFOUR(1)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERFOUR(2)._1,HOMEFIELDPLAYERFOUR(2)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERFOUR(3)._1,HOMEFIELDPLAYERFOUR(3)._2, 40.0, 40.0))
+      for (field <- HOMEFIELDPLAYERFOUR) {
+        g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
+      }
+
+      g.fill(new Ellipse2D.Double(FINISH_FOUR(0)._1, FINISH_FOUR(0)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_FOUR(1)._1, FINISH_FOUR(1)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_FOUR(2)._1, FINISH_FOUR(2)._2, 40.0, 40.0))
+      g.fill(new Ellipse2D.Double(FINISH_FOUR(3)._1, FINISH_FOUR(3)._2, 40.0, 40.0))
 
       for (i <- 0 to PLAYING_FIELD.length -1) {
         if (i == 0) {
@@ -150,8 +174,7 @@ case class SwingGui(var players: Players) extends MainFrame{
       val tokens = player.getTokens()
       val color = tokens(0).getColor()
       val bufferedImage = ImageIO.read(new File("..\\MenschAergerDichNicht\\tokens\\" + color + ".png"))
-
-      val bi = bufferedImage.getScaledInstance(40, 40, Image.SCALE_SMOOTH)
+      val bi = bufferedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
 
       if (null != bufferedImage) {
         color match {
