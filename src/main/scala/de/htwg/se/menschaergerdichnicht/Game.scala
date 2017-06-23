@@ -1,5 +1,6 @@
 package de.htwg.se.menschaergerdichnicht
 
+import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
 import de.htwg.se.menschaergerdichnicht.aview.tui.Tui
 import de.htwg.se.menschaergerdichnicht.controller.Controller
 import de.htwg.se.menschaergerdichnicht.model.Dice
@@ -16,6 +17,8 @@ object Game {
 
   val controller = new Controller()
   val tui = new Tui(controller)
+  val gui = new SwingGui(controller)
+  gui.visible = true
 
   def main(args: Array[String]): Unit = {
 
@@ -24,6 +27,7 @@ object Game {
     do {
       input = readLine()
       tui.processInputLine(input)
+      gui.repaint()
     } while (input != "q")
 
   }

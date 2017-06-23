@@ -18,8 +18,6 @@ case class Controller(/*var players: Players = Players(), var message: String = 
   var gameState: GameState = Prepare(this)
   var undoStack: mutable.Stack[Command] = mutable.Stack()
   var redoStack: mutable.Stack[Command] = mutable.Stack()
-  var gui = new SwingGui(players)
-  gui.visible = true
 
 
   //def newGame(): Unit = {}

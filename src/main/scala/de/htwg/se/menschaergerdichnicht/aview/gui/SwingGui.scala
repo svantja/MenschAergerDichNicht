@@ -7,13 +7,14 @@ import java.util
 import java.awt.geom.Ellipse2D
 
 import scala.collection.mutable.ArrayBuffer
-import javax.swing.{ImageIcon, JLabel, JPanel}
+import javax.swing.{ImageIcon, JLabel, JPanel, JButton}
 import javax.imageio.ImageIO
 import java.io.File
 import java.awt.image.BufferedImage
 import java.awt.Image
 
-import de.htwg.se.menschaergerdichnicht.model.{Players, Token, Player}
+import de.htwg.se.menschaergerdichnicht.controller.Controller
+import de.htwg.se.menschaergerdichnicht.model.{Player, Players, Token}
 
 /**
   * Created by svloeger on 14.06.2017.
@@ -26,7 +27,7 @@ import de.htwg.se.menschaergerdichnicht.model.{Players, Token, Player}
 
 
 
-case class SwingGui(var players: Players) extends MainFrame{
+case class SwingGui(var c: Controller) extends MainFrame{
 
   // (x, y)
   val PLAYING_FIELD = ArrayBuffer((30, 230), (80, 230), (130, 230),(180, 230), (230, 230), // 1.Reihe
@@ -56,7 +57,7 @@ case class SwingGui(var players: Players) extends MainFrame{
   trait HomeFieldOne extends Panel{
     override protected def paintComponent(g: Graphics2D): Unit ={
       paintBackground(g)
-      setPosition(g, players)
+      setPosition(g, c.players)
       //setPositionOne(g, players)
     }
     def paintBackground(g: Graphics2D): Unit = {
@@ -120,7 +121,6 @@ case class SwingGui(var players: Players) extends MainFrame{
     //TODO: or paints tokens onto specified field (index) or homefield
     def setPosition(g: Graphics2D, players: Players): Unit = {
       for (p <- players.getAllPlayer) {
-        val t = p
         if (p.house.isFull(p)) {setFirstPosition(g, p)}
         else {setPositionOne(g, p)}
       }
@@ -133,7 +133,6 @@ case class SwingGui(var players: Players) extends MainFrame{
 
         if (null != bufferedImage) {
           for (token <- tokens) {
-            var t = token.counter //TODO:
             val pos = token.getPosition()
             if (token.counter != 0 && token.counter < 41) {g.drawImage(bi, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)}
             else if(token.counter == 0) {
