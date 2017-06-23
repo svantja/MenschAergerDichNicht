@@ -14,9 +14,14 @@ case class AddPlayer(name: String, c: Controller) extends Command {
   val player = Player(name, 0)
 
   override def action(): Try[_] = {
-    c.players = c.players.addPlayer(player)
+    if(c.players.players.length < 4) {
+      c.players = c.players.addPlayer(player)
 
-    println("Spieler " + name + " wurde hinzugefuegt")
+      println("Spieler " + name + " wurde hinzugefuegt")
+    } else {
+      println("Es existieren bereits 4 Spieler")
+    }
+
     Success()
   }
 
