@@ -13,10 +13,10 @@ class PlayingField() {
   def getField(id: Int): Field = playingField(id)
 
   def moveToken(token: Token, num: Int, players: Players): Unit = {
-    if (token.counter + num >= 40) {
+    if (token.counter + num >= 41) {
       val move = (token.counter + num) - 40
+      println("move to target??" + move)
       moveToTarget(token, move)
-      token.position._1.tokenId = -1
     } else {
       val oldPosition = token.getPosition()._2
       var newPosition = oldPosition + num
@@ -46,6 +46,7 @@ class PlayingField() {
           if (token.getPlayer() != player) {
             val player = token.getPlayer()
             val free = player.house.house(0)
+            free.setToken(token)
             token.setPosition((free, 0))
             token.setCounter(0)
             return true
@@ -58,17 +59,19 @@ class PlayingField() {
 
   def moveToTarget(token: Token, i: Int): Unit = {
     val player = token.getPlayer()
-    if (i <= 3) {
-      if (token.getPosition()._2 + i <= 3) {
-        val target = player.target.targetField(i)
-        if (target.tokenId == -1) {
-          target.setToken(token)
-          token.setPosition(target, i)
-          if (token.getPosition()._2 == 3) {
+    if (!token.getFinished()) {
+      if (i <= 3) {
+        if (token.counter + i <= 44) {
+          val target = player.target.targetField(i)
+          if (target.tokenId == -1) {
+            target.setToken(token)
+            token.position._1.tokenId = -1
+            token.setPosition(target, i)
+            print(token.getPosition() + "position im finish")
             token.setFinished(true)
-          }
-          if (player.target.isFull(player)) {
-            player.setFinished(true)
+            if (player.target.isFull(player)) {
+              player.setFinished(true)
+            }
           }
         }
       }

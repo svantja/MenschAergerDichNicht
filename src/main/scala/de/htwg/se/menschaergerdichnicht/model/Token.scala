@@ -38,6 +38,7 @@ object Token{
 
   private var idNumber = 0
   private var round = 0
+  private var index = 0
   val colorList = List("red", "blue", "green", "yellow")
 
   private def newIdNum = {
@@ -49,9 +50,20 @@ object Token{
   }
 
   private def setColor = {
-
-    if (idNumber % 5 == 0) round += 1
-
-    colorList(round)
+    if(idNumber <= 4) {
+      colorList(0)
+    }
+    else if(idNumber <= 8 && idNumber >= 5){
+      colorList(1)
+    }
+    else if(idNumber <= 12 && idNumber >= 9){
+      colorList(2)
+    }
+    else if(idNumber <= 16 && idNumber >= 13){
+      colorList(3)
+    }
   }
 }
+// 1,2,3,4 -> red
+// 5 % 5 = 0  5,6,7,8 -> blue
+// 9 % 5 = 4

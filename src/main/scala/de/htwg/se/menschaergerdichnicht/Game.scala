@@ -16,6 +16,7 @@ object Game {
 
   val controller = new Controller()
   val tui = new Tui(controller)
+
   def main(args: Array[String]): Unit = {
 
     var input: String = ""

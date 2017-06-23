@@ -41,18 +41,15 @@ case class SwingGui(var players: Players) extends MainFrame{
     (230, 480), (230, 430), (230, 380), (230, 330),
     (180, 330), (130, 330), (80, 330), (30, 330), (30, 280))
 
-  var FINISH_ONE = ArrayBuffer((230, 280), (80, 280), (130, 280), (180, 280))
-
+  var FINISH_ONE = ArrayBuffer((80, 280), (130, 280), (180, 280), (230, 280))
   var FINISH_TWO = ArrayBuffer((280, 80), (280, 130), (280,180), (280,230))
-
   var FINISH_THREE = ArrayBuffer((480, 280), (430, 280), (380, 280), (330, 280))
-
   var FINISH_FOUR = ArrayBuffer((280, 480), (280, 430), (280, 380), (280, 330))
 
   var HOMEFIELDPLAYERONE = ArrayBuffer((30, 30), (30, 80), (80, 80), (80, 30))
   var HOMEFIELDPLAYERTWO = ArrayBuffer((480, 30), (530, 30), (530, 80), (480, 80))
-  var HOMEFIELDPLAYERTHREE = ArrayBuffer((30, 480), (30, 530), (80, 530), (80, 480))
-  var HOMEFIELDPLAYERFOUR = ArrayBuffer((480, 480), (530, 480), (530, 530), (480, 530))
+  var HOMEFIELDPLAYERTHREE = ArrayBuffer((480, 480), (530, 480), (530, 530), (480, 530))
+  var HOMEFIELDPLAYERFOUR = ArrayBuffer((30, 480), (30, 530), (80, 530), (80, 480))
 
 
 
@@ -86,21 +83,19 @@ case class SwingGui(var players: Players) extends MainFrame{
       g.fill(new Ellipse2D.Double(FINISH_TWO(2)._1, FINISH_TWO(2)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(FINISH_TWO(3)._1, FINISH_TWO(3)._2, 40.0, 40.0))
 
-      g.setColor(Color.YELLOW)
-      for (field <- HOMEFIELDPLAYERTHREE) {
+      g.setColor(Color.GREEN)
+      for (field <- HOMEFIELDPLAYERTHREE) { //müsste p3 sein
         g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
       }
-
       g.fill(new Ellipse2D.Double(FINISH_THREE(0)._1, FINISH_THREE(0)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(FINISH_THREE(1)._1, FINISH_THREE(1)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(FINISH_THREE(2)._1, FINISH_THREE(2)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(FINISH_THREE(3)._1, FINISH_THREE(3)._2, 40.0, 40.0))
 
-      g.setColor(Color.GREEN)
-      for (field <- HOMEFIELDPLAYERFOUR) {
+      g.setColor(Color.YELLOW)
+      for (field <- HOMEFIELDPLAYERFOUR) { //müsste p4 sein
         g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
       }
-
       g.fill(new Ellipse2D.Double(FINISH_FOUR(0)._1, FINISH_FOUR(0)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(FINISH_FOUR(1)._1, FINISH_FOUR(1)._2, 40.0, 40.0))
       g.fill(new Ellipse2D.Double(FINISH_FOUR(2)._1, FINISH_FOUR(2)._2, 40.0, 40.0))
@@ -125,6 +120,7 @@ case class SwingGui(var players: Players) extends MainFrame{
     //TODO: or paints tokens onto specified field (index) or homefield
     def setPosition(g: Graphics2D, players: Players): Unit = {
       for (p <- players.getAllPlayer) {
+        val t = p
         if (p.house.isFull(p)) {setFirstPosition(g, p)}
         else {setPositionOne(g, p)}
       }
@@ -136,34 +132,24 @@ case class SwingGui(var players: Players) extends MainFrame{
         val bi = bufferedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
 
         if (null != bufferedImage) {
-          // Field, Int
-          color match {
-            case "red" => {
-              for (token <- tokens) {
-                val pos = token.getPosition()
-                if (token.counter != 0) {g.drawImage(bi, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)}
-                else if(token.counter == 0) {g.drawImage(bi, HOMEFIELDPLAYERONE(pos._2)._1 + 5, HOMEFIELDPLAYERONE(pos._2)._2 + 5, null)}
+          for (token <- tokens) {
+            var t = token.counter //TODO:
+            val pos = token.getPosition()
+            if (token.counter != 0 && token.counter < 41) {g.drawImage(bi, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)}
+            else if(token.counter == 0) {
+              color match {
+                case "red" => g.drawImage(bi, HOMEFIELDPLAYERONE(pos._2)._1 + 5, HOMEFIELDPLAYERONE(pos._2)._2 + 5, null)
+                case "blue" => g.drawImage(bi, HOMEFIELDPLAYERTWO(pos._2)._1 + 5, HOMEFIELDPLAYERTWO(pos._2)._2 + 5, null)
+                case "yellow" => g.drawImage(bi, HOMEFIELDPLAYERFOUR(pos._2)._1 + 5, HOMEFIELDPLAYERFOUR(pos._2)._2 + 5, null)
+                case "green" => g.drawImage(bi, HOMEFIELDPLAYERTHREE(pos._2)._1 + 5, HOMEFIELDPLAYERTHREE(pos._2)._2 + 5, null)
               }
             }
-            case "blue" => {
-              for (token <- tokens) {
-                val pos = token.getPosition()
-                if (token.counter != 0) {g.drawImage(bi, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)}
-                else if(token.counter == 0) {g.drawImage(bi, HOMEFIELDPLAYERTWO(pos._2)._1 + 5, HOMEFIELDPLAYERTWO(pos._2)._2 + 5, null)}
-              }
-            }
-            case "yellow" => {
-              for (token <- tokens) {
-                val pos = token.getPosition()
-                if (token.counter != 0) {g.drawImage(bi, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)}
-                else {g.drawImage(bi, HOMEFIELDPLAYERTHREE(pos._2)._1 + 5, HOMEFIELDPLAYERTHREE(pos._2)._2 + 5, null)}
-              }
-            }
-            case "green" => {
-              for (token <- tokens) {
-                val pos = token.getPosition()
-                if (token.counter != 0) g.drawImage(bi, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
-                else {g.drawImage(bi, HOMEFIELDPLAYERFOUR(pos._2)._1 + 5, HOMEFIELDPLAYERFOUR(pos._2)._2 + 5, null)}
+            else if(token.counter >= 41) {
+              color match {
+                case "red" => g.drawImage(bi, FINISH_ONE(pos._2)._1 + 5, FINISH_ONE(pos._2)._2 + 5, null)
+                case "blue" => g.drawImage(bi, FINISH_TWO(pos._2)._1 + 5, FINISH_TWO(pos._2)._2 + 5, null)
+                case "yellow" => g.drawImage(bi, FINISH_FOUR(pos._2)._1 + 5, FINISH_FOUR(pos._2)._2 + 5, null)
+                case "green" => g.drawImage(bi, FINISH_THREE(pos._2)._1 + 5, FINISH_THREE(pos._2)._2 + 5, null)
               }
             }
           }
@@ -180,22 +166,22 @@ case class SwingGui(var players: Players) extends MainFrame{
         color match {
           case "red" => {
             for (token <- tokens) {
-              d.drawImage(bi, HOMEFIELDPLAYERONE(token.getPosition()._2)._1, HOMEFIELDPLAYERONE(token.getPosition()._2)._2, null)
+              d.drawImage(bi, HOMEFIELDPLAYERONE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERONE(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "yellow" => {
             for (token <- tokens) {
-              d.drawImage(bi, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._1, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._2, null)
+              d.drawImage(bi, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "green" => {
               for (token <- tokens) {
-                d.drawImage(bi, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._1, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._2, null)
+                d.drawImage(bi, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "blue" => {
               for (token <- tokens) {
-                d.drawImage(bi, HOMEFIELDPLAYERTWO(token.getPosition()._2)._1, HOMEFIELDPLAYERTWO(token.getPosition()._2)._2, null)
+                d.drawImage(bi, HOMEFIELDPLAYERTWO(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTWO(token.getPosition()._2)._2 + 5, null)
               }
             }
           }
@@ -208,8 +194,8 @@ case class SwingGui(var players: Players) extends MainFrame{
 
   contents = new GridPanel(1,2) {
 
-    var panel = new Panel with HomeFieldOne//with Image//with WhiteBackground with HorizontalLines with VerticalLines
-      //g.drawImage(icon, 0, 0, this)
+    var panel = new Panel with HomeFieldOne
+
     contents ++= panel :: Nil
   }
 }

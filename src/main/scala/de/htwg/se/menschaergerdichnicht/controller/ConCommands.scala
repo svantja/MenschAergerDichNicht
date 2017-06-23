@@ -36,6 +36,7 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
 
   override def action(): Try[_] = {
     println(c.players.getCurrentPlayer)
+
     if (player.getDiced() == 6) {
       if (token.counter == 0) {
         c.playingField.moveToStart(token)
@@ -43,7 +44,7 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
         player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
         c.playingField.moveToken(token, player.getDiced(), c.players)
         println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
-
+        println(token.counter + "counter" + token.getPosition()._2)
         c.players = c.players.nextPlayer()
         c.gui.repaint()
       } else {
@@ -52,12 +53,15 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
         player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
         c.playingField.moveToken(token, player.getDiced(), c.players)
         println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+        println(token.counter + "counter" + token.getPosition()._2)
+        c.players = c.players.nextPlayer()
         c.gui.repaint()
       }
 
     } else {
       c.playingField.moveToken(token, player.getDiced(), c.players)
       println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+      println(token.counter + "counter" + token.getPosition()._2)
       c.players = c.players.nextPlayer()
       c.gui.repaint()
     }
@@ -71,7 +75,7 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
 case class Play(c: Controller) extends Command {
   val dice = new Dice()
   c.gui.players = c.players
-  c.gui.repaint()
+  //c.gui.repaint()
   println("alle payers..." + c.gui.players)
 
   override def action(): Try[_] = {
