@@ -15,6 +15,7 @@ import java.awt.Image
 
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.{Player, Players, Token}
+import java.awt.Rectangle
 
 /**
   * Created by svloeger on 14.06.2017.
@@ -52,55 +53,80 @@ case class SwingGui(var c: Controller) extends MainFrame{
   var HOMEFIELDPLAYERTHREE = ArrayBuffer((480, 480), (530, 480), (530, 530), (480, 530))
   var HOMEFIELDPLAYERFOUR = ArrayBuffer((30, 480), (30, 530), (80, 530), (80, 480))
 
+  import javax.swing.ImageIcon
+  var start_imgPoint = (680, 0)
 
+  val start_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\start.png")
+  val start_lb = new JLabel(start_icon)
+  val start_image = start_icon.getImage
+
+  var add_imgPoint = (680, 180)
+
+  val add_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\add.png")
+  val add_lb = new JLabel(add_icon)
+  val add_image = add_icon.getImage
 
   trait HomeFieldOne extends Panel{
+
+  listenTo(this.mouse.clicks)
+    var count = 0
+
+    reactions += {
+      case MouseClicked(src, point, i1, i2, b) => {
+        if (start_image != null && start_imgPoint != null) {
+          val me = point
+          val bounds = new Rectangle(start_imgPoint._1, start_imgPoint._2 ,start_icon.getIconWidth, start_icon.getIconHeight)
+          if (bounds.contains(me)) c.startGame(); repaint()
+        }
+        if (add_image != null && add_imgPoint != null) {
+          val me = point
+          val bounds = new Rectangle(add_imgPoint._1, add_imgPoint._2 ,add_icon.getIconWidth, add_icon.getIconHeight)
+          if (bounds.contains(me) && i2 == 1) c.addPlayer("a"+count.toString); count += 1;
+        }
+      }
+    }
+
     override protected def paintComponent(g: Graphics2D): Unit ={
       paintBackground(g)
       setPosition(g, c.players)
-      //setPositionOne(g, players)
     }
-    def paintBackground(g: Graphics2D): Unit = {
-      g.setBackground(Color.LIGHT_GRAY)
-      g.setColor(Color.RED)
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(0)._1,HOMEFIELDPLAYERONE(0)._2 , 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(1)._1,HOMEFIELDPLAYERONE(1)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(2)._1,HOMEFIELDPLAYERONE(2)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERONE(3)._1,HOMEFIELDPLAYERONE(3)._2, 40.0, 40.0))
 
-      g.fill(new Ellipse2D.Double(FINISH_ONE(0)._1, FINISH_ONE(0)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_ONE(1)._1, FINISH_ONE(1)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_ONE(2)._1, FINISH_ONE(2)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_ONE(3)._1, FINISH_ONE(3)._2, 40.0, 40.0))
+    def paintBackground(g: Graphics2D): Unit = {
+      g.drawImage(start_image, start_imgPoint._1, start_imgPoint._2, null)
+      g.drawImage(add_image, add_imgPoint._1, add_imgPoint._2, null)
+      g.setBackground(Color.LIGHT_GRAY)
+
+      g.setColor(Color.RED)
+      for (field <- HOMEFIELDPLAYERONE) {
+        g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
+      }
+      for (field <- FINISH_ONE) {
+        g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
+      }
 
       g.setColor(Color.BLUE)
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(0)._1,HOMEFIELDPLAYERTWO(0)._2 , 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(1)._1,HOMEFIELDPLAYERTWO(1)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(2)._1,HOMEFIELDPLAYERTWO(2)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(HOMEFIELDPLAYERTWO(3)._1,HOMEFIELDPLAYERTWO(3)._2, 40.0, 40.0))
-
-      g.fill(new Ellipse2D.Double(FINISH_TWO(0)._1, FINISH_TWO(0)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_TWO(1)._1, FINISH_TWO(1)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_TWO(2)._1, FINISH_TWO(2)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_TWO(3)._1, FINISH_TWO(3)._2, 40.0, 40.0))
+      for (field <- HOMEFIELDPLAYERTWO) {
+        g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
+      }
+      for (field <- FINISH_FOUR) {
+        g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
+      }
 
       g.setColor(Color.GREEN)
       for (field <- HOMEFIELDPLAYERTHREE) { //müsste p3 sein
         g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
       }
-      g.fill(new Ellipse2D.Double(FINISH_THREE(0)._1, FINISH_THREE(0)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_THREE(1)._1, FINISH_THREE(1)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_THREE(2)._1, FINISH_THREE(2)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_THREE(3)._1, FINISH_THREE(3)._2, 40.0, 40.0))
+      for (field <- FINISH_THREE) {
+        g.fill(new Ellipse2D.Double(field._1, field._2, 40.0, 40.0))
+      }
 
       g.setColor(Color.YELLOW)
       for (field <- HOMEFIELDPLAYERFOUR) { //müsste p4 sein
         g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
       }
-      g.fill(new Ellipse2D.Double(FINISH_FOUR(0)._1, FINISH_FOUR(0)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_FOUR(1)._1, FINISH_FOUR(1)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_FOUR(2)._1, FINISH_FOUR(2)._2, 40.0, 40.0))
-      g.fill(new Ellipse2D.Double(FINISH_FOUR(3)._1, FINISH_FOUR(3)._2, 40.0, 40.0))
+      for (field <- FINISH_FOUR) {
+        g.fill(new Ellipse2D.Double(field._1, field._2, 40.0, 40.0))
+      }
 
       for (i <- 0 to PLAYING_FIELD.length -1) {
         if (i == 0) {
@@ -117,8 +143,7 @@ case class SwingGui(var c: Controller) extends MainFrame{
         g.fill(new Ellipse2D.Double(PLAYING_FIELD(i)._1,PLAYING_FIELD(i)._2 , 40.0, 40.0))
       }
     }
-    //TODO: set position checks whether the house of each player is full -> setFirstPosition() -> paints all token into house
-    //TODO: or paints tokens onto specified field (index) or homefield
+
     def setPosition(g: Graphics2D, players: Players): Unit = {
       for (p <- players.getAllPlayer) {
         if (p.house.isFull(p)) {setFirstPosition(g, p)}
@@ -192,9 +217,7 @@ case class SwingGui(var c: Controller) extends MainFrame{
   preferredSize = new Dimension(960, 890)
 
   contents = new GridPanel(1,2) {
-
     var panel = new Panel with HomeFieldOne
-
     contents ++= panel :: Nil
   }
 }

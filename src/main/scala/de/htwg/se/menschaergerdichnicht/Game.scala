@@ -29,6 +29,6 @@ object Game {
       tui.processInputLine(input)
       gui.repaint()
     } while (input != "q")
-
+    gui.dispose()
   }
 }
