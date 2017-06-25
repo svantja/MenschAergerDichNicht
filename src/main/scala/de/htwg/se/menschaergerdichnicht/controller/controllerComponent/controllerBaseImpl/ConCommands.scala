@@ -1,12 +1,11 @@
-package de.htwg.se.menschaergerdichnicht.controller
+package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
-import com.sun.net.httpserver.Authenticator.Failure
-import de.htwg.se.menschaergerdichnicht.model.{Dice, Player, Token}
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
 import de.htwg.se.menschaergerdichnicht.util.Command
-import de.htwg.se.menschaergerdichnicht.controller.GameState._
-import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
 
-import scala.util.{Success, Try, Failure}
+import scala.util.{Success, Try}
 
 /**
   * Created by Anastasia on 06.06.17.

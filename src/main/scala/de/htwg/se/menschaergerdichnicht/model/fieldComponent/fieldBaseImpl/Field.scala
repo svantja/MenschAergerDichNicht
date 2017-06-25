@@ -1,4 +1,6 @@
-package de.htwg.se.menschaergerdichnicht.model
+package de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl
+
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.Token
 
 /**
   * Created by Anastasia on 01.05.17.

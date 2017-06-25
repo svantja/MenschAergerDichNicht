@@ -1,5 +1,7 @@
 package de.htwg.se.menschaergerdichnicht.model
 
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.TargetField
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
 import org.scalatest.{FlatSpec, Matchers}
 
 /**

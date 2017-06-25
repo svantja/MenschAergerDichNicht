@@ -1,5 +1,6 @@
 package de.htwg.se.menschaergerdichnicht.model
 
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
 import org.scalatest.{FlatSpec, Matchers}
 
 import scala.collection.mutable.ArrayBuffer

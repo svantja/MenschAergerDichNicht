@@ -1,12 +1,13 @@
 package de.htwg.se.menschaergerdichnicht.aview.tui
 
-import de.htwg.se.menschaergerdichnicht.controller.{Controller, GameState}
-import de.htwg.se.menschaergerdichnicht.controller.GameState._
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.{ControllerInterface, GameState}
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.menschaergerdichnicht.util.Observer
 /**
   * Created by Anastasia on 01.05.17.
   */
-class Tui(controller: Controller) extends Observer{
+class Tui(controller: ControllerInterface) extends Observer{
 
   controller.add(this)
   val DEFAULT_TOKEN = 17

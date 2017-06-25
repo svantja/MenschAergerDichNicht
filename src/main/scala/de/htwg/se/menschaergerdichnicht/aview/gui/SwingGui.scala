@@ -7,14 +7,14 @@ import java.util
 import java.awt.geom.Ellipse2D
 
 import scala.collection.mutable.ArrayBuffer
-import javax.swing.{ImageIcon, JLabel, JPanel, JButton}
+import javax.swing.{ImageIcon, JButton, JLabel, JPanel}
 import javax.imageio.ImageIO
 import java.io.File
 import java.awt.image.BufferedImage
 import java.awt.Image
 
-import de.htwg.se.menschaergerdichnicht.controller.Controller
-import de.htwg.se.menschaergerdichnicht.model.{Player, Players, Token}
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{Player, Players, Token}
 
 /**
   * Created by svloeger on 14.06.2017.

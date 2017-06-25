@@ -1,4 +1,5 @@
-import de.htwg.se.menschaergerdichnicht.model.{Field, Player, Team, Token}
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
+import de.htwg.se.menschaergerdichnicht.model.{Team, Token}
 
 import scala.collection.mutable.ArrayBuffer
 

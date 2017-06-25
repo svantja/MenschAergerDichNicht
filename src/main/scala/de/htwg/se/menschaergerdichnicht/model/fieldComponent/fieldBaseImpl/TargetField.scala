@@ -1,4 +1,6 @@
-package de.htwg.se.menschaergerdichnicht.model
+package de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl
+
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
 
 import scala.collection.mutable.ArrayBuffer
 

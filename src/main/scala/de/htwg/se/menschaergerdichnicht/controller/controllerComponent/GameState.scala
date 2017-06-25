@@ -1,4 +1,4 @@
-package de.htwg.se.menschaergerdichnicht.controller
+package de.htwg.se.menschaergerdichnicht.controller.controllerComponent
 
 /**
   * Created by Anastasia on 25.06.17.
