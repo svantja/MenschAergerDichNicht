@@ -1,20 +1,21 @@
 package de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl
 
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.{Player, Players, Token}
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.{FieldInterface, PlayingInterface}
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface, TokenInterface}
 
 import scala.collection.mutable.ArrayBuffer
 
-class PlayingField() {
+case class PlayingField() extends PlayingInterface {
 
-  val playingField = new ArrayBuffer[Field]
+  val playingField = new ArrayBuffer[FieldInterface]
 
   for (i <- 1 to 40) {
-    playingField += new Field()
+    playingField += Field()
   }
 
-  def getField(id: Int): Field = playingField(id)
+  def getField(id: Int): FieldInterface = playingField(id)
 
-  def moveToken(token: Token, num: Int, players: Players): Unit = {
+  def moveToken(token: TokenInterface, num: Int, players: PlayersInterface): Unit = {
     if (token.counter + num >= 41) {
       val move = (token.counter + num) - 40
       println("move to target??" + move)
@@ -41,7 +42,7 @@ class PlayingField() {
     token.setCounter(token.getCounter() + num)
   }
 
-  def kickToken(tokenId: Int, player: Player, players: Players): Boolean = {
+  def kickToken(tokenId: Int, player: PlayerInterface, players: PlayersInterface): Boolean = {
     for (p <- players.getAllPlayer) {
       for (token <- p.getTokens()) {
         if (token.tokenId == tokenId) {
@@ -59,7 +60,7 @@ class PlayingField() {
     return false
   }
 
-  def moveToTarget(token: Token, i: Int): Unit = {
+  def moveToTarget(token: TokenInterface, i: Int): Unit = {
     val player = token.getPlayer()
     if (!token.getFinished()) {
       if (i <= 3) {
@@ -80,7 +81,7 @@ class PlayingField() {
     }
   }
 
-  def moveToStart(token: Token): Unit = {
+  def moveToStart(token: TokenInterface): Unit = {
     token.position._1.tokenId = -1
     token.getPlayer().playerId match {
       case 1 => token.setPosition(playingField(0),0); token.setCounter(1);

@@ -1,8 +1,9 @@
-package de.htwg.se.menschaergerdichnicht.model.playerComponent
+package de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl
 
-import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Field
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.FieldInterface
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, TokenInterface}
 
-case class Token(var player: Player, var position: (Field, Int), var counter: Int) {
+case class Token(var player: PlayerInterface, var position: (FieldInterface, Int), var counter: Int) extends TokenInterface {
 
   // player token numbers 1 - 4
   val number = Token.setNumber
@@ -16,13 +17,13 @@ case class Token(var player: Player, var position: (Field, Int), var counter: In
 
   def getColor(): Any = color
 
-  def setPlayer(player: Player) { this.player = player}
+  def setPlayer(player: PlayerInterface) { this.player = player}
 
-  def getPlayer(): Player = player
+  def getPlayer(): PlayerInterface = player
 
-  def setPosition(position: (Field, Int)) { this.position = position}
+  def setPosition(position: (FieldInterface, Int)) { this.position = position}
 
-  def getPosition(): (Field, Int) = position
+  def getPosition(): (FieldInterface, Int) = position
 
   def setCounter(counter: Int) { this.counter = counter}
 
@@ -31,8 +32,6 @@ case class Token(var player: Player, var position: (Field, Int), var counter: In
   def setFinished(finished: Boolean) { this.finished = finished}
 
   def getFinished(): Boolean = finished
-
-  //def getTokenById()
 
 }
 

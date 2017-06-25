@@ -1,11 +1,10 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
-import de.htwg.se.menschaergerdichnicht.model._
 import de.htwg.se.menschaergerdichnicht.util.{Observable, UndoManager}
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.PlayingField
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.Players
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Players
 
 import scala.util._
 /**
@@ -13,8 +12,8 @@ import scala.util._
   */
 case class Controller() extends ControllerInterface {
 
-  var players = new Players()
-  var playingField = new PlayingField()
+  var players = Players()
+  var playingField = PlayingField()
   var message = ""
   var gameState: GameState = ONGOING
   var undoManager = new UndoManager

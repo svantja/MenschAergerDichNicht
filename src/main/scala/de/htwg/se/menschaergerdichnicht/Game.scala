@@ -4,7 +4,7 @@ import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
 import de.htwg.se.menschaergerdichnicht.aview.tui.Tui
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 import scala.collection.mutable.Map
 import scala.io.StdIn.readLine

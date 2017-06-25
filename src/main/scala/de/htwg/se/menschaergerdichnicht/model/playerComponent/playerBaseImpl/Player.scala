@@ -1,27 +1,29 @@
-package de.htwg.se.menschaergerdichnicht.model.playerComponent
+package de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl
 
-import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.{Field, House, TargetField}
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.{House, TargetField}
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.FieldInterface
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface, TokenInterface}
 
 import scala.collection.mutable.ArrayBuffer
 
 /**
   * Created by Anastasia on 29.04.17.
   */
-case class Player(var name: String, var diced: Int) {
+case class Player(var name: String, var diced: Int) extends PlayerInterface {
 
   val playerId = Player.newIdNum
 
   //var diced = 0
 
-  val house = new House(this)
+  val house = House(this)
 
-  val target = new TargetField(this)
+  val target = TargetField(this)
 
   var finished: Boolean = false
 
   var tokens = addTokens()
 
-  def getTokens(): ArrayBuffer[Token] = tokens
+  def getTokens(): ArrayBuffer[TokenInterface] = tokens
 
   def setFinished(finished: Boolean) { this.finished = finished}
 
@@ -31,12 +33,14 @@ case class Player(var name: String, var diced: Int) {
 
   def setName(name: String) { this.name = name }
 
+  def getName(): String = name
+
   def setDiced(diced: Int) {this.diced = diced}
 
   def getDiced(): Int = diced
 
-  def addTokens(): ArrayBuffer[Token] = {
-    val tokens = new ArrayBuffer[Token]
+  def addTokens(): ArrayBuffer[TokenInterface] = {
+    val tokens = new ArrayBuffer[TokenInterface]
     for (i <- 1 to 4) {
       tokens += new Token(this, (house.house(i-1), i-1), 0)
       house.house(i-1).setToken(tokens(i-1))
@@ -44,7 +48,7 @@ case class Player(var name: String, var diced: Int) {
     tokens
   }
 
-  def getFreeHouse(): Field = {
+  def getFreeHouse(): FieldInterface = {
     for (h <- house.house) {
       if (h.tokenId == -1) {
         return h
@@ -53,7 +57,7 @@ case class Player(var name: String, var diced: Int) {
     null
   }
 
-  def getTokenById(tokenId: Int): Token = {
+  def getTokenById(tokenId: Int): TokenInterface = {
     for (token <- getTokens()) {
       if (token.tokenId == tokenId) {
         return token
@@ -91,7 +95,7 @@ object Player{
   }
 }
 
-case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) {
+case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) extends PlayersInterface {
 
   def addPlayer(player: Player): Players = {
     copy(players = players :+ player)
@@ -100,8 +104,8 @@ case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) {
   def removePlayer(): Players = {
     copy(players = players.init)
   }
-  def updateCurrentPlayer(player: Player): Players = {
-    copy(players = players.updated(currentPlayer, player))
+  def updateCurrentPlayer(player: PlayerInterface): Players = {
+    copy(players = players.updated(currentPlayer, Player(player.getName(), player.getDiced())))
   }
   def nextPlayer(): Players = {
     copy(currentPlayer = (currentPlayer + 1) % players.length)
@@ -113,8 +117,6 @@ case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) {
   def getAllPlayer: Vector[Player] = {
     players
   }
-
-  //def apply(i: Int): Player = players(i)
 
   override def toString: String = {
     var nameList = ""

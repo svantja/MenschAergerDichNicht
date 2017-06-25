@@ -1,7 +1,7 @@
 package de.htwg.se.menschaergerdichnicht.model
 
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner

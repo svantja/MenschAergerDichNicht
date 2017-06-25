@@ -1,9 +1,9 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
 import de.htwg.se.menschaergerdichnicht.util.Command
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 import scala.util.{Success, Try}
 

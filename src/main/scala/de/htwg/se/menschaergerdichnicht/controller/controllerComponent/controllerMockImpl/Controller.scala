@@ -8,7 +8,7 @@ import scala.util.Try
 /**
   * Created by Anastasia on 25.06.17.
   */
-class Controller() extends ControllerInterface{
+abstract class Controller() extends ControllerInterface{
 
   override def addPlayer(name: String): Try[_] = ???
 

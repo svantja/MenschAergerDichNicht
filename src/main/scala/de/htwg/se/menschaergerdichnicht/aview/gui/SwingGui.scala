@@ -13,8 +13,8 @@ import java.io.File
 import java.awt.image.BufferedImage
 import java.awt.Image
 
-import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.{Player, Players, Token}
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.{Player, Players}
 import java.awt.Rectangle
 
 /**
@@ -28,7 +28,7 @@ import java.awt.Rectangle
 
 
 
-case class SwingGui(var c: Controller) extends MainFrame{
+case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   // (x, y)
   val PLAYING_FIELD = ArrayBuffer((30, 230), (80, 230), (130, 230),(180, 230), (230, 230), // 1.Reihe
@@ -56,13 +56,13 @@ case class SwingGui(var c: Controller) extends MainFrame{
   import javax.swing.ImageIcon
   var start_imgPoint = (680, 0)
 
-  val start_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\start.png")
+  val start_icon = new ImageIcon("../MenschAergerDichNicht/tokens/start.png")
   val start_lb = new JLabel(start_icon)
   val start_image = start_icon.getImage
 
   var add_imgPoint = (680, 180)
 
-  val add_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\add.png")
+  val add_icon = new ImageIcon("../MenschAergerDichNicht/tokens/add.png")
   val add_lb = new JLabel(add_icon)
   val add_image = add_icon.getImage
 
@@ -153,7 +153,7 @@ case class SwingGui(var c: Controller) extends MainFrame{
     def setPositionOne(g: Graphics2D, player: Player): Unit = {
         val tokens = player.getTokens()
         val color = tokens(0).getColor()
-        val bufferedImage = ImageIO.read(new File("..\\MenschAergerDichNicht\\tokens\\" + color + ".png"))
+        val bufferedImage = ImageIO.read(new File("../MenschAergerDichNicht/tokens/" + color + ".png"))
         val bi = bufferedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
 
         if (null != bufferedImage) {
@@ -183,7 +183,7 @@ case class SwingGui(var c: Controller) extends MainFrame{
     def setFirstPosition(d: Graphics2D, player: Player): Unit ={
       val tokens = player.getTokens()
       val color = tokens(0).getColor()
-      val bufferedImage = ImageIO.read(new File("..\\MenschAergerDichNicht\\tokens\\" + color + ".png"))
+      val bufferedImage = ImageIO.read(new File("../MenschAergerDichNicht/tokens/" + color + ".png"))
       val bi = bufferedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
 
       if (null != bufferedImage) {

@@ -1,4 +1,4 @@
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.Player
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 case class Dice() {
   var dice: Int = 0
