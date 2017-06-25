@@ -3,6 +3,7 @@ package de.htwg.se.menschaergerdichnicht.controller
 import com.sun.net.httpserver.Authenticator.Failure
 import de.htwg.se.menschaergerdichnicht.model.{Dice, Player, Token}
 import de.htwg.se.menschaergerdichnicht.util.Command
+import de.htwg.se.menschaergerdichnicht.controller.GameState._
 import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
 
 import scala.util.{Success, Try, Failure}
@@ -15,14 +16,15 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 
   override def action(): Try[_] = {
     c.players = c.players.addPlayer(player)
-
     println("Spieler " + name + " wurde hinzugefuegt")
+    c.gameState = ONGOING
     Success()
   }
 
   override def undo(): Try[_] = {
     c.players = c.players.removePlayer()
     c.message = "Geloeschter Spieler: " + name
+    c.gameState = ONGOING
     Success()
   }
 
@@ -65,6 +67,7 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
       c.players = c.players.nextPlayer()
       //c.gui.repaint()
     }
+    c.gameState = ONGOING
     Success()
   }
 
@@ -113,11 +116,13 @@ case class Play(c: Controller) extends Command {
         }
       }
     //}
+    c.gameState = ONGOING
     Success()
   }
 
   override def undo(): Try[_] = {
     println("Undo")
+    c.gameState = ONGOING
     Success()
   }
 }

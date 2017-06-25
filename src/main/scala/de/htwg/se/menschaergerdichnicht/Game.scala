@@ -17,8 +17,8 @@ object Game {
 
   val controller = new Controller()
   val tui = new Tui(controller)
-  val gui = new SwingGui(controller)
-  gui.visible = true
+  //val gui = new SwingGui(controller)
+  //gui.visible = true
 
   def main(args: Array[String]): Unit = {
 
@@ -27,7 +27,7 @@ object Game {
     do {
       input = readLine()
       tui.processInputLine(input)
-      gui.repaint()
+      //gui.repaint()
     } while (input != "q")
 
   }

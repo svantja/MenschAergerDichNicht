@@ -112,7 +112,6 @@ case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) {
     players
   }
 
-
   //def apply(i: Int): Player = players(i)
 
   override def toString: String = {
