@@ -9,6 +9,7 @@ import org.scalatest.{FlatSpec, Matchers}
   */
 class ControllerSpec extends FlatSpec with Matchers {
   val c = Controller()
+
   "A Controller" should "have players" in{
     c.players
   }
@@ -36,7 +37,7 @@ class ControllerSpec extends FlatSpec with Matchers {
     c.startGame()
   }
 
-  "A Controller" should "choose a Token" in{
-    c.chooseToken(1)
-  }
+//  "A Controller" should "choose a Token" in{
+//    c.chooseToken(1)
+//  }
 }

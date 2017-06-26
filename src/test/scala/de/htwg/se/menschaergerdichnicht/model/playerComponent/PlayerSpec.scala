@@ -13,8 +13,8 @@ class PlayerSpec extends FlatSpec with Matchers{
   "A Player" should "have an ID" in{
     player.playerId
   }
-  it should "be between 1 and 4" in{
-    assert(player.playerId >= 1 && player.playerId <= 4)
+  it should "be at least 1" in{
+    assert(player.playerId >= 1)
   }
 
   "A Player" should "have a House" in{
