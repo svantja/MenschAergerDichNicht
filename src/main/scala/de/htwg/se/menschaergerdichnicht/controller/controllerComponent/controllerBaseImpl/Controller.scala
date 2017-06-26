@@ -1,8 +1,11 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
+import com.google.inject.Guice
+import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
 import de.htwg.se.menschaergerdichnicht.util.{Observable, UndoManager}
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.PlayingInterface
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.PlayingField
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Players
 
@@ -12,8 +15,9 @@ import scala.util._
   */
 case class Controller() extends ControllerInterface {
 
+  val injector = Guice.createInjector(new MenschAergerDichNichtModule)
   var players = Players()
-  var playingField = PlayingField()
+  var playingField = injector.getInstance(classOf[PlayingInterface])
   var message = ""
   var gameState: GameState = ONGOING
   var undoManager = new UndoManager
