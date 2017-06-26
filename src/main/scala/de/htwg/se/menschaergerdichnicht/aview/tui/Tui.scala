@@ -157,6 +157,14 @@ class Tui(controller: ControllerInterface) extends Observer{
               case "yellow" => pf(pos) = "y"; home_four(t.tokenId-13) = "o"
             }
           }
+        } else {
+          val pos = t.getPosition()._2
+          c match {
+            case "red" => home_one(pos) = "r"
+            case "blue" => home_two(pos) = "b"
+            case "green" => home_three(pos) = "g"
+            case "yellow" => home_four(pos) = "y"
+          }
         }
       }
     }
@@ -181,12 +189,12 @@ class Tui(controller: ControllerInterface) extends Observer{
     //    if (controller.gameState.isInstanceOf[Prepare]) {
     //      println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
     //    }
+
     if (controller.gameState == NONE) {
       println(field.length, playing_field.length, controller.playingField.playingField.length)
       println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
     }
     if (controller.gameState == PREPARE) {
-
       val p = controller.players
       val f = paintStartFields(controller.players.players.length)
       for(i <- 0 to 10) print(f(i))
@@ -213,6 +221,7 @@ class Tui(controller: ControllerInterface) extends Observer{
       println()
     }
     if (controller.gameState == ONGOING) {
+      println(controller.players.getCurrentPlayer.getTokens())
       val f = printPlaying()
       for(i <- 0 to 10) print(f(i))
       println()
@@ -236,7 +245,7 @@ class Tui(controller: ControllerInterface) extends Observer{
       println()
       for(i <- 110 to 120) print(f(i))
       println()
-      println("started")
+      println("current: "+controller.players.getCurrentPlayer)
     }
   }
 }

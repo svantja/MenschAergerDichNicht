@@ -54,11 +54,9 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
       if (token.counter == 0) {
         c.playingField.moveToStart(token)
         println("Moved Token" + tokenId + " to start")
-        player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
       } else {
         c.playingField.moveToken(token, player.getDiced(), c.players)
         println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
-        player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
       }
     } else {
       c.playingField.moveToken(token, player.getDiced(), c.players)

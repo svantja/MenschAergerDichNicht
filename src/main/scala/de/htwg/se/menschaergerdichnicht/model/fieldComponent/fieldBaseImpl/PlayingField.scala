@@ -51,26 +51,31 @@ case class PlayingField @Inject() () extends PlayingInterface {
           if (token.getPlayer() != player) {
             val player = token.getPlayer()
             if (tokenId > 4 && tokenId <= 8) {
+              println("kicked token")
               val free = player.house.house(tokenId - 5)
               free.setToken(token)
-              token.setPosition((free, 0))
+              token.setPosition((free, tokenId - 5))
               token.setCounter(0)
             }
             else if (tokenId > 8 && tokenId <= 12) {
+              println("kicked token")
               val free = player.house.house(tokenId - 9)
               free.setToken(token)
-              token.setPosition((free, 0))
+              token.setPosition((free, tokenId - 9))
               token.setCounter(0)
             }
             else if (tokenId > 12 && tokenId <= 16) {
+              println("kicked token")
               val free = player.house.house(tokenId - 13)
               free.setToken(token)
-              token.setPosition((free, 0))
+              token.setPosition((free, tokenId - 13))
               token.setCounter(0)
-            } else{
-              val free = player.house.house(tokenId)
+            } else if (tokenId >= 0 && tokenId < 4){
+              println("kicked token")
+              val free = player.house.house(tokenId - 1)
               free.setToken(token)
-              token.setPosition((free, 0))
+              token.setPosition((free, tokenId - 1))
+              println(token + "new kicked position")
               token.setCounter(0)
             }
             return true

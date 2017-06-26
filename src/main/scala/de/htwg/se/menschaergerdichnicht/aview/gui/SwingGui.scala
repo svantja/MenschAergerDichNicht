@@ -17,6 +17,7 @@ import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.Controlle
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.{Player, Players}
 import java.awt.Rectangle
 
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState.ONGOING
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
 
 /**
@@ -50,19 +51,29 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
   var FINISH_THREE = ArrayBuffer((480, 280), (430, 280), (380, 280), (330, 280))
   var FINISH_FOUR = ArrayBuffer((280, 480), (280, 430), (280, 380), (280, 330))
 
-  var HOMEFIELDPLAYERONE = ArrayBuffer((30, 30), (30, 80), (80, 80), (80, 30))
+  var HOMEFIELDPLAYERONE = ArrayBuffer((30, 30), (80, 30), (30, 80), (80, 80))
   var HOMEFIELDPLAYERTWO = ArrayBuffer((480, 30), (530, 30), (530, 80), (480, 80))
   var HOMEFIELDPLAYERTHREE = ArrayBuffer((480, 480), (530, 480), (530, 530), (480, 530))
-  var HOMEFIELDPLAYERFOUR = ArrayBuffer((30, 480), (30, 530), (80, 530), (80, 480))
+  var HOMEFIELDPLAYERFOUR = ArrayBuffer((30, 480), (80, 480), (30, 530), (80, 530))
 
   import javax.swing.ImageIcon
   var start_imgPoint = (680, 0)
   val start_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\start.png")
-  val start_image = start_icon.getImage
+  var start_image = start_icon.getImage
+  start_image = start_image.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
 
   var add_imgPoint = (680, 180)
   val add_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\add.png")
-  val add_image = add_icon.getImage
+  var add_image = add_icon.getImage
+  add_image = add_image.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
+
+  val current = new ArrayBuffer[Image]
+  for(i <- 1 to 4){
+    val img_1 = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\p" + i + ".png")
+    var image_1 = img_1.getImage
+    image_1 = image_1.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
+    current += image_1
+  }
 
   val red_tokens = new ArrayBuffer[Image]
   for (i <- 1 to 4) {
@@ -213,7 +224,11 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
     def paintBackground(g: Graphics2D): Unit = {
       g.drawImage(start_image, start_imgPoint._1, start_imgPoint._2, null)
-      g.drawImage(add_image, add_imgPoint._1, add_imgPoint._2, null)
+      if(c.gameState != ONGOING) {
+        g.drawImage(add_image, add_imgPoint._1, add_imgPoint._2, null)
+      } else if(c.gameState == ONGOING){
+        g.drawImage(current(c.players.getCurrentPlayer.playerId-1), add_imgPoint._1, add_imgPoint._2, null)
+      }
       g.setBackground(Color.LIGHT_GRAY)
 
       g.setColor(Color.RED)
