@@ -16,17 +16,26 @@ import scala.util.{Success, Try}
 case class AddPlayer(name: String, c: Controller) extends Command {
   val player = Player(name, 0)
 
+
   override def action(): Try[_] = {
-    c.players = c.players.addPlayer(player)
-    println("Spieler " + name + " wurde hinzugefuegt")
-    c.gameState = ONGOING
+    if (c.gameState != ONGOING) {
+      if(c.players.players.length < 4) {
+        c.players = c.players.addPlayer(player)
+        println("Spieler " + name + " wurde hinzugefuegt")
+        c.gameState = PREPARE
+        c.tui.update
+      }else {
+        println("Es existieren bereits 4 Spieler")
+      }
+    } else{println("Spiel wurde bereits gestarted")}
     Success()
   }
 
   override def undo(): Try[_] = {
     c.players = c.players.removePlayer()
     c.message = "Geloeschter Spieler: " + name
-    c.gameState = ONGOING
+    c.gameState = PREPARE
+    c.tui.update
     Success()
   }
 
@@ -57,6 +66,7 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
       c.players = c.players.nextPlayer()
     }
     c.gameState = ONGOING
+    c.tui.update
     Success()
   }
 
@@ -111,6 +121,7 @@ case class Play(c: Controller) extends Command {
       }
     //}
     c.gameState = ONGOING
+    c.tui.update
     Success()
   }
 

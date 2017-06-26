@@ -19,18 +19,17 @@ object Game {
 
   val injector = Guice.createInjector(new MenschAergerDichNichtModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
-  val tui = new Tui(controller)
-  val gui = new SwingGui(controller)
+  val tui = controller.tui
+  val gui = controller.gui
   gui.visible = true
 
   def main(args: Array[String]): Unit = {
 
     var input: String = ""
-
+    tui.update
     do {
       input = readLine()
       tui.processInputLine(input)
-      //gui.repaint()
     } while (input != "q")
     gui.dispose()
   }

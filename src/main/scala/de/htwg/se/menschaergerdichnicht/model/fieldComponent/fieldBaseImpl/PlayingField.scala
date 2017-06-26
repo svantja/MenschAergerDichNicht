@@ -99,6 +99,7 @@ case class PlayingField @Inject() () extends PlayingInterface {
               player.setFinished(true)
             }
           }
+          else{ println("Cannot move")}
         }
       }
     }

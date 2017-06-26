@@ -2,6 +2,8 @@ package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controll
 
 import com.google.inject.Guice
 import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
+import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
+import de.htwg.se.menschaergerdichnicht.aview.tui.Tui
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.PlayingInterface

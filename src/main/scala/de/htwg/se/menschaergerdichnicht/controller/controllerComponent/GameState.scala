@@ -5,9 +5,11 @@ package de.htwg.se.menschaergerdichnicht.controller.controllerComponent
   */
 object GameState extends Enumeration{
   type GameState = Value
-  val ONGOING, FINISHED = Value
+  val NONE, PREPARE, ONGOING, FINISHED = Value
 
   val map = Map[GameState, String](
+    NONE -> "",
+    PREPARE -> "Prepare",
     ONGOING -> "",
     FINISHED -> "Game is finished!"
   )

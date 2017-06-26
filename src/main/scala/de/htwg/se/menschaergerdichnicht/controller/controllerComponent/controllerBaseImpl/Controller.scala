@@ -1,7 +1,10 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
 import com.google.inject.Guice
+import de.htwg.se.menschaergerdichnicht.Game.controller
 import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
+import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
+import de.htwg.se.menschaergerdichnicht.aview.tui.Tui
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
 import de.htwg.se.menschaergerdichnicht.util.{Observable, UndoManager}
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
@@ -19,7 +22,7 @@ case class Controller() extends ControllerInterface {
   var players = Players()
   var playingField = injector.getInstance(classOf[PlayingInterface])
   var message = ""
-  var gameState: GameState = ONGOING
+  var gameState: GameState = NONE
   var undoManager = new UndoManager
 
   def addPlayer(name: String): Try[_] = undoManager.action(AddPlayer(name, this))
