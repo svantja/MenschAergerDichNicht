@@ -8,7 +8,6 @@ import org.scalatest.{FlatSpec, Matchers}
   * Created by anhauser on 13.06.2017.
   */
 class TokenSpec extends FlatSpec with Matchers{
-
   val token = new Token(Player("test", 0), (Field(), 0), 0)
 
   "A Token" should "have a number" in{
@@ -21,16 +20,15 @@ class TokenSpec extends FlatSpec with Matchers{
   "A Token" should "have a tokenId" in{
     token.tokenId
   }
-  it should "be between 1 and 16" in{
-    assert(token.tokenId >= 1 && token.tokenId <= 16)
+  it should "be at least 1" in{
+    assert(token.tokenId >= 1)
   }
 
   "A Token" should "have a color" in{
     token.color
   }
-  it should "be red, yellow, blue or green" in{
-    assert(token.color == "red" || token.color == "yellow"
-      || token.color == "blue" || token.color == "green")
+  it should "be a color" in{
+    token.getColor()
   }
 
   "A Token.finished" should "be false" in{

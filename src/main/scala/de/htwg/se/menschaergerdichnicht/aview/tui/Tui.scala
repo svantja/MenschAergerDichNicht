@@ -133,6 +133,7 @@ class Tui(controller: ControllerInterface) extends Observer{
         f(110) = home_4(2)
         f(111) = home_4(3)
       }
+      case _ => {}
     }
     return f
   }
@@ -155,6 +156,7 @@ class Tui(controller: ControllerInterface) extends Observer{
               case "blue" => pf(pos) = "b"; home_two(t.tokenId-5) = "o"
               case "green" => pf(pos) = "g"; home_three(t.tokenId-9) = "o"
               case "yellow" => pf(pos) = "y"; home_four(t.tokenId-13) = "o"
+              case _ => {}
             }
           }
         } else {
@@ -164,6 +166,7 @@ class Tui(controller: ControllerInterface) extends Observer{
             case "blue" => home_two(pos) = "b"
             case "green" => home_three(pos) = "g"
             case "yellow" => home_four(pos) = "y"
+            case _ => {}
           }
         }
       }
