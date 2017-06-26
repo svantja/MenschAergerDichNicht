@@ -19,7 +19,7 @@ case class PlayingField @Inject() () extends PlayingInterface {
 
   def moveToken(token: TokenInterface, num: Int, players: PlayersInterface): Unit = {
     if (token.counter + num >= 41) {
-      val move = (token.counter + num) - 40
+      val move = (token.counter + num) - 41
       println("move to target??" + move)
       moveToTarget(token, move)
     } else {
@@ -50,10 +50,29 @@ case class PlayingField @Inject() () extends PlayingInterface {
         if (token.tokenId == tokenId) {
           if (token.getPlayer() != player) {
             val player = token.getPlayer()
-            val free = player.house.house(0)
-            free.setToken(token)
-            token.setPosition((free, 0))
-            token.setCounter(0)
+            if (tokenId > 4 && tokenId <= 8) {
+              val free = player.house.house(tokenId - 5)
+              free.setToken(token)
+              token.setPosition((free, 0))
+              token.setCounter(0)
+            }
+            else if (tokenId > 8 && tokenId <= 12) {
+              val free = player.house.house(tokenId - 9)
+              free.setToken(token)
+              token.setPosition((free, 0))
+              token.setCounter(0)
+            }
+            else if (tokenId > 12 && tokenId <= 16) {
+              val free = player.house.house(tokenId - 13)
+              free.setToken(token)
+              token.setPosition((free, 0))
+              token.setCounter(0)
+            } else{
+              val free = player.house.house(tokenId)
+              free.setToken(token)
+              token.setPosition((free, 0))
+              token.setCounter(0)
+            }
             return true
           }
         }
@@ -64,6 +83,8 @@ case class PlayingField @Inject() () extends PlayingInterface {
 
   def moveToTarget(token: TokenInterface, i: Int): Unit = {
     val player = token.getPlayer()
+    println(i + "to move in target!!!!!")
+    println("token to be finished" +  token)
     if (!token.getFinished()) {
       if (i <= 3) {
         if (token.counter + i <= 44) {
@@ -72,7 +93,7 @@ case class PlayingField @Inject() () extends PlayingInterface {
             target.setToken(token)
             token.position._1.tokenId = -1
             token.setPosition(target, i)
-            print(token.getPosition() + "position im finish")
+            println(token.getPosition() + "position im finish")
             token.setFinished(true)
             if (player.target.isFull(player)) {
               player.setFinished(true)
