@@ -94,6 +94,15 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
     yellow_tokens += yellow_image
   }
 
+  val dice_img = new ArrayBuffer[Image]
+  for (i <- 0 to 6) {
+    val dice_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\dice" + i + ".png")
+    var dice_image = dice_token.getImage
+    dice_image = dice_image.getScaledInstance(100, 100, Image.SCALE_SMOOTH)
+    dice_img += dice_image
+  }
+  val dice_imgPoint = (680, 480)
+
   trait HomeFieldOne extends Panel{
 
       listenTo(this.mouse.clicks)
@@ -104,13 +113,14 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
           if (start_image != null && start_imgPoint != null) {
             val me = point
             val start_bounds = new Rectangle(start_imgPoint._1, start_imgPoint._2, start_icon.getIconWidth, start_icon.getIconHeight)
-            if (start_bounds.contains(me)) c.startGame(); repaint;
-
+            if (start_bounds.contains(me)) c.startGame();
+            this.repaint;
           }
           if (add_image != null && add_imgPoint != null) {
             val me = point
             val bounds = new Rectangle(add_imgPoint._1, add_imgPoint._2 ,add_icon.getIconWidth, add_icon.getIconHeight)
             if (bounds.contains(me) && i2 == 1) c.addPlayer("a"+count.toString); count += 1; repaint;
+            this.repaint;
           }
           if (red_tokens != null) {
             val me = point
@@ -173,14 +183,30 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
           }
         }
-
-
+        this.repaint;
       }
     }
 
     override protected def paintComponent(g: Graphics2D): Unit ={
       paintBackground(g)
       setPosition(g, c.players)
+      drawDice(g)
+    }
+
+    def drawDice(g: Graphics2D): Unit ={
+      this.repaint;
+      if (c.players.players.length != 0) {
+        c.players.getCurrentPlayer.getDiced() match {
+          case 0 => g.drawImage(dice_img(0), dice_imgPoint._1, dice_imgPoint._2, null)
+          case 1 => g.drawImage(dice_img(1), dice_imgPoint._1, dice_imgPoint._2, null)
+          case 2 => g.drawImage(dice_img(2), dice_imgPoint._1, dice_imgPoint._2, null)
+          case 3 => g.drawImage(dice_img(3), dice_imgPoint._1, dice_imgPoint._2, null)
+          case 4 => g.drawImage(dice_img(4), dice_imgPoint._1, dice_imgPoint._2, null)
+          case 5 => g.drawImage(dice_img(5), dice_imgPoint._1, dice_imgPoint._2, null)
+          case 6 => g.drawImage(dice_img(6), dice_imgPoint._1, dice_imgPoint._2, null)
+        }
+      }
+
     }
 
     def paintBackground(g: Graphics2D): Unit = {
@@ -314,6 +340,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
     var panel = new Panel with HomeFieldOne
     contents ++= panel :: Nil
   }
+
 }
 
 object GuiProgramOne {

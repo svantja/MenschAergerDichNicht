@@ -43,28 +43,15 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
         c.playingField.moveToStart(token)
         println("Moved Token" + tokenId + " to start")
         player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
-        c.playingField.moveToken(token, player.getDiced(), c.players)
-        println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
-        println(token.counter + "counter" + token.getPosition()._2)
-        c.players = c.players.nextPlayer()
-        //c.gui.repaint()
       } else {
         c.playingField.moveToken(token, player.getDiced(), c.players)
         println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
         player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
-        c.playingField.moveToken(token, player.getDiced(), c.players)
-        println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
-        println(token.counter + "counter" + token.getPosition()._2)
-        c.players = c.players.nextPlayer()
-        //c.gui.repaint()
       }
-
     } else {
       c.playingField.moveToken(token, player.getDiced(), c.players)
       println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
-      println(token.counter + "counter" + token.getPosition()._2)
       c.players = c.players.nextPlayer()
-      //c.gui.repaint()
     }
     c.gameState = ONGOING
     Success()
@@ -86,20 +73,19 @@ case class Play(c: Controller) extends Command {
       if (!player.getFinished()) {
         val num = dice.rollDice(c.players.getCurrentPlayer)
         if (num == 0) {
+          player.setDiced(num)
           println("Cannot move, next player.")
           c.players = c.players.nextPlayer()
           println(c.players.getCurrentPlayer)
 
         } else {
           if (player.house.isFull(player)) {
-            c.playingField.moveToStart(player.tokens(0))
-            println("Moved Token" + player.tokens(0).tokenId + " to start")
-            player.setDiced(dice.rollDice(c.players.getCurrentPlayer))
-            c.playingField.moveToken(player.tokens(0), player.getDiced(), c.players)
-            println("Moved Token" + player.tokens(0).tokenId + " " + player.getDiced() + " fields")
+            player.setDiced(num)
+            //c.playingField.moveToStart(player.tokens(0))
+            println("Choose token to move")
+            println(num + "diced" + player.getDiced())
+            println("avaiable tokens: " + player.getAvailableTokens())
 
-            c.players = c.players.nextPlayer()
-            //c.gui.repaint()
           } else {
             player.setDiced(num)
 

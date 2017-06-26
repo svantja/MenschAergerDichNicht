@@ -27,7 +27,7 @@ object Game {
     do {
       input = readLine()
       tui.processInputLine(input)
-      gui.repaint()
+      //gui.repaint()
     } while (input != "q")
     gui.dispose()
   }
