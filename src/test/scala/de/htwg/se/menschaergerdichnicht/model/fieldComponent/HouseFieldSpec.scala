@@ -1,4 +1,4 @@
-package de.htwg.se.menschaergerdichnicht.model
+package de.htwg.se.menschaergerdichnicht.model.fieldComponent
 
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.House
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player

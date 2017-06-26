@@ -1,29 +1,61 @@
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.{FieldInterface, HouseInterface}
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface}
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 import scala.collection.mutable.ArrayBuffer
 
 
 print("hello")
 
+case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) extends PlayersInterface {
 
-case class House(player: PlayerInterface) extends HouseInterface {
-  val house = new ArrayBuffer[FieldInterface]
-
-  for (i <- 1 to 4) {
-    house += FieldInterface()
+  def addPlayer(player: Player): Players = {
+    copy(players = players :+ player)
   }
 
-  def isFull(player: PlayerInterface): Boolean = {
-    for (field <- player.house.house) {
-      if (field.tokenId == -1) {
-        return false
+  def removePlayer(): Players = {
+    copy(players = players.init)
+  }
+  def updateCurrentPlayer(player: PlayerInterface): Players = {
+    copy(players = players.updated(currentPlayer, Player(player.getName(), player.getDiced())))
+  }
+  def nextPlayer(): Players = {
+    copy(currentPlayer = (currentPlayer + 1) % players.length)
+    //players(currentPlayer)
+  }
+  def getCurrentPlayer: Player = {
+    players(currentPlayer)
+  }
+  def getAllPlayer: Vector[Player] = {
+    players
+  }
+
+  override def toString: String = {
+    var nameList = ""
+    for (player <- players) {
+      if (player == players(currentPlayer)) {
+        nameList += "Current > " + player.toString() + "\n"
+      }
+      else {
+        nameList += "  " + player.toString() + "\n"
       }
     }
-    true
+    nameList
   }
-
 }
+
+val player = Player("hans", 1)
+val player2 = Player("brigitte", 2)
+val players: Players = Players(0, players = Vector(player, player2))
+
+players.addPlayer(player)
+players.addPlayer(player2)
+
+println(players)
+
+println(players.getAllPlayer)
+
+
 
 
 

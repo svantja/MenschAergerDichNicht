@@ -1,4 +1,4 @@
-package de.htwg.se.menschaergerdichnicht.model
+package de.htwg.se.menschaergerdichnicht.model.fieldComponent
 
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Field
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.{Player, Token}
@@ -9,7 +9,8 @@ import org.scalatest.{FlatSpec, Matchers}
   */
 class FieldSpec extends FlatSpec with Matchers{
   "A Field" should "have a tokenId" in{
-    Field().tokenId
+    val field = Field()
+    field.tokenId
   }
 
   "A Field" should "remove Token" in{
@@ -32,5 +33,4 @@ class FieldSpec extends FlatSpec with Matchers{
   "A Field.tokenId" should "be integer" in{
     Field().tokenId
   }
-
 }
