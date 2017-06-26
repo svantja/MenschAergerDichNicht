@@ -70,15 +70,29 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
     red_tokens += red_image
   }
 
-  val blue_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\blue.png")
-  var blue_image = blue_token.getImage
-  blue_image = blue_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
-  val green_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\green.png")
-  var green_image = green_token.getImage
-  green_image = green_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
-  val yellow_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\yellow.png")
-  var yellow_image = yellow_token.getImage
-  yellow_image = yellow_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+  val blue_tokens = new ArrayBuffer[Image]
+  for (i <- 5 to 8) {
+    val blue_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\blue" + i + ".png")
+    var blue_image = blue_token.getImage
+    blue_image = blue_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+    blue_tokens += blue_image
+  }
+
+  val green_tokens = new ArrayBuffer[Image]
+  for (i <- 9 to 12) {
+    val green_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\green" + i + ".png")
+    var green_image = green_token.getImage
+    green_image = green_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+    green_tokens += green_image
+  }
+
+  val yellow_tokens = new ArrayBuffer[Image]
+  for (i <- 13 to 16) {
+    val yellow_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\yellow" + i + ".png")
+    var yellow_image = yellow_token.getImage
+    yellow_image = yellow_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+    yellow_tokens += yellow_image
+  }
 
   trait HomeFieldOne extends Panel{
 
@@ -102,15 +116,15 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
             val me = point
             moveToken(me)
           }
-          if(blue_image != null) {
+          if(blue_tokens != null) {
             val me = point
             moveToken(me)
           }
-          if(green_image != null) {
+          if(green_tokens != null) {
             val me = point
             moveToken(me)
           }
-          if(yellow_image != null){
+          if(yellow_tokens != null){
             val me = point
             moveToken(me)
           }
@@ -238,25 +252,25 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
             if (token.counter != 0 && token.counter < 41) {
               color match {
                 case "red" => g.drawImage(red_tokens(token.tokenId - 1), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
-                case "blue" => g.drawImage(blue_image, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
-                case "yellow" => g.drawImage(yellow_image, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
-                case "green" => g.drawImage(green_image, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+                case "blue" => g.drawImage(blue_tokens(token.tokenId -5), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+                case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+                case "green" => g.drawImage(green_tokens(token.tokenId-9), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
               }
             }
             else if(token.counter == 0) {
               color match {
                 case "red" => g.drawImage(red_tokens(token.tokenId-1), HOMEFIELDPLAYERONE(pos._2)._1 + 5, HOMEFIELDPLAYERONE(pos._2)._2 + 5, null)
-                case "blue" => g.drawImage(blue_image, HOMEFIELDPLAYERTWO(pos._2)._1 + 5, HOMEFIELDPLAYERTWO(pos._2)._2 + 5, null)
-                case "yellow" => g.drawImage(yellow_image, HOMEFIELDPLAYERFOUR(pos._2)._1 + 5, HOMEFIELDPLAYERFOUR(pos._2)._2 + 5, null)
-                case "green" => g.drawImage(green_image, HOMEFIELDPLAYERTHREE(pos._2)._1 + 5, HOMEFIELDPLAYERTHREE(pos._2)._2 + 5, null)
+                case "blue" => g.drawImage(blue_tokens(token.tokenId-5), HOMEFIELDPLAYERTWO(pos._2)._1 + 5, HOMEFIELDPLAYERTWO(pos._2)._2 + 5, null)
+                case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), HOMEFIELDPLAYERFOUR(pos._2)._1 + 5, HOMEFIELDPLAYERFOUR(pos._2)._2 + 5, null)
+                case "green" => g.drawImage(green_tokens(token.tokenId-9), HOMEFIELDPLAYERTHREE(pos._2)._1 + 5, HOMEFIELDPLAYERTHREE(pos._2)._2 + 5, null)
               }
             }
             else if(token.counter >= 41) {
               color match {
                 case "red" => g.drawImage(red_tokens(token.tokenId-1), FINISH_ONE(pos._2)._1 + 5, FINISH_ONE(pos._2)._2 + 5, null)
-                case "blue" => g.drawImage(blue_image, FINISH_TWO(pos._2)._1 + 5, FINISH_TWO(pos._2)._2 + 5, null)
-                case "yellow" => g.drawImage(yellow_image, FINISH_FOUR(pos._2)._1 + 5, FINISH_FOUR(pos._2)._2 + 5, null)
-                case "green" => g.drawImage(green_image, FINISH_THREE(pos._2)._1 + 5, FINISH_THREE(pos._2)._2 + 5, null)
+                case "blue" => g.drawImage(blue_tokens(token.tokenId-5), FINISH_TWO(pos._2)._1 + 5, FINISH_TWO(pos._2)._2 + 5, null)
+                case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), FINISH_FOUR(pos._2)._1 + 5, FINISH_FOUR(pos._2)._2 + 5, null)
+                case "green" => g.drawImage(green_tokens(token.tokenId-9), FINISH_THREE(pos._2)._1 + 5, FINISH_THREE(pos._2)._2 + 5, null)
               }
             }
           }
@@ -275,17 +289,17 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
           }
           case "yellow" => {
             for (token <- tokens) {
-              d.drawImage(yellow_image, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._2 + 5, null)
+              d.drawImage(yellow_tokens(token.tokenId-13), HOMEFIELDPLAYERFOUR(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "green" => {
               for (token <- tokens) {
-                d.drawImage(green_image, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._2 + 5, null)
+                d.drawImage(green_tokens(token.tokenId-9), HOMEFIELDPLAYERTHREE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "blue" => {
               for (token <- tokens) {
-                d.drawImage(blue_image, HOMEFIELDPLAYERTWO(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTWO(token.getPosition()._2)._2 + 5, null)
+                d.drawImage(blue_tokens(token.tokenId - 5), HOMEFIELDPLAYERTWO(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTWO(token.getPosition()._2)._2 + 5, null)
               }
             }
           }

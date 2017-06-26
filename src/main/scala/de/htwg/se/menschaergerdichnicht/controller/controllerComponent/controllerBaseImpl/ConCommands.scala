@@ -102,14 +102,20 @@ case class Play(c: Controller) extends Command {
             //c.gui.repaint()
           } else {
             player.setDiced(num)
+
             if (num == 6) {
               println("Choose token to move")
               println(num + "diced" + player.getDiced())
               println("avaiable tokens: " + player.getAvailableTokens())
             } else {
-              println("Choose token to move")
-              println(num + "diced" + player.getDiced())
-              println("avaiable tokens: " + player.getAvailableTokens())
+              if (player.getAvailableTokens().length == 0) {
+                println("Cannot move, must dice a 6")
+                c.players = c.players.nextPlayer()
+              }else {
+                println("Choose token to move")
+                println(num + "diced" + player.getDiced())
+                println("avaiable tokens: " + player.getAvailableTokens())
+              }
             }
           }
         }
