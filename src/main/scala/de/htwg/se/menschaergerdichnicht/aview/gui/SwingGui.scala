@@ -17,6 +17,8 @@ import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.Controlle
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.{Player, Players}
 import java.awt.Rectangle
 
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
+
 /**
   * Created by svloeger on 14.06.2017.
   */
@@ -150,7 +152,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
         else {setPositionOne(g, p)}
       }
 
-    def setPositionOne(g: Graphics2D, player: Player): Unit = {
+    def setPositionOne(g: Graphics2D, player: PlayerInterface): Unit = {
         val tokens = player.getTokens()
         val color = tokens(0).getColor()
         val bufferedImage = ImageIO.read(new File("../MenschAergerDichNicht/tokens/" + color + ".png"))
@@ -180,7 +182,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
         }
     }
 
-    def setFirstPosition(d: Graphics2D, player: Player): Unit ={
+    def setFirstPosition(d: Graphics2D, player: PlayerInterface): Unit ={
       val tokens = player.getTokens()
       val color = tokens(0).getColor()
       val bufferedImage = ImageIO.read(new File("../MenschAergerDichNicht/tokens/" + color + ".png"))

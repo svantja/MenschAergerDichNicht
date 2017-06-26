@@ -1,5 +1,6 @@
 package de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl
 
+import com.google.inject.Inject
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.{House, TargetField}
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.FieldInterface
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface, TokenInterface}
@@ -9,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by Anastasia on 29.04.17.
   */
-case class Player(var name: String, var diced: Int) extends PlayerInterface {
+case class Player (var name: String, var diced: Int) extends PlayerInterface {
 
   val playerId = Player.newIdNum
 
@@ -95,9 +96,9 @@ object Player{
   }
 }
 
-case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) extends PlayersInterface {
+case class Players (currentPlayer: Int = 0, players: Vector[PlayerInterface] = Vector()) extends PlayersInterface {
 
-  def addPlayer(player: Player): Players = {
+  def addPlayer(player: PlayerInterface): Players = {
     copy(players = players :+ player)
   }
 
@@ -111,10 +112,10 @@ case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) e
     copy(currentPlayer = (currentPlayer + 1) % players.length)
     //players(currentPlayer)
   }
-  def getCurrentPlayer: Player = {
+  def getCurrentPlayer: PlayerInterface = {
     players(currentPlayer)
   }
-  def getAllPlayer: Vector[Player] = {
+  def getAllPlayer: Vector[PlayerInterface] = {
     players
   }
 

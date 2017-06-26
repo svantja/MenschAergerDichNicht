@@ -1,8 +1,11 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
+import com.google.inject.{Guice, Inject}
+import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
 import de.htwg.se.menschaergerdichnicht.util.Command
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 import scala.util.{Success, Try}
@@ -32,7 +35,7 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 case class ChooseToken(tokenId: Int, c: Controller) extends Command {
   val player = c.players.getCurrentPlayer
   val token = player.getTokenById(tokenId)
-  val dice = new Dice()
+  val dice = Dice()
 
 
   override def action(): Try[_] = {
@@ -75,7 +78,7 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
 }
 
 case class Play(c: Controller) extends Command {
-  val dice = new Dice()
+  val dice = Dice()
   //c.gui.players = c.players
   //c.gui.repaint()
   //println("alle payers..." + c.gui.players)

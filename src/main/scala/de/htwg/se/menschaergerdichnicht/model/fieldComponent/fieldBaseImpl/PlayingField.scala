@@ -1,11 +1,13 @@
 package de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl
 
+import javax.inject.Inject
+
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.{FieldInterface, PlayingInterface}
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface, TokenInterface}
 
 import scala.collection.mutable.ArrayBuffer
 
-case class PlayingField() extends PlayingInterface {
+case class PlayingField @Inject() () extends PlayingInterface {
 
   val playingField = new ArrayBuffer[FieldInterface]
 

@@ -1,8 +1,10 @@
 package de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl
 
+import javax.inject.Inject
+
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
 
-case class Dice() {
+case class Dice @Inject() () {
 	var dice: Int = 0
   def rollDice(player: PlayerInterface) : Int = {
     val r = scala.util.Random

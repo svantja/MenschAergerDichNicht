@@ -1,7 +1,9 @@
 package de.htwg.se.menschaergerdichnicht
 
+import com.google.inject.Guice
 import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
 import de.htwg.se.menschaergerdichnicht.aview.tui.Tui
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
@@ -15,7 +17,8 @@ import scala.io.StdIn.readLine
 
 object Game {
 
-  val controller = new Controller()
+  val injector = Guice.createInjector(new MenschAergerDichNichtModule)
+  val controller = injector.getInstance(classOf[ControllerInterface])
   val tui = new Tui(controller)
   val gui = new SwingGui(controller)
   gui.visible = true
