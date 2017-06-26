@@ -55,34 +55,112 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   import javax.swing.ImageIcon
   var start_imgPoint = (680, 0)
-
-  val start_icon = new ImageIcon("../MenschAergerDichNicht/tokens/start.png")
-  val start_lb = new JLabel(start_icon)
+  val start_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\start.png")
   val start_image = start_icon.getImage
 
   var add_imgPoint = (680, 180)
-
-  val add_icon = new ImageIcon("../MenschAergerDichNicht/tokens/add.png")
-  val add_lb = new JLabel(add_icon)
+  val add_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\add.png")
   val add_image = add_icon.getImage
+
+  val red_tokens = new ArrayBuffer[Image]
+  for (i <- 1 to 4) {
+    val red_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\red" + i + ".png")
+    var red_image = red_token.getImage
+    red_image = red_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+    red_tokens += red_image
+  }
+
+  val blue_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\blue.png")
+  var blue_image = blue_token.getImage
+  blue_image = blue_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+  val green_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\green.png")
+  var green_image = green_token.getImage
+  green_image = green_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+  val yellow_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\yellow.png")
+  var yellow_image = yellow_token.getImage
+  yellow_image = yellow_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
 
   trait HomeFieldOne extends Panel{
 
-  listenTo(this.mouse.clicks)
-    var count = 0
+      listenTo(this.mouse.clicks)
+      var count = 0
 
-    reactions += {
-      case MouseClicked(src, point, i1, i2, b) => {
-        if (start_image != null && start_imgPoint != null) {
-          val me = point
-          val bounds = new Rectangle(start_imgPoint._1, start_imgPoint._2 ,start_icon.getIconWidth, start_icon.getIconHeight)
-          if (bounds.contains(me)) c.startGame(); repaint()
+      reactions += {
+        case MouseClicked(src, point, i1, i2, b) => {
+          if (start_image != null && start_imgPoint != null) {
+            val me = point
+            val start_bounds = new Rectangle(start_imgPoint._1, start_imgPoint._2, start_icon.getIconWidth, start_icon.getIconHeight)
+            if (start_bounds.contains(me)) c.startGame(); repaint;
+
+          }
+          if (add_image != null && add_imgPoint != null) {
+            val me = point
+            val bounds = new Rectangle(add_imgPoint._1, add_imgPoint._2 ,add_icon.getIconWidth, add_icon.getIconHeight)
+            if (bounds.contains(me) && i2 == 1) c.addPlayer("a"+count.toString); count += 1; repaint;
+          }
+          if (red_tokens != null) {
+            val me = point
+            moveToken(me)
+          }
+          if(blue_image != null) {
+            val me = point
+            moveToken(me)
+          }
+          if(green_image != null) {
+            val me = point
+            moveToken(me)
+          }
+          if(yellow_image != null){
+            val me = point
+            moveToken(me)
+          }
         }
-        if (add_image != null && add_imgPoint != null) {
-          val me = point
-          val bounds = new Rectangle(add_imgPoint._1, add_imgPoint._2 ,add_icon.getIconWidth, add_icon.getIconHeight)
-          if (bounds.contains(me) && i2 == 1) c.addPlayer("a"+count.toString); count += 1;
+      }
+
+    def moveToken(p:Point): Unit ={
+
+      val current_player = c.players.getCurrentPlayer
+      for (t <- current_player.getTokens()){
+        val me = p
+        if (current_player.getDiced() != 0) {
+          if (t.getCounter() != 0) {
+            val bounds = new Rectangle(PLAYING_FIELD(t.getPosition()._2)._1 + 5, PLAYING_FIELD(t.getPosition()._2)._2 + 5, 30, 30)
+            if (bounds.contains(me)){
+              c.chooseToken(t.tokenId)
+            }
+          }
+          if (t.getCounter() == 0 && current_player.getDiced() == 6){
+            t.getColor() match {
+              case "red" => {
+                val bounds = new Rectangle(HOMEFIELDPLAYERONE(t.getPosition()._2)._1 +5, HOMEFIELDPLAYERONE(t.getPosition()._2)._2 +5, 30, 30)
+                if (bounds.contains(me)){
+                  c.chooseToken(t.tokenId)
+                }
+              }
+              case "blue" => {
+                val bounds = new Rectangle(HOMEFIELDPLAYERTWO(t.getPosition()._2)._1 +5, HOMEFIELDPLAYERTWO(t.getPosition()._2)._2 +5, 30, 30)
+                if (bounds.contains(me)){
+                  c.chooseToken(t.tokenId)
+                }
+              }
+              case "green" => {
+                val bounds = new Rectangle(HOMEFIELDPLAYERTHREE(t.getPosition()._2)._1 +5, HOMEFIELDPLAYERTHREE(t.getPosition()._2)._2 +5, 30, 30)
+                if (bounds.contains(me)){
+                  c.chooseToken(t.tokenId)
+                }
+              }
+              case "yellow" => {
+                val bounds = new Rectangle(HOMEFIELDPLAYERFOUR(t.getPosition()._2)._1 +5, HOMEFIELDPLAYERFOUR(t.getPosition()._2)._2 +5, 30, 30)
+                if (bounds.contains(me)){
+                  c.chooseToken(t.tokenId)
+                }
+              }
+            }
+
+          }
         }
+
+
       }
     }
 
@@ -108,7 +186,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
       for (field <- HOMEFIELDPLAYERTWO) {
         g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
       }
-      for (field <- FINISH_FOUR) {
+      for (field <- FINISH_TWO) {
         g.fill(new Ellipse2D.Double(field._1,field._2 , 40.0, 40.0))
       }
 
@@ -153,65 +231,67 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
     def setPositionOne(g: Graphics2D, player: Player): Unit = {
         val tokens = player.getTokens()
         val color = tokens(0).getColor()
-        val bufferedImage = ImageIO.read(new File("../MenschAergerDichNicht/tokens/" + color + ".png"))
-        val bi = bufferedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
 
-        if (null != bufferedImage) {
+
           for (token <- tokens) {
             val pos = token.getPosition()
-            if (token.counter != 0 && token.counter < 41) {g.drawImage(bi, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)}
+            if (token.counter != 0 && token.counter < 41) {
+              color match {
+                case "red" => g.drawImage(red_tokens(token.tokenId - 1), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+                case "blue" => g.drawImage(blue_image, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+                case "yellow" => g.drawImage(yellow_image, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+                case "green" => g.drawImage(green_image, PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+              }
+            }
             else if(token.counter == 0) {
               color match {
-                case "red" => g.drawImage(bi, HOMEFIELDPLAYERONE(pos._2)._1 + 5, HOMEFIELDPLAYERONE(pos._2)._2 + 5, null)
-                case "blue" => g.drawImage(bi, HOMEFIELDPLAYERTWO(pos._2)._1 + 5, HOMEFIELDPLAYERTWO(pos._2)._2 + 5, null)
-                case "yellow" => g.drawImage(bi, HOMEFIELDPLAYERFOUR(pos._2)._1 + 5, HOMEFIELDPLAYERFOUR(pos._2)._2 + 5, null)
-                case "green" => g.drawImage(bi, HOMEFIELDPLAYERTHREE(pos._2)._1 + 5, HOMEFIELDPLAYERTHREE(pos._2)._2 + 5, null)
+                case "red" => g.drawImage(red_tokens(token.tokenId-1), HOMEFIELDPLAYERONE(pos._2)._1 + 5, HOMEFIELDPLAYERONE(pos._2)._2 + 5, null)
+                case "blue" => g.drawImage(blue_image, HOMEFIELDPLAYERTWO(pos._2)._1 + 5, HOMEFIELDPLAYERTWO(pos._2)._2 + 5, null)
+                case "yellow" => g.drawImage(yellow_image, HOMEFIELDPLAYERFOUR(pos._2)._1 + 5, HOMEFIELDPLAYERFOUR(pos._2)._2 + 5, null)
+                case "green" => g.drawImage(green_image, HOMEFIELDPLAYERTHREE(pos._2)._1 + 5, HOMEFIELDPLAYERTHREE(pos._2)._2 + 5, null)
               }
             }
             else if(token.counter >= 41) {
               color match {
-                case "red" => g.drawImage(bi, FINISH_ONE(pos._2)._1 + 5, FINISH_ONE(pos._2)._2 + 5, null)
-                case "blue" => g.drawImage(bi, FINISH_TWO(pos._2)._1 + 5, FINISH_TWO(pos._2)._2 + 5, null)
-                case "yellow" => g.drawImage(bi, FINISH_FOUR(pos._2)._1 + 5, FINISH_FOUR(pos._2)._2 + 5, null)
-                case "green" => g.drawImage(bi, FINISH_THREE(pos._2)._1 + 5, FINISH_THREE(pos._2)._2 + 5, null)
+                case "red" => g.drawImage(red_tokens(token.tokenId-1), FINISH_ONE(pos._2)._1 + 5, FINISH_ONE(pos._2)._2 + 5, null)
+                case "blue" => g.drawImage(blue_image, FINISH_TWO(pos._2)._1 + 5, FINISH_TWO(pos._2)._2 + 5, null)
+                case "yellow" => g.drawImage(yellow_image, FINISH_FOUR(pos._2)._1 + 5, FINISH_FOUR(pos._2)._2 + 5, null)
+                case "green" => g.drawImage(green_image, FINISH_THREE(pos._2)._1 + 5, FINISH_THREE(pos._2)._2 + 5, null)
               }
             }
           }
-        }
+
     }
 
     def setFirstPosition(d: Graphics2D, player: Player): Unit ={
       val tokens = player.getTokens()
       val color = tokens(0).getColor()
-      val bufferedImage = ImageIO.read(new File("../MenschAergerDichNicht/tokens/" + color + ".png"))
-      val bi = bufferedImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
 
-      if (null != bufferedImage) {
         color match {
           case "red" => {
             for (token <- tokens) {
-              d.drawImage(bi, HOMEFIELDPLAYERONE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERONE(token.getPosition()._2)._2 + 5, null)
+              d.drawImage(red_tokens(token.tokenId -1), HOMEFIELDPLAYERONE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERONE(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "yellow" => {
             for (token <- tokens) {
-              d.drawImage(bi, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._2 + 5, null)
+              d.drawImage(yellow_image, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERFOUR(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "green" => {
               for (token <- tokens) {
-                d.drawImage(bi, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._2 + 5, null)
+                d.drawImage(green_image, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "blue" => {
               for (token <- tokens) {
-                d.drawImage(bi, HOMEFIELDPLAYERTWO(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTWO(token.getPosition()._2)._2 + 5, null)
+                d.drawImage(blue_image, HOMEFIELDPLAYERTWO(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTWO(token.getPosition()._2)._2 + 5, null)
               }
             }
           }
         }
       }
-    }
+
   }
   title = "Mensch Ärger Dich nicht"
   preferredSize = new Dimension(960, 890)
