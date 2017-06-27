@@ -1,11 +1,9 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
 import com.google.inject.{Guice, Inject}
-import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
 import de.htwg.se.menschaergerdichnicht.util.Command
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 import scala.util.{Success, Try}
