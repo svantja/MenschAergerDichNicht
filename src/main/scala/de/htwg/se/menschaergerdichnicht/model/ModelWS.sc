@@ -1,34 +1,61 @@
-import de.htwg.se.menschaergerdichnicht.model.{Field, Player, Team, Token}
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.{FieldInterface, HouseInterface}
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface}
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 import scala.collection.mutable.ArrayBuffer
 
 
 print("hello")
 
+case class Players(currentPlayer: Int = 0, players: Vector[Player] = Vector()) extends PlayersInterface {
 
-case class Dice() {
-  var dice: Int = 0
-  def rollDice(player: Player) : Int = {
-    val r = scala.util.Random;
-    if (player.house.isFull(player)) {
-      for (i <- 1 to 3) {
-        do {
-          dice = r.nextInt(7)
-        } while(dice == 0)
+  def addPlayer(player: Player): Players = {
+    copy(players = players :+ player)
+  }
 
-        if (dice == 6) dice
+  def removePlayer(): Players = {
+    copy(players = players.init)
+  }
+  def updateCurrentPlayer(player: PlayerInterface): Players = {
+    copy(players = players.updated(currentPlayer, Player(player.getName(), player.getDiced())))
+  }
+  def nextPlayer(): Players = {
+    copy(currentPlayer = (currentPlayer + 1) % players.length)
+    //players(currentPlayer)
+  }
+  def getCurrentPlayer: Player = {
+    players(currentPlayer)
+  }
+  def getAllPlayer: Vector[Player] = {
+    players
+  }
+
+  override def toString: String = {
+    var nameList = ""
+    for (player <- players) {
+      if (player == players(currentPlayer)) {
+        nameList += "Current > " + player.toString() + "\n"
+      }
+      else {
+        nameList += "  " + player.toString() + "\n"
       }
     }
-    9
+    nameList
   }
 }
 
-val player = Player("ana", 0)
+val player = Player("hans", 1)
+val player2 = Player("brigitte", 2)
+val players: Players = Players(0, players = Vector(player, player2))
+
+players.addPlayer(player)
+players.addPlayer(player2)
+
+println(players)
+
+println(players.getAllPlayer)
 
 
-val dice = new Dice()
-
-dice.rollDice(player)
 
 
 

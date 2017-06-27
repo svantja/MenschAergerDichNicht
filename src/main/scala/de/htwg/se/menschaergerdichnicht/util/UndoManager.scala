@@ -11,23 +11,23 @@ class UndoManager {
   var undoStack: mutable.Stack[Command] = mutable.Stack()
   var redoStack: mutable.Stack[Command] = mutable.Stack()
 
-  def action(com: Command): Try[_] = {
-    val result = com.action()
-    if (result.isSuccess) {
-      undoStack.push(com)
+  def action(c: Command): Try[_] = {
+    val event = c.action()
+    if (event.isSuccess) {
+      undoStack.push(c)
       redoStack.clear()
     }
-    result
+    event
   }
 
   def undo(): Try[_] = {
     if (undoStack.nonEmpty) {
-      val temp = undoStack.pop()
-      val result = temp.undo()
-      if (result.isSuccess) {
-        redoStack.push(temp)
+      val tmp = undoStack.pop()
+      val event = tmp.undo()
+      if (event.isSuccess) {
+        redoStack.push(tmp)
       }
-      result
+      event
     } else {
       Failure(new Exception("Not possible to undo right now!"))
     }
@@ -35,12 +35,12 @@ class UndoManager {
 
   def redo(): Try[_] = {
     if (redoStack.nonEmpty) {
-      val temp = redoStack.pop()
-      val result = temp.action()
-      if (result.isSuccess) {
-        undoStack.push(temp)
+      val tmp = redoStack.pop()
+      val event = tmp.action()
+      if (event.isSuccess) {
+        undoStack.push(tmp)
       }
-      result
+      event
     } else {
       Failure(new Exception("Not possible to redo right now!"))
     }
