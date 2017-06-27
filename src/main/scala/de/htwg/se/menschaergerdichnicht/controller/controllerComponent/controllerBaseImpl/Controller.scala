@@ -1,6 +1,7 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
 import com.google.inject.Guice
+import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.menschaergerdichnicht.Game.controller
 import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
 import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
@@ -10,6 +11,8 @@ import de.htwg.se.menschaergerdichnicht.util.{Observable, UndoManager}
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.PlayingInterface
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.PlayingField
+import de.htwg.se.menschaergerdichnicht.model.fileIoComponent.FileIoInterface
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface}
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Players
 
 import scala.util._

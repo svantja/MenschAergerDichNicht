@@ -5,13 +5,16 @@ package de.htwg.se.menschaergerdichnicht.controller.controllerComponent
   */
 object GameState extends Enumeration{
   type GameState = Value
-  val NONE, PREPARE, ONGOING, FINISHED = Value
+  val NONE, PREPARE, ONGOING, FINISHED, SAVED, LOADED, NOTLOADED = Value
 
   val map = Map[GameState, String](
     NONE -> "",
     PREPARE -> "Prepare",
     ONGOING -> "",
-    FINISHED -> "Game is finished!"
+    FINISHED -> "Game is finished!",
+    SAVED -> "Game saved",
+    LOADED -> "A new Game is loaded",
+    NOTLOADED -> "Could not load"
   )
 
   def message(gameState: GameState): Unit = {
