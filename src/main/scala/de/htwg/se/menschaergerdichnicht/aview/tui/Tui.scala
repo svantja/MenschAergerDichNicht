@@ -5,10 +5,11 @@ import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.menschaergerdichnicht.util.Observer
 import scala.collection.mutable.ArrayBuffer
+import com.typesafe.scalalogging.LazyLogging
 /**
   * Created by Anastasia on 01.05.17.
   */
-class Tui(controller: ControllerInterface) extends Observer{
+class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
 
   controller.add(this)
 
@@ -188,11 +189,14 @@ class Tui(controller: ControllerInterface) extends Observer{
   }
 
   override def update: Unit =  printTui()
-  def printTui(): Unit = {
+
+  def printTui(): Unit = logger.info(printingTui)
+
+  def printingTui(): String = {
     //    if (controller.gameState.isInstanceOf[Prepare]) {
     //      println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
     //    }
-
+    var r = ""
     if (controller.gameState == NONE) {
       println(field.length, playing_field.length, controller.playingField.playingField.length)
       println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
@@ -250,5 +254,6 @@ class Tui(controller: ControllerInterface) extends Observer{
       println()
       println("current: "+controller.players.getCurrentPlayer)
     }
+    r
   }
 }
