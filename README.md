@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/svantja/de.htwg.se.MenschAergerDichNichct.svg?branch=master)](https://travis-ci.org/svantja/de.htwg.se.MenschAergerDichNicht)
+[![Build Status](https://travis-ci.org/svantja/MenschAergerDichNicht.svg?branch=master)](https://travis-ci.org/svantja/de.htwg.se.MenschAergerDichNicht)
 
-[![Coverage Status](https://coveralls.io/repos/github/svantja/de.htwg.se.MenschAergerDichNicht/badge.svg?branch=master)](https://coveralls.io/github/svantja/de.htwg.se.MenschAergerDichNicht?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/svantja/MenschAergerDichNicht/badge.svg?branch=master)](https://coveralls.io/github/svantja/MenschAergerDichNicht?branch=master)
 
 
 Mensch Aerger Dich Nicht
