@@ -1,6 +1,5 @@
 package de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl
 
-import com.google.inject.Inject
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.{House, TargetField}
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.FieldInterface
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface, TokenInterface}

@@ -1,11 +1,8 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
-import com.google.inject.{Guice, Inject}
-import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
 import de.htwg.se.menschaergerdichnicht.util.Command
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 import scala.util.{Success, Try}
@@ -15,7 +12,6 @@ import scala.util.{Success, Try}
   */
 case class AddPlayer(name: String, c: Controller) extends Command {
   val player = Player(name, 0)
-
 
   override def action(): Try[_] = {
     if (c.gameState == NONE || c.gameState == PREPARE) {

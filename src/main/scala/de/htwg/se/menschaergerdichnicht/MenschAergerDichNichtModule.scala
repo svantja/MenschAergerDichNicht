@@ -4,7 +4,6 @@ import com.google.inject.AbstractModule
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent._
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent._
 import de.htwg.se.menschaergerdichnicht.model.fileIoComponent._
-import de.htwg.se.menschaergerdichnicht.model.playerComponent._
 import net.codingwell.scalaguice.ScalaModule
 
 /**
