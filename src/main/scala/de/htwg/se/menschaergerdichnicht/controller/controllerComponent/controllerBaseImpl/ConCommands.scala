@@ -18,7 +18,7 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 
 
   override def action(): Try[_] = {
-    if (c.gameState != ONGOING) {
+    if (c.gameState == NONE || c.gameState == PREPARE) {
       if(c.players.players.length < 4) {
         c.players = c.players.addPlayer(player)
         println("Spieler " + name + " wurde hinzugefuegt")
@@ -54,13 +54,16 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
       if (token.counter == 0) {
         c.playingField.moveToStart(token)
         println("Moved Token" + tokenId + " to start")
+        player.setDiced(0)
       } else {
         c.playingField.moveToken(token, player.getDiced(), c.players)
         println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+        player.setDiced(0)
       }
     } else {
       c.playingField.moveToken(token, player.getDiced(), c.players)
       println("Moved Token" + tokenId + " " + player.getDiced() + " fields")
+      player.setDiced(0)
       c.players = c.players.nextPlayer()
     }
     c.gameState = ONGOING
@@ -80,6 +83,7 @@ case class Play(c: Controller) extends Command {
 
   override def action(): Try[_] = {
     //while (true)
+    if(c.gameState != DICED){
       val player = c.players.getCurrentPlayer
       if (!player.getFinished()) {
         val num = dice.rollDice(c.players.getCurrentPlayer)
@@ -88,15 +92,15 @@ case class Play(c: Controller) extends Command {
           println("Cannot move, next player.")
           c.players = c.players.nextPlayer()
           println(c.players.getCurrentPlayer)
+          c.gameState == ONGOING
 
         } else {
           if (player.house.isFull(player)) {
             player.setDiced(num)
-            //c.playingField.moveToStart(player.tokens(0))
             println("Choose token to move")
             println(num + "diced" + player.getDiced())
             println("avaiable tokens: " + player.getAvailableTokens())
-
+            c.gameState = DICED
           } else {
             player.setDiced(num)
 
@@ -104,6 +108,7 @@ case class Play(c: Controller) extends Command {
               println("Choose token to move")
               println(num + "diced" + player.getDiced())
               println("avaiable tokens: " + player.getAvailableTokens())
+              c.gameState = DICED
             } else {
               if (player.getAvailableTokens().length == 0) {
                 println("Cannot move, must dice a 6")
@@ -112,13 +117,19 @@ case class Play(c: Controller) extends Command {
                 println("Choose token to move")
                 println(num + "diced" + player.getDiced())
                 println("avaiable tokens: " + player.getAvailableTokens())
+                c.gameState = DICED
               }
             }
           }
         }
       }
+    }
+    else {
+      println("Player must move before dicing again!")
+    }
+
     //}
-    c.gameState = ONGOING
+    //c.gameState = ONGOING
     c.tui.update
     Success()
   }

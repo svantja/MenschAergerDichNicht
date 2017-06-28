@@ -17,7 +17,7 @@ import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.Controlle
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.{Player, Players}
 import java.awt.Rectangle
 
-import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState.ONGOING
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState.{DICED, ONGOING, PREPARE, NONE}
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
 
 /**
@@ -224,9 +224,9 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
     def paintBackground(g: Graphics2D): Unit = {
       g.drawImage(start_image, start_imgPoint._1, start_imgPoint._2, null)
-      if(c.gameState != ONGOING) {
+      if(c.gameState == PREPARE || c.gameState == NONE) {
         g.drawImage(add_image, add_imgPoint._1, add_imgPoint._2, null)
-      } else if(c.gameState == ONGOING){
+      } else{
         g.drawImage(current(c.players.getCurrentPlayer.playerId-1), add_imgPoint._1, add_imgPoint._2, null)
       }
       g.setBackground(Color.LIGHT_GRAY)
