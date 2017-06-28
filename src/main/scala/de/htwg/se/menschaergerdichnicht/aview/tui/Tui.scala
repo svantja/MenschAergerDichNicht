@@ -199,61 +199,63 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
     var r = ""
     println(controller.gameState)
     if (controller.gameState == NONE) {
-      println(field.length, playing_field.length, controller.playingField.playingField.length)
-      println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
+      r += "\n" + field.length + " " + playing_field.length + " " + controller.playingField.playingField.length
+      r += "\nadd: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game"
     }
     if (controller.gameState == PREPARE) {
       val p = controller.players
       val f = paintStartFields(controller.players.players.length)
-      for(i <- 0 to 10) print(f(i))
-      println()
-      for(i <- 11 to 21) print(f(i))
-      println()
-      for(i <- 22 to 32) print(f(i))
-      println()
-      for(i <- 33 to 43) print(f(i))
-      println()
-      for(i <- 44 to 54) print(f(i))
-      println()
-      for(i <- 55 to 65) print(f(i))
-      println()
-      for(i <- 66 to 76) print(f(i))
-      println()
-      for(i <- 77 to 87) print(f(i))
-      println()
-      for(i <- 88 to 98) print(f(i))
-      println()
-      for(i <- 99 to 109) print(f(i))
-      println()
-      for(i <- 110 to 120) print(f(i))
-      println()
+      r += "\n"
+      for(i <- 0 to 10) r += "" + f(i)
+      r += "\n"
+      for(i <- 11 to 21) r += "" + f(i)
+      r += "\n"
+      for(i <- 22 to 32) r += "" + f(i)
+      r += "\n"
+      for(i <- 33 to 43) r += "" + f(i)
+      r += "\n"
+      for(i <- 44 to 54) r += "" + f(i)
+      r += "\n"
+      for(i <- 55 to 65) r += "" + f(i)
+      r += "\n"
+      for(i <- 66 to 76) r += "" + f(i)
+      r += "\n"
+      for(i <- 77 to 87) r += "" + f(i)
+      r += "\n"
+      for(i <- 88 to 98) r += "" + f(i)
+      r += "\n"
+      for(i <- 99 to 109) r += "" + f(i)
+      r += "\n"
+      for(i <- 110 to 120) r += "" + f(i)
+      r += "\n"
     }
     if (controller.gameState == ONGOING) {
-      println(controller.players.getCurrentPlayer.getTokens())
+      r += "\n" + controller.players.getCurrentPlayer.getTokens()
       val f = printPlaying()
-      for(i <- 0 to 10) print(f(i))
-      println()
-      for(i <- 11 to 21) print(f(i))
-      println()
-      for(i <- 22 to 32) print(f(i))
-      println()
-      for(i <- 33 to 43) print(f(i))
-      println()
-      for(i <- 44 to 54) print(f(i))
-      println()
-      for(i <- 55 to 65) print(f(i))
-      println()
-      for(i <- 66 to 76) print(f(i))
-      println()
-      for(i <- 77 to 87) print(f(i))
-      println()
-      for(i <- 88 to 98) print(f(i))
-      println()
-      for(i <- 99 to 109) print(f(i))
-      println()
-      for(i <- 110 to 120) print(f(i))
-      println()
-      println("current: "+controller.players.getCurrentPlayer)
+      r += "\n"
+      for(i <- 0 to 10) r += "" + f(i)
+      r += "\n"
+      for(i <- 11 to 21) r += "" + f(i)
+      r += "\n"
+      for(i <- 22 to 32) r += "" + f(i)
+      r += "\n"
+      for(i <- 33 to 43) r += "" + f(i)
+      r += "\n"
+      for(i <- 44 to 54) r += "" + f(i)
+      r += "\n"
+      for(i <- 55 to 65) r += "" + f(i)
+      r += "\n"
+      for(i <- 66 to 76) r += "" + f(i)
+      r += "\n"
+      for(i <- 77 to 87) r += "" + f(i)
+      r += "\n"
+      for(i <- 88 to 98) r += "" + f(i)
+      r += "\n"
+      for(i <- 99 to 109) r += "" + f(i)
+      r += "\n"
+      for(i <- 110 to 120) r += "" + f(i)
+      r += "\n"
+      r += "\ncurrent: " + controller.players.getCurrentPlayer
     }
     r
   }
