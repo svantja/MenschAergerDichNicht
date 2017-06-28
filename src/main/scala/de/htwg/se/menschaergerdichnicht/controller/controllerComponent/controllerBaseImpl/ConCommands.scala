@@ -84,6 +84,7 @@ case class Play(c: Controller) extends Command {
   override def action(): Try[_] = {
     //while (true)
     if(c.gameState != DICED){
+      c.gameState == ONGOING
       val player = c.players.getCurrentPlayer
       if (!player.getFinished()) {
         val num = dice.rollDice(c.players.getCurrentPlayer)
@@ -112,6 +113,7 @@ case class Play(c: Controller) extends Command {
             } else {
               if (player.getAvailableTokens().length == 0) {
                 println("Cannot move, must dice a 6")
+                c.gameState = ONGOING
                 c.players = c.players.nextPlayer()
               }else {
                 println("Choose token to move")
@@ -128,7 +130,7 @@ case class Play(c: Controller) extends Command {
       println("Player must move before dicing again!")
     }
 
-    //}
+
     //c.gameState = ONGOING
     c.tui.update
     Success()

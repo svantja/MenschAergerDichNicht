@@ -197,6 +197,7 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
     //      println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
     //    }
     var r = ""
+    println(controller.gameState)
     if (controller.gameState == NONE) {
       println(field.length, playing_field.length, controller.playingField.playingField.length)
       println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
