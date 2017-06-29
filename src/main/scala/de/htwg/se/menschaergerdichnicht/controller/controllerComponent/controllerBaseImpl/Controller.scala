@@ -1,6 +1,6 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
-import com.google.inject.Guice
+import com.google.inject.{Guice, Inject}
 import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
 import de.htwg.se.menschaergerdichnicht.util.{Observable, UndoManager}
@@ -12,7 +12,7 @@ import scala.util._
 /**
   * Created by Anastasia on 01.05.17.
   */
-case class Controller() extends ControllerInterface {
+case class Controller @Inject() () extends ControllerInterface {
 
   var players = Players()
 
