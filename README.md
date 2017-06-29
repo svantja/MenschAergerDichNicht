@@ -8,7 +8,7 @@ Mensch Aerger Dich Nicht
 
 This is scala project for the class Software Engineering at the University of Applied Science HTWG Konstanz
 
-##Goals of project
+## Goals of project
 
 * learning Scala
 * clean code
@@ -24,7 +24,7 @@ This is scala project for the class Software Engineering at the University of Ap
 * Version Control System
     *Git
 
-##Game Overview
+## Game Overview
 
 **Game preparation**
 
