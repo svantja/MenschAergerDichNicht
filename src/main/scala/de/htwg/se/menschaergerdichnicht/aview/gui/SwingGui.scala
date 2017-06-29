@@ -17,7 +17,7 @@ import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.Controlle
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.{Player, Players}
 import java.awt.Rectangle
 
-import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState.ONGOING
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState.{DICED, ONGOING, PREPARE, NONE}
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
 
 /**
@@ -61,6 +61,11 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
   val start_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\start.png")
   var start_image = start_icon.getImage
   start_image = start_image.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
+
+  var dicing_imgPoint = (680, 0)
+  val dicing_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\dice.png")
+  var dicing_image = dicing_icon.getImage
+  dicing_image = dicing_image.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
 
   var add_imgPoint = (680, 180)
   val add_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\add.png")
@@ -126,13 +131,17 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
           if (start_image != null && start_imgPoint != null) {
             val me = point
             val start_bounds = new Rectangle(start_imgPoint._1, start_imgPoint._2, start_icon.getIconWidth, start_icon.getIconHeight)
-            if (start_bounds.contains(me)) c.startGame();
+            if (start_bounds.contains(me) && c.gameState == PREPARE){
+              c.gameState = ONGOING;
+            } else if(start_bounds.contains(me) && c.gameState == ONGOING){
+              c.startGame()
+            }
             this.repaint;
           }
           if (add_image != null && add_imgPoint != null) {
             val me = point
             val bounds = new Rectangle(add_imgPoint._1, add_imgPoint._2 ,add_icon.getIconWidth, add_icon.getIconHeight)
-            if (bounds.contains(me) && i2 == 1) c.addPlayer("a"+count.toString); count += 1; repaint;
+            if (bounds.contains(me) && i2 == 1 && (c.gameState == PREPARE || c.gameState == NONE)) c.addPlayer("a"+count.toString); count += 1; repaint;
             this.repaint;
           }
           if (red_tokens != null) {
@@ -223,10 +232,11 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
     }
 
     def paintBackground(g: Graphics2D): Unit = {
-      g.drawImage(start_image, start_imgPoint._1, start_imgPoint._2, null)
-      if(c.gameState != ONGOING) {
+      if(c.gameState == PREPARE || c.gameState == NONE) {
+        g.drawImage(start_image, start_imgPoint._1, start_imgPoint._2, null)
         g.drawImage(add_image, add_imgPoint._1, add_imgPoint._2, null)
-      } else if(c.gameState == ONGOING){
+      } else if(c.gameState == ONGOING || c.gameState == DICED){
+        g.drawImage(dicing_image, start_imgPoint._1, start_imgPoint._2, null)
         g.drawImage(current(c.players.getCurrentPlayer.playerId-1), add_imgPoint._1, add_imgPoint._2, null)
       }
       g.setBackground(Color.LIGHT_GRAY)

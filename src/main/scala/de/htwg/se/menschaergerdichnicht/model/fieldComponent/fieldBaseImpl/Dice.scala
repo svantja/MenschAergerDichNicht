@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.PlayerInterface
 
-case class Dice @Inject() () {
+case class Dice () {
 	var dice: Int = 0
   def rollDice(player: PlayerInterface) : Int = {
     val r = scala.util.Random
