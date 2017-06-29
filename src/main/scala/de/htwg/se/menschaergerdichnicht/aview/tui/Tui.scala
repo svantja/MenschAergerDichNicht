@@ -193,9 +193,6 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
   def printTui(): Unit = logger.info(printingTui)
 
   def printingTui(): String = {
-    //    if (controller.gameState.isInstanceOf[Prepare]) {
-    //      println("add: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game")
-    //    }
     var r = ""
     if (controller.gameState == NONE) {
       r += "\nadd: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game"
@@ -228,7 +225,6 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
       r += "\n"
     }
     if (controller.gameState == ONGOING) {
-      r += "\n" + controller.players.getCurrentPlayer.getTokens()
       val f = printPlaying()
       r += "\n"
       for(i <- 0 to 10) r += "" + f(i)

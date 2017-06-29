@@ -6,11 +6,52 @@
 Mensch Aerger Dich Nicht
 =========================
 
-This is a seed project to create a basic scala project as used in the
-class Software Engineering at the University of Applied Science HTWG Konstanz
+This is scala project for the class Software Engineering at the University of Applied Science HTWG Konstanz
 
-* Has a folder structure prepared for a MVC-style application
-* Has *ScalaTest* and *ScalaMock* at their latest versions as dependencies.
-* Has *sbt-scalariform*, *sbt-scapegoat*, *scalastyle-sbt-plugin* and *sbt-scoverage* sbt plugins
-* Has .gitignore defaults
-Test for user commit
+##Goals of project
+
+* learning Scala
+* clean code
+* Design Patterns
+    * State Pattern (game state)
+    * Observer Pattern (for MVC inversion of control)
+    * Command Pattern (action & undo)
+* MVC Architecture
+* Tests & Specs
+* Build Tool & Continuous Integration
+    * Travis
+    * sbt
+* Version Control System
+    *Git
+
+##Game Overview
+
+**Game preparation**
+
+* Add players
+    * `add name`
+    * click on button `add player`
+    * tokens are set on each players house
+* Start Game
+    * `start`
+    * click on button `start`
+    
+**Playing the Game**
+
+* signal ready to dice
+    * `ready` or `r`
+    * click button `dice`
+* select token-id to move
+    * `move 1`
+    * click on token
+    
+* tokens start on each players start-field
+
+**End of Game**
+
+* Game ends when all players, except of one, have all tokens on their target-fields
+* First player to finish wins the game
+
+
+
+

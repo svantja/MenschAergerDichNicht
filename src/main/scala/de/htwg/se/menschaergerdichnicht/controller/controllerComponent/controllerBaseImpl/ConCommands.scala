@@ -35,7 +35,6 @@ case class AddPlayer(name: String, c: Controller) extends Command {
     c.tui.update
     Success()
   }
-
 }
 
 case class ChooseToken(tokenId: Int, c: Controller) extends Command {
