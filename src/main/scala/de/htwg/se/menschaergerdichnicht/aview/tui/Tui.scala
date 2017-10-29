@@ -15,6 +15,8 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
 
   val DEFAULT_TOKEN = 17
 
+  private val NEWLINE = System.getProperty("line.separator")
+
   var home_one = ArrayBuffer("o", "o", "o", "o")
   var home_two = ArrayBuffer("o", "o", "o", "o")
   var home_three = ArrayBuffer("o", "o", "o", "o")
@@ -253,4 +255,13 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
     }
     r
   }
+
+  def toHtml: String = {
+    val game = this.toString
+    var result = game.replace(NEWLINE, "<br>")
+    result = result.replace("     ", " &nbsp; &nbsp; ")
+    result = result.replace("   ", " &nbsp; ")
+    result
+  }
+
 }
