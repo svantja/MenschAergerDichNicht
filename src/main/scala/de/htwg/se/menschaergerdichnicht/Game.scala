@@ -21,10 +21,16 @@ object Game {
   val controller = injector.getInstance(classOf[ControllerInterface])
   val tui = controller.tui
   val gui = controller.gui
+  val agui = controller.agui
+  //gui.visible = true
   gui.visible = true
+
+
 
   def main(args: Array[String]): Unit = {
 
+    agui.ui.start()
+    agui.ui.visible
     var input: String = ""
     tui.update
     do {
@@ -32,5 +38,6 @@ object Game {
       tui.processInputLine(input)
     } while (input != "q")
     gui.dispose()
+    agui.destroy()
   }
 }

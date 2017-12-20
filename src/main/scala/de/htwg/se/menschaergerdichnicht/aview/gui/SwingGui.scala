@@ -123,45 +123,45 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   trait HomeFieldOne extends Panel{
 
-      listenTo(this.mouse.clicks)
-      var count = 0
+    listenTo(this.mouse.clicks)
+    var count = 0
 
-      reactions += {
-        case MouseClicked(src, point, i1, i2, b) => {
-          if (start_image != null && start_imgPoint != null) {
-            val me = point
-            val start_bounds = new Rectangle(start_imgPoint._1, start_imgPoint._2, start_icon.getIconWidth, start_icon.getIconHeight)
-            if (start_bounds.contains(me) && c.gameState == PREPARE){
-              c.gameState = ONGOING;
-            } else if(start_bounds.contains(me) && c.gameState == ONGOING){
-              c.startGame()
-            }
-            this.repaint;
+    reactions += {
+      case MouseClicked(src, point, i1, i2, b) => {
+        if (start_image != null && start_imgPoint != null) {
+          val me = point
+          val start_bounds = new Rectangle(start_imgPoint._1, start_imgPoint._2, start_icon.getIconWidth, start_icon.getIconHeight)
+          if (start_bounds.contains(me) && c.gameState == PREPARE){
+            c.gameState = ONGOING;
+          } else if(start_bounds.contains(me) && c.gameState == ONGOING){
+            c.startGame()
           }
-          if (add_image != null && add_imgPoint != null) {
-            val me = point
-            val bounds = new Rectangle(add_imgPoint._1, add_imgPoint._2 ,add_icon.getIconWidth, add_icon.getIconHeight)
-            if (bounds.contains(me) && i2 == 1 && (c.gameState == PREPARE || c.gameState == NONE)) c.addPlayer("a"+count.toString); count += 1; repaint;
-            this.repaint;
-          }
-          if (red_tokens != null) {
-            val me = point
-            moveToken(me)
-          }
-          if(blue_tokens != null) {
-            val me = point
-            moveToken(me)
-          }
-          if(green_tokens != null) {
-            val me = point
-            moveToken(me)
-          }
-          if(yellow_tokens != null){
-            val me = point
-            moveToken(me)
-          }
+          this.repaint;
+        }
+        if (add_image != null && add_imgPoint != null) {
+          val me = point
+          val bounds = new Rectangle(add_imgPoint._1, add_imgPoint._2 ,add_icon.getIconWidth, add_icon.getIconHeight)
+          if (bounds.contains(me) && i2 == 1 && (c.gameState == PREPARE || c.gameState == NONE)) c.addPlayer("a"+count.toString); count += 1; repaint;
+          this.repaint;
+        }
+        if (red_tokens != null) {
+          val me = point
+          moveToken(me)
+        }
+        if(blue_tokens != null) {
+          val me = point
+          moveToken(me)
+        }
+        if(green_tokens != null) {
+          val me = point
+          moveToken(me)
+        }
+        if(yellow_tokens != null){
+          val me = point
+          moveToken(me)
         }
       }
+    }
 
     def moveToken(p:Point): Unit ={
 
@@ -295,44 +295,44 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
         else {setPositionOne(g, p)}
       }
 
-    def setPositionOne(g: Graphics2D, player: PlayerInterface): Unit = {
+      def setPositionOne(g: Graphics2D, player: PlayerInterface): Unit = {
         val tokens = player.getTokens()
         val color = tokens(0).getColor()
 
 
-          for (token <- tokens) {
-            val pos = token.getPosition()
-            if (token.counter != 0 && token.counter < 41) {
-              color match {
-                case "red" => g.drawImage(red_tokens(token.tokenId - 1), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
-                case "blue" => g.drawImage(blue_tokens(token.tokenId -5), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
-                case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
-                case "green" => g.drawImage(green_tokens(token.tokenId-9), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
-              }
-            }
-            else if(token.counter == 0) {
-              color match {
-                case "red" => g.drawImage(red_tokens(token.tokenId-1), HOMEFIELDPLAYERONE(pos._2)._1 + 5, HOMEFIELDPLAYERONE(pos._2)._2 + 5, null)
-                case "blue" => g.drawImage(blue_tokens(token.tokenId-5), HOMEFIELDPLAYERTWO(pos._2)._1 + 5, HOMEFIELDPLAYERTWO(pos._2)._2 + 5, null)
-                case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), HOMEFIELDPLAYERFOUR(pos._2)._1 + 5, HOMEFIELDPLAYERFOUR(pos._2)._2 + 5, null)
-                case "green" => g.drawImage(green_tokens(token.tokenId-9), HOMEFIELDPLAYERTHREE(pos._2)._1 + 5, HOMEFIELDPLAYERTHREE(pos._2)._2 + 5, null)
-              }
-            }
-            else if(token.counter >= 41) {
-              color match {
-                case "red" => g.drawImage(red_tokens(token.tokenId-1), FINISH_ONE(pos._2)._1 + 5, FINISH_ONE(pos._2)._2 + 5, null)
-                case "blue" => g.drawImage(blue_tokens(token.tokenId-5), FINISH_TWO(pos._2)._1 + 5, FINISH_TWO(pos._2)._2 + 5, null)
-                case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), FINISH_FOUR(pos._2)._1 + 5, FINISH_FOUR(pos._2)._2 + 5, null)
-                case "green" => g.drawImage(green_tokens(token.tokenId-9), FINISH_THREE(pos._2)._1 + 5, FINISH_THREE(pos._2)._2 + 5, null)
-              }
+        for (token <- tokens) {
+          val pos = token.getPosition()
+          if (token.counter != 0 && token.counter < 41) {
+            color match {
+              case "red" => g.drawImage(red_tokens(token.tokenId - 1), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+              case "blue" => g.drawImage(blue_tokens(token.tokenId -5), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+              case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
+              case "green" => g.drawImage(green_tokens(token.tokenId-9), PLAYING_FIELD(pos._2)._1 + 5, PLAYING_FIELD(pos._2)._2 + 5, null)
             }
           }
+          else if(token.counter == 0) {
+            color match {
+              case "red" => g.drawImage(red_tokens(token.tokenId-1), HOMEFIELDPLAYERONE(pos._2)._1 + 5, HOMEFIELDPLAYERONE(pos._2)._2 + 5, null)
+              case "blue" => g.drawImage(blue_tokens(token.tokenId-5), HOMEFIELDPLAYERTWO(pos._2)._1 + 5, HOMEFIELDPLAYERTWO(pos._2)._2 + 5, null)
+              case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), HOMEFIELDPLAYERFOUR(pos._2)._1 + 5, HOMEFIELDPLAYERFOUR(pos._2)._2 + 5, null)
+              case "green" => g.drawImage(green_tokens(token.tokenId-9), HOMEFIELDPLAYERTHREE(pos._2)._1 + 5, HOMEFIELDPLAYERTHREE(pos._2)._2 + 5, null)
+            }
+          }
+          else if(token.counter >= 41) {
+            color match {
+              case "red" => g.drawImage(red_tokens(token.tokenId-1), FINISH_ONE(pos._2)._1 + 5, FINISH_ONE(pos._2)._2 + 5, null)
+              case "blue" => g.drawImage(blue_tokens(token.tokenId-5), FINISH_TWO(pos._2)._1 + 5, FINISH_TWO(pos._2)._2 + 5, null)
+              case "yellow" => g.drawImage(yellow_tokens(token.tokenId-13), FINISH_FOUR(pos._2)._1 + 5, FINISH_FOUR(pos._2)._2 + 5, null)
+              case "green" => g.drawImage(green_tokens(token.tokenId-9), FINISH_THREE(pos._2)._1 + 5, FINISH_THREE(pos._2)._2 + 5, null)
+            }
+          }
+        }
 
-    }
+      }
 
-    def setFirstPosition(d: Graphics2D, player: PlayerInterface): Unit ={
-      val tokens = player.getTokens()
-      val color = tokens(0).getColor()
+      def setFirstPosition(d: Graphics2D, player: PlayerInterface): Unit ={
+        val tokens = player.getTokens()
+        val color = tokens(0).getColor()
 
         color match {
           case "red" => {
@@ -346,18 +346,18 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
             }
           }
           case "green" => {
-              for (token <- tokens) {
-                d.drawImage(green_tokens(token.tokenId-9), HOMEFIELDPLAYERTHREE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._2 + 5, null)
+            for (token <- tokens) {
+              d.drawImage(green_tokens(token.tokenId-9), HOMEFIELDPLAYERTHREE(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTHREE(token.getPosition()._2)._2 + 5, null)
             }
           }
           case "blue" => {
-              for (token <- tokens) {
-                d.drawImage(blue_tokens(token.tokenId - 5), HOMEFIELDPLAYERTWO(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTWO(token.getPosition()._2)._2 + 5, null)
-              }
+            for (token <- tokens) {
+              d.drawImage(blue_tokens(token.tokenId - 5), HOMEFIELDPLAYERTWO(token.getPosition()._2)._1 + 5, HOMEFIELDPLAYERTWO(token.getPosition()._2)._2 + 5, null)
             }
           }
         }
       }
+    }
 
   }
   title = "Mensch Ärger Dich nicht"
@@ -371,5 +371,5 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 }
 
 object GuiProgramOne {
-    println("End of main function")
+  println("End of main function")
 }

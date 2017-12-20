@@ -1,6 +1,6 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent
 
-import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
+import de.htwg.se.menschaergerdichnicht.aview.gui.{AppletGui, SwingGui}
 import de.htwg.se.menschaergerdichnicht.aview.tui.Tui
 
 import scala.util._
@@ -21,6 +21,7 @@ trait ControllerInterface extends Observable{
   var gameState: GameState
   var tui = new Tui(this)
   var gui = new SwingGui(this)
+  var agui = new AppletGui(this)
   def addPlayer(name: String): Try[_]
   def startGame(): Try[_]
   def chooseToken(tokenId: Int): Try[_]
