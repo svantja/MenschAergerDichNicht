@@ -58,23 +58,23 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   import javax.swing.ImageIcon
   var start_imgPoint = (680, 0)
-  val start_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\start.png")
+  val start_icon = new ImageIcon(getClass().getResource("/tokens/start.png"))
   var start_image = start_icon.getImage
   start_image = start_image.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
 
   var dicing_imgPoint = (680, 0)
-  val dicing_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\dice.png")
+  val dicing_icon = new ImageIcon(getClass().getResource("/tokens/dice.png"))
   var dicing_image = dicing_icon.getImage
   dicing_image = dicing_image.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
 
   var add_imgPoint = (680, 180)
-  val add_icon = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\add.png")
+  val add_icon = new ImageIcon(getClass().getResource("/tokens/add.png"))
   var add_image = add_icon.getImage
   add_image = add_image.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
 
   val current = new ArrayBuffer[Image]
   for(i <- 1 to 4){
-    val img_1 = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\p" + i + ".png")
+    val img_1 = new ImageIcon(getClass().getResource("/tokens/p" + i + ".png"))
     var image_1 = img_1.getImage
     image_1 = image_1.getScaledInstance(200, 100, Image.SCALE_SMOOTH)
     current += image_1
@@ -82,7 +82,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   val red_tokens = new ArrayBuffer[Image]
   for (i <- 1 to 4) {
-    val red_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\red" + i + ".png")
+    val red_token = new ImageIcon(getClass().getResource("/tokens/red" + i + ".png"))
     var red_image = red_token.getImage
     red_image = red_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
     red_tokens += red_image
@@ -90,7 +90,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   val blue_tokens = new ArrayBuffer[Image]
   for (i <- 5 to 8) {
-    val blue_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\blue" + i + ".png")
+    val blue_token = new ImageIcon(getClass().getResource("/tokens/blue" + i + ".png"))
     var blue_image = blue_token.getImage
     blue_image = blue_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
     blue_tokens += blue_image
@@ -98,7 +98,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   val green_tokens = new ArrayBuffer[Image]
   for (i <- 9 to 12) {
-    val green_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\green" + i + ".png")
+    val green_token = new ImageIcon(getClass().getResource("/tokens/green" + i + ".png"))
     var green_image = green_token.getImage
     green_image = green_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
     green_tokens += green_image
@@ -106,7 +106,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   val yellow_tokens = new ArrayBuffer[Image]
   for (i <- 13 to 16) {
-    val yellow_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\yellow" + i + ".png")
+    val yellow_token = new ImageIcon(getClass().getResource("/tokens/yellow" + i + ".png"))
     var yellow_image = yellow_token.getImage
     yellow_image = yellow_image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
     yellow_tokens += yellow_image
@@ -114,7 +114,7 @@ case class SwingGui(var c: ControllerInterface) extends MainFrame{
 
   val dice_img = new ArrayBuffer[Image]
   for (i <- 0 to 6) {
-    val dice_token = new ImageIcon("..\\MenschAergerDichNicht\\tokens\\dice" + i + ".png")
+    val dice_token = new ImageIcon(getClass().getResource("/tokens/dice" + i + ".png"))
     var dice_image = dice_token.getImage
     dice_image = dice_image.getScaledInstance(100, 100, Image.SCALE_SMOOTH)
     dice_img += dice_image
