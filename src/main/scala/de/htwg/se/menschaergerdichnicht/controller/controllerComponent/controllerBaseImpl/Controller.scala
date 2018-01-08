@@ -2,7 +2,7 @@ package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controll
 
 import com.google.inject.{Guice, Inject}
 import de.htwg.se.menschaergerdichnicht.MenschAergerDichNichtModule
-import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.{ControllerInterface, PlayersChanged}
 import de.htwg.se.menschaergerdichnicht.util.{Observable, UndoManager}
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.PlayingInterface

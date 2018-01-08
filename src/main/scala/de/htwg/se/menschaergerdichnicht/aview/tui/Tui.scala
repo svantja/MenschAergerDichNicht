@@ -11,7 +11,7 @@ import com.typesafe.scalalogging.LazyLogging
   */
 class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
 
-  controller.add(this)
+  //controller.add(this)
 
   val DEFAULT_TOKEN = 17
 

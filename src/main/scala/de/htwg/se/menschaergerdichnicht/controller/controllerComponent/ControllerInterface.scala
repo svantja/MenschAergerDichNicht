@@ -9,11 +9,12 @@ import de.htwg.se.menschaergerdichnicht.model.fieldComponent.PlayingInterface
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.PlayingField
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Players
 import de.htwg.se.menschaergerdichnicht.util.Observable
+import scala.swing.Publisher
 
 /**
   * Created by Anastasia on 25.06.17.
   */
-trait ControllerInterface extends Observable{
+trait ControllerInterface extends Publisher{
 
   var players: Players
   var playingField: PlayingInterface
@@ -28,3 +29,7 @@ trait ControllerInterface extends Observable{
   def gameStatus: GameState
 
 }
+
+import scala.swing.event.Event
+
+class PlayersChanged extends Event

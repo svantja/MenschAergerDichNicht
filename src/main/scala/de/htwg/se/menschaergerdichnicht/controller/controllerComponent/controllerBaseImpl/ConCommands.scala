@@ -4,6 +4,7 @@ import com.google.inject.{Guice, Inject}
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
 import de.htwg.se.menschaergerdichnicht.util.Command
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.PlayersChanged
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
 import scala.util.{Success, Try}
@@ -21,6 +22,7 @@ case class AddPlayer(name: String, c: Controller) extends Command {
         println("Spieler " + name + " wurde hinzugefuegt")
         c.gameState = PREPARE
         c.tui.update
+        c.publish(new PlayersChanged)
       }else {
         println("Es existieren bereits 4 Spieler")
       }
@@ -33,6 +35,7 @@ case class AddPlayer(name: String, c: Controller) extends Command {
     c.message = "Geloeschter Spieler: " + name
     c.gameState = PREPARE
     c.tui.update
+    c.publish(new PlayersChanged)
     Success()
   }
 }
@@ -64,6 +67,7 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
     }
     c.gameState = ONGOING
     c.tui.update
+    c.publish(new PlayersChanged)
     Success()
   }
 
@@ -126,9 +130,8 @@ case class Play(c: Controller) extends Command {
       println("Player must move before dicing again!")
     }
 
-
-    //c.gameState = ONGOING
     c.tui.update
+    c.publish(new PlayersChanged)
     Success()
   }
 
