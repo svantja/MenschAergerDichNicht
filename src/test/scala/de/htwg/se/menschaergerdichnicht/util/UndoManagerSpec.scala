@@ -23,7 +23,7 @@ class UndoManagerSpec extends FlatSpec with Matchers {
   }
 
   "An UndoManager" should "have an undo" in{
-    undoManager.undo()
+    undoManager.undo(command)
   }
 
   "An UndoManager" should "have a redo" in{

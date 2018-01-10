@@ -6,12 +6,12 @@ import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, 
 case class Token(var player: PlayerInterface, var position: (FieldInterface, Int), var counter: Int) extends TokenInterface {
 
   // player token numbers 1 - 4
-  val number = Token.setNumber
+  var number = Token.setNumber
 
   // unique id
-  val tokenId = Token.newIdNum
+  var tokenId = Token.newIdNum
 
-  val color = Token.setColor
+  var color = Token.setColor
 
   var finished: Boolean = false
 

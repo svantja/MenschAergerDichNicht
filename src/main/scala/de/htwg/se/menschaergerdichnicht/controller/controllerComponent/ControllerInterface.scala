@@ -9,6 +9,8 @@ import de.htwg.se.menschaergerdichnicht.model.fieldComponent.PlayingInterface
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.PlayingField
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Players
 import de.htwg.se.menschaergerdichnicht.util.Observable
+import play.api.libs.json.JsValue
+
 import scala.swing.Publisher
 
 /**
@@ -27,7 +29,8 @@ trait ControllerInterface extends Publisher{
   def startGame(): Try[_]
   def chooseToken(tokenId: Int): Try[_]
   def gameStatus: GameState
-
+  def toJson: JsValue
+  def newGame(name: String): Try[_]
 }
 
 import scala.swing.event.Event

@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
   * Created by Anastasia on 25.06.17.
   */
 trait PlayerInterface {
-  val playerId: Int
+  var playerId: Int
   val house: HouseInterface
   val target: TargetField
   var finished: Boolean

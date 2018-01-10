@@ -7,6 +7,7 @@ import de.htwg.se.menschaergerdichnicht.util.{Observable, UndoManager}
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.PlayingInterface
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Players
+import play.api.libs.json.{JsNull, JsNumber, JsValue, Json}
 
 import scala.util._
 /**
@@ -27,7 +28,39 @@ case class Controller @Inject() () extends ControllerInterface {
 
   def startGame(): Try[_] = undoManager.action(Play(this))
 
+  def newGame(name: String): Try[_] = undoManager.undo(AddPlayer(name, this))
+
   def chooseToken(tokenId: Int): Try[_] = undoManager.action(ChooseToken(tokenId, this))
 
   override def gameStatus: GameState = ???
+
+  def toJson: JsValue = {
+    for(player <- players.players){
+      println(player.getName(), player.getDiced())
+    }
+    Json.obj(
+      "current" -> players.currentPlayer,
+      "state" -> gameState,
+      "players" -> Json.toJson(
+        for(player <- players.players)yield{
+          Json.obj(
+            "playerId" -> player.playerId,
+            "name" -> player.getName(),
+            "diced" -> player.getDiced(),
+            "token" -> Json.toJson(
+              for(token <- player.tokens)yield{
+                Json.obj(
+                "tokenId" -> token.tokenId,
+                "position" -> token.position._2,
+                "count" -> token.counter
+                )
+              }
+            )
+          )
+        }
+      )
+
+    )
+  }
 }
+

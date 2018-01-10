@@ -54,6 +54,7 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
     input.split(" ").toList match {
       case "add" :: player :: Nil => controller.addPlayer(player)
       case "move" :: tokenId :: Nil => controller.chooseToken(strToInt(tokenId, DEFAULT_TOKEN))
+      case "new" :: player :: Nil => controller.newGame(player)
       case _ => controller.message = "False input"
     }
   }
@@ -197,9 +198,13 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
   def printingTui(): String = {
     var r = ""
     if (controller.gameState == NONE) {
+      var p = controller.toJson
+      println(p)
       r += "\nadd: Add Player, start: Start Game, ready: next round, move: Move selected Token, q: Quit Game"
     }
     if (controller.gameState == PREPARE) {
+      var b = controller.toJson
+      println(b)
       val p = controller.players
       val f = paintStartFields(controller.players.players.length)
       r += "\n"
@@ -227,6 +232,8 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
       r += "\n"
     }
     if (controller.gameState == ONGOING) {
+      var b = controller.toJson
+      println(b)
       val f = printPlaying()
       r += "\n"
       for(i <- 0 to 10) r += "" + f(i)

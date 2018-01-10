@@ -12,7 +12,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 case class Player (var name: String, var diced: Int) extends PlayerInterface {
 
-  val playerId = Player.newIdNum
+  var playerId = Player.newIdNum
 
   //var diced = 0
 
@@ -132,31 +132,5 @@ case class Players (currentPlayer: Int = 0, players: Vector[PlayerInterface] = V
     nameList
   }
 
-  def toJson: JsValue = {
-    for(player <- players){
-      println(player.getName(), player.getDiced())
-    }
-    Json.obj {
-      "player" -> Json.toJson(
-            for(player <- players)yield{
-              Json.obj(
-                "playerId" -> JsNumber(player.playerId),
-                "name" -> player.getName(),
-                "diced" -> player.getDiced(),
-                "token" -> Json.toJson(
-                  for(token <- player.tokens)yield{
-                    Json.obj(
-                      "tokenId" -> JsNumber(token.tokenId),
-                      "color" -> "test",
-                      "position" -> token.position._2,
-                      "count" -> token.counter
-                    )
-                  }
-            )
-          )
-        }
-      )
-    }
-  }
 
 }

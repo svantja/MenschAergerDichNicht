@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
   * Created by Anastasia on 25.06.17.
   */
 case class PlayerMock() extends PlayerInterface {
-  val playerId = 1
+  var playerId = 1
   val house = House(Player("Birgit", 3))
   val target = TargetField(Player("Birgit", 3))
   var finished = false

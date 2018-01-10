@@ -9,6 +9,7 @@ import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.PlayingInterface
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.PlayingField
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Players
+import play.api.libs.json.JsValue
 
 import scala.util.{Success, Try}
 
@@ -26,4 +27,7 @@ case class ControllerMock() extends ControllerInterface{
   def startGame(): Try[_] = Success()
   def chooseToken(tokenId: Int): Try[_] = Success()
   def gameStatus: GameState = FINISHED
+  def newGame(name: String): Try[_] = Success()
+
+  override def toJson: JsValue = ???
 }

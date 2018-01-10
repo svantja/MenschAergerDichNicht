@@ -19,6 +19,29 @@ case class AddPlayer(name: String, c: Controller) extends Command {
     if (c.gameState == NONE || c.gameState == PREPARE) {
       if(c.players.players.length < 4) {
         c.players = c.players.addPlayer(player)
+        if(c.players.players.length != player.playerId){
+          println(c.players.players.length)
+          println(player.playerId-1)
+          player.playerId = c.players.players.length
+          val tokens = player.getTokens()
+
+            for(i <- 0 until tokens.size){
+              if(player.playerId == 1) {
+                tokens(i).tokenId = i + 1
+                tokens(i).color = "red"
+              }else if(player.playerId == 2){
+                tokens(i).tokenId = i + 5
+                tokens(i).color = "blue"
+              }else if(player.playerId == 3){
+                tokens(i).tokenId = i + 9
+                tokens(i).color = "green"
+              }else{
+                tokens(i).tokenId = i + 12
+                tokens(i).color = "yellow"
+              }
+            }
+
+        }
         println("Spieler " + name + " wurde hinzugefuegt")
         c.gameState = PREPARE
         c.tui.update
@@ -31,7 +54,9 @@ case class AddPlayer(name: String, c: Controller) extends Command {
   }
 
   override def undo(): Try[_] = {
-    c.players = c.players.removePlayer()
+    for(p <- c.players.players){
+      c.players = c.players.removePlayer()
+    }
     c.message = "Geloeschter Spieler: " + name
     c.gameState = PREPARE
     c.tui.update

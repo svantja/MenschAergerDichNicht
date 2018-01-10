@@ -20,7 +20,7 @@ class UndoManager {
     event
   }
 
-  def undo(): Try[_] = {
+  def undo(c: Command): Try[_] = {
     if (undoStack.nonEmpty) {
       val tmp = undoStack.pop()
       val event = tmp.undo()

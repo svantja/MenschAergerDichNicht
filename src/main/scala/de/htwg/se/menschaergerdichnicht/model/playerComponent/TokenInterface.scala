@@ -8,9 +8,9 @@ import de.htwg.se.menschaergerdichnicht.model.fieldComponent.FieldInterface
 trait TokenInterface {
   var position: (FieldInterface, Int)
   var counter: Int
-  val number: Int
-  val tokenId: Int
-  val color: Any
+  var number: Int
+  var tokenId: Int
+  var color: Any
   var finished: Boolean
   def getColor(): Any
   def setPlayer(player: PlayerInterface)
