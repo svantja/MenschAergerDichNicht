@@ -27,7 +27,7 @@ case class ControllerMock() extends ControllerInterface{
   def startGame(): Try[_] = Success()
   def chooseToken(tokenId: Int): Try[_] = Success()
   def gameStatus: GameState = FINISHED
-  def newGame(name: String): Try[_] = Success()
+  def newGame(): Try[_] = Success()
 
   override def toJson: JsValue = ???
 }

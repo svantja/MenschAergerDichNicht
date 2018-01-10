@@ -13,9 +13,9 @@ import scala.util.{Success, Try}
   * Created by Anastasia on 06.06.17.
   */
 case class AddPlayer(name: String, c: Controller) extends Command {
-  val player = Player(name, 0)
 
   override def action(): Try[_] = {
+    val player = Player(name, 0)
     if (c.gameState == NONE || c.gameState == PREPARE) {
       if(c.players.players.length < 4) {
         c.players = c.players.addPlayer(player)
@@ -55,14 +55,29 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 
   override def undo(): Try[_] = {
     for(p <- c.players.players){
+      println(p.playerId, "gelöscht")
       c.players = c.players.removePlayer()
     }
-    c.message = "Geloeschter Spieler: " + name
+    println("Geloeschter Spieler: " + name)
     c.gameState = PREPARE
     c.tui.update
     c.publish(new PlayersChanged)
     Success()
   }
+}
+
+case class NewGame(c: Controller) extends Command {
+  override def action(): Try[_] = {
+    for(p <- c.players.players){
+      println(p.playerId, "gelöscht")
+      c.players = c.players.removePlayer()
+    }
+    c.gameState = PREPARE
+    c.tui.update
+    c.publish(new PlayersChanged)
+    Success()
+  }
+  override def undo(): Try[_] = ???
 }
 
 case class ChooseToken(tokenId: Int, c: Controller) extends Command {
@@ -160,9 +175,5 @@ case class Play(c: Controller) extends Command {
     Success()
   }
 
-  override def undo(): Try[_] = {
-    println("Undo")
-    c.gameState = ONGOING
-    Success()
-  }
+  override def undo(): Try[_] = ???
 }

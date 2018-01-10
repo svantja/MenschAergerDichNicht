@@ -21,16 +21,16 @@ class UndoManager {
   }
 
   def undo(c: Command): Try[_] = {
-    if (undoStack.nonEmpty) {
-      val tmp = undoStack.pop()
-      val event = tmp.undo()
-      if (event.isSuccess) {
-        redoStack.push(tmp)
+      if (undoStack.nonEmpty) {
+        val tmp = undoStack.pop()
+        val event = tmp.undo()
+        if (event.isSuccess) {
+          redoStack.push(tmp)
+        }
+        event
+      } else {
+        Failure(new Exception("Not possible to undo right now!"))
       }
-      event
-    } else {
-      Failure(new Exception("Not possible to undo right now!"))
-    }
   }
 
   def redo(): Try[_] = {

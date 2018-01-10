@@ -45,6 +45,7 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
       case "start" => controller.startGame()
       case "r" => controller.startGame()
       case "ready" => controller.startGame()
+      case "new" => controller.newGame()
       case _ => processMoreParameters(input)
     }
     continue
@@ -54,7 +55,6 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
     input.split(" ").toList match {
       case "add" :: player :: Nil => controller.addPlayer(player)
       case "move" :: tokenId :: Nil => controller.chooseToken(strToInt(tokenId, DEFAULT_TOKEN))
-      case "new" :: player :: Nil => controller.newGame(player)
       case _ => controller.message = "False input"
     }
   }

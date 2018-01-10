@@ -30,7 +30,7 @@ trait ControllerInterface extends Publisher{
   def chooseToken(tokenId: Int): Try[_]
   def gameStatus: GameState
   def toJson: JsValue
-  def newGame(name: String): Try[_]
+  def newGame(): Try[_]
 }
 
 import scala.swing.event.Event

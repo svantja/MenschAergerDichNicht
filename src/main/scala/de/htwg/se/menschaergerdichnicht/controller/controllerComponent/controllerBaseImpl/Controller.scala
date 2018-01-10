@@ -28,7 +28,7 @@ case class Controller @Inject() () extends ControllerInterface {
 
   def startGame(): Try[_] = undoManager.action(Play(this))
 
-  def newGame(name: String): Try[_] = undoManager.undo(AddPlayer(name, this))
+  def newGame(): Try[_] = undoManager.action(NewGame(this))
 
   def chooseToken(tokenId: Int): Try[_] = undoManager.action(ChooseToken(tokenId, this))
 
