@@ -1,14 +1,14 @@
 package de.htwg.se.menschaergerdichnicht.model.playerComponent.playerMockImpl
 
-import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.{Field, House, TargetField}
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface, TokenInterface}
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.{Player, Players, Token}
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.{ Field, House, TargetField }
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{ PlayerInterface, PlayersInterface, TokenInterface }
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.{ Player, Players, Token }
 
 import scala.collection.mutable.ArrayBuffer
 
 /**
-  * Created by Anastasia on 25.06.17.
-  */
+ * Created by Anastasia on 25.06.17.
+ */
 case class PlayerMock() extends PlayerInterface {
   var playerId = 1
   val house = House(Player("Birgit", 3))

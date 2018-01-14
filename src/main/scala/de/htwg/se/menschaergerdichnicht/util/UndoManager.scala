@@ -1,11 +1,11 @@
 package de.htwg.se.menschaergerdichnicht.util
 
 import scala.collection.mutable
-import scala.util.{Failure, Try}
+import scala.util.{ Failure, Try }
 
 /**
-  * Created by Anastasia on 06.06.17.
-  */
+ * Created by Anastasia on 06.06.17.
+ */
 class UndoManager {
 
   var undoStack: mutable.Stack[Command] = mutable.Stack()
@@ -21,16 +21,16 @@ class UndoManager {
   }
 
   def undo(c: Command): Try[_] = {
-      if (undoStack.nonEmpty) {
-        val tmp = undoStack.pop()
-        val event = tmp.undo()
-        if (event.isSuccess) {
-          redoStack.push(tmp)
-        }
-        event
-      } else {
-        Failure(new Exception("Not possible to undo right now!"))
+    if (undoStack.nonEmpty) {
+      val tmp = undoStack.pop()
+      val event = tmp.undo()
+      if (event.isSuccess) {
+        redoStack.push(tmp)
       }
+      event
+    } else {
+      Failure(new Exception("Not possible to undo right now!"))
+    }
   }
 
   def redo(): Try[_] = {

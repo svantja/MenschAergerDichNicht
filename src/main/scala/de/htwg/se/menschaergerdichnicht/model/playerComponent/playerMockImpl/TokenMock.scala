@@ -1,11 +1,11 @@
 package de.htwg.se.menschaergerdichnicht.model.playerComponent.playerMockImpl
 
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.FieldInterface
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, TokenInterface}
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{ PlayerInterface, TokenInterface }
 
 /**
-  * Created by Anastasia on 25.06.17.
-  */
+ * Created by Anastasia on 25.06.17.
+ */
 abstract case class TokenMock() extends TokenInterface {
   def getColor(): Any
   def setPlayer(player: PlayerInterface)

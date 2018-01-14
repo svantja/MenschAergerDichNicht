@@ -1,7 +1,7 @@
 package de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl
 
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.FieldInterface
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, TokenInterface}
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{ PlayerInterface, TokenInterface }
 
 case class Token(var player: PlayerInterface, var position: (FieldInterface, Int), var counter: Int) extends TokenInterface {
 
@@ -17,25 +17,25 @@ case class Token(var player: PlayerInterface, var position: (FieldInterface, Int
 
   def getColor(): Any = color
 
-  def setPlayer(player: PlayerInterface) { this.player = player}
+  def setPlayer(player: PlayerInterface) { this.player = player }
 
   def getPlayer(): PlayerInterface = player
 
-  def setPosition(position: (FieldInterface, Int)) { this.position = position}
+  def setPosition(position: (FieldInterface, Int)) { this.position = position }
 
   def getPosition(): (FieldInterface, Int) = position
 
-  def setCounter(counter: Int) { this.counter = counter}
+  def setCounter(counter: Int) { this.counter = counter }
 
   def getCounter(): Int = counter
 
-  def setFinished(finished: Boolean) { this.finished = finished}
+  def setFinished(finished: Boolean) { this.finished = finished }
 
   def getFinished(): Boolean = finished
 
 }
 
-object Token{
+object Token {
 
   private var idNumber = 0
   private var round = 0
@@ -51,16 +51,13 @@ object Token{
   }
 
   private def setColor = {
-    if(idNumber <= 4) {
+    if (idNumber <= 4) {
       colorList(0)
-    }
-    else if(idNumber <= 8 && idNumber >= 5){
+    } else if (idNumber <= 8 && idNumber >= 5) {
       colorList(1)
-    }
-    else if(idNumber <= 12 && idNumber >= 9){
+    } else if (idNumber <= 12 && idNumber >= 9) {
       colorList(2)
-    }
-    else if(idNumber <= 16 && idNumber >= 13){
+    } else if (idNumber <= 16 && idNumber >= 13) {
       colorList(3)
     }
   }

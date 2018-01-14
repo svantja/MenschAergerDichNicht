@@ -3,8 +3,8 @@ package de.htwg.se.menschaergerdichnicht.model.playerComponent
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.FieldInterface
 
 /**
-  * Created by Anastasia on 25.06.17.
-  */
+ * Created by Anastasia on 25.06.17.
+ */
 trait TokenInterface {
   var position: (FieldInterface, Int)
   var counter: Int

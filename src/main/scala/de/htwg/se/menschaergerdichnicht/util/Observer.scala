@@ -1,8 +1,8 @@
 package de.htwg.se.menschaergerdichnicht.util
 
 /**
-  * Created by Anastasia on 01.05.17.
-  */
+ * Created by Anastasia on 01.05.17.
+ */
 trait Observer {
   def update: Unit
 }

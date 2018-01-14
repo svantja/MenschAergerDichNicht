@@ -2,8 +2,8 @@ package de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl
 
 import javax.inject.Inject
 
-import de.htwg.se.menschaergerdichnicht.model.fieldComponent.{FieldInterface, PlayingInterface}
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface, TokenInterface}
+import de.htwg.se.menschaergerdichnicht.model.fieldComponent.{ FieldInterface, PlayingInterface }
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{ PlayerInterface, PlayersInterface, TokenInterface }
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -53,19 +53,17 @@ case class PlayingField @Inject() () extends PlayingInterface {
               free.setToken(token)
               token.setPosition((free, tokenId - 5))
               token.setCounter(0)
-            }
-            else if (tokenId > 8 && tokenId <= 12) {
+            } else if (tokenId > 8 && tokenId <= 12) {
               val free = player.house.house(tokenId - 9)
               free.setToken(token)
               token.setPosition((free, tokenId - 9))
               token.setCounter(0)
-            }
-            else if (tokenId > 12 && tokenId <= 16) {
+            } else if (tokenId > 12 && tokenId <= 16) {
               val free = player.house.house(tokenId - 13)
               free.setToken(token)
               token.setPosition((free, tokenId - 13))
               token.setCounter(0)
-            } else if (tokenId >= 0 && tokenId <= 4){
+            } else if (tokenId >= 0 && tokenId <= 4) {
               val free = player.house.house(tokenId - 1)
               free.setToken(token)
               token.setPosition((free, tokenId - 1))
@@ -102,10 +100,14 @@ case class PlayingField @Inject() () extends PlayingInterface {
   def moveToStart(token: TokenInterface): Unit = {
     token.position._1.tokenId = -1
     token.getPlayer().playerId match {
-      case 1 => token.setPosition(playingField(0),0); token.setCounter(1); playingField(0).setToken(token)
-      case 2 => token.setPosition(playingField(10), 10); token.setCounter(1); playingField(10).setToken(token)
-      case 3 => token.setPosition(playingField(20), 20); token.setCounter(1); playingField(20).setToken(token)
-      case 4 => token.setPosition(playingField(30), 30); token.setCounter(1); playingField(30).setToken(token)
+      case 1 =>
+        token.setPosition(playingField(0), 0); token.setCounter(1); playingField(0).setToken(token)
+      case 2 =>
+        token.setPosition(playingField(10), 10); token.setCounter(1); playingField(10).setToken(token)
+      case 3 =>
+        token.setPosition(playingField(20), 20); token.setCounter(1); playingField(20).setToken(token)
+      case 4 =>
+        token.setPosition(playingField(30), 30); token.setCounter(1); playingField(30).setToken(token)
       case _ => token.position._1.tokenId = token.tokenId
     }
   }

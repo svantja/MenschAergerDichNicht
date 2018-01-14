@@ -7,9 +7,9 @@ import de.htwg.se.menschaergerdichnicht.model.fileIoComponent._
 import net.codingwell.scalaguice.ScalaModule
 
 /**
-  * Created by Anastasia on 26.06.17.
-  */
-class MenschAergerDichNichtModule extends AbstractModule with ScalaModule{
+ * Created by Anastasia on 26.06.17.
+ */
+class MenschAergerDichNichtModule extends AbstractModule with ScalaModule {
 
   override def configure(): Unit = {
 

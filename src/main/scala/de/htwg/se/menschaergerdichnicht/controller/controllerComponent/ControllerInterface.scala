@@ -1,6 +1,6 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent
 
-import de.htwg.se.menschaergerdichnicht.aview.gui.{AppletGui, SwingGui}
+import de.htwg.se.menschaergerdichnicht.aview.gui.{ AppletGui, SwingGui }
 import de.htwg.se.menschaergerdichnicht.aview.tui.Tui
 
 import scala.util._
@@ -14,9 +14,9 @@ import play.api.libs.json.JsValue
 import scala.swing.Publisher
 
 /**
-  * Created by Anastasia on 25.06.17.
-  */
-trait ControllerInterface extends Publisher{
+ * Created by Anastasia on 25.06.17.
+ */
+trait ControllerInterface extends Publisher {
 
   var players: Players
   var playingField: PlayingInterface

@@ -1,60 +1,60 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl
 
-import com.google.inject.{Guice, Inject}
+import com.google.inject.{ Guice, Inject }
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Dice
 import de.htwg.se.menschaergerdichnicht.util.Command
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.PlayersChanged
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
 
-import scala.util.{Success, Try}
+import scala.util.{ Success, Try }
 
 /**
-  * Created by Anastasia on 06.06.17.
-  */
+ * Created by Anastasia on 06.06.17.
+ */
 case class AddPlayer(name: String, c: Controller) extends Command {
 
   override def action(): Try[_] = {
     val player = Player(name, 0)
     if (c.gameState == NONE || c.gameState == PREPARE) {
-      if(c.players.players.length < 4) {
+      if (c.players.players.length < 4) {
         c.players = c.players.addPlayer(player)
-        if(c.players.players.length != player.playerId){
+        if (c.players.players.length != player.playerId) {
           println(c.players.players.length)
-          println(player.playerId-1)
+          println(player.playerId - 1)
           player.playerId = c.players.players.length
           val tokens = player.getTokens()
 
-            for(i <- 0 until tokens.size){
-              if(player.playerId == 1) {
-                tokens(i).tokenId = i + 1
-                tokens(i).color = "red"
-              }else if(player.playerId == 2){
-                tokens(i).tokenId = i + 5
-                tokens(i).color = "blue"
-              }else if(player.playerId == 3){
-                tokens(i).tokenId = i + 9
-                tokens(i).color = "green"
-              }else{
-                tokens(i).tokenId = i + 12
-                tokens(i).color = "yellow"
-              }
+          for (i <- 0 until tokens.size) {
+            if (player.playerId == 1) {
+              tokens(i).tokenId = i + 1
+              tokens(i).color = "red"
+            } else if (player.playerId == 2) {
+              tokens(i).tokenId = i + 5
+              tokens(i).color = "blue"
+            } else if (player.playerId == 3) {
+              tokens(i).tokenId = i + 9
+              tokens(i).color = "green"
+            } else {
+              tokens(i).tokenId = i + 12
+              tokens(i).color = "yellow"
             }
+          }
 
         }
         println("Spieler " + name + " wurde hinzugefuegt")
         c.gameState = PREPARE
         c.tui.update
         c.publish(new PlayersChanged)
-      }else {
+      } else {
         println("Es existieren bereits 4 Spieler")
       }
-    } else{println("Spiel wurde bereits gestarted")}
+    } else { println("Spiel wurde bereits gestarted") }
     Success()
   }
 
   override def undo(): Try[_] = {
-    for(p <- c.players.players){
+    for (p <- c.players.players) {
       println(p.playerId, "gelöscht")
       c.players = c.players.removePlayer()
     }
@@ -68,7 +68,7 @@ case class AddPlayer(name: String, c: Controller) extends Command {
 
 case class NewGame(c: Controller) extends Command {
   override def action(): Try[_] = {
-    for(p <- c.players.players){
+    for (p <- c.players.players) {
       println(p.playerId, "gelöscht")
       c.players = c.players.removePlayer()
     }
@@ -84,7 +84,6 @@ case class ChooseToken(tokenId: Int, c: Controller) extends Command {
   val player = c.players.getCurrentPlayer
   val token = player.getTokenById(tokenId)
   val dice = Dice()
-
 
   override def action(): Try[_] = {
     println(c.players.getCurrentPlayer)
@@ -123,7 +122,7 @@ case class Play(c: Controller) extends Command {
 
   override def action(): Try[_] = {
     //while (true)
-    if(c.gameState != DICED){
+    if (c.gameState != DICED) {
       c.gameState == ONGOING
       val player = c.players.getCurrentPlayer
       if (!player.getFinished()) {
@@ -155,7 +154,7 @@ case class Play(c: Controller) extends Command {
                 println("Cannot move, must dice a 6")
                 c.gameState = ONGOING
                 c.players = c.players.nextPlayer()
-              }else {
+              } else {
                 println("Choose token to move")
                 println(num + "diced" + player.getDiced())
                 println("avaiable tokens: " + player.getAvailableTokens())
@@ -165,8 +164,7 @@ case class Play(c: Controller) extends Command {
           }
         }
       }
-    }
-    else {
+    } else {
       println("Player must move before dicing again!")
     }
 

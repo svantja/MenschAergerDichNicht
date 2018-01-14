@@ -1,9 +1,9 @@
 package de.htwg.se.menschaergerdichnicht.controller.controllerComponent
 
 /**
-  * Created by Anastasia on 25.06.17.
-  */
-object GameState extends Enumeration{
+ * Created by Anastasia on 25.06.17.
+ */
+object GameState extends Enumeration {
   type GameState = Value
   val NONE, PREPARE, ONGOING, FINISHED, DICED, SAVED, LOADED, NOTLOADED = Value
 

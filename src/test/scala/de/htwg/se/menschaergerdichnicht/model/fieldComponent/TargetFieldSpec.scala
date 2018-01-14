@@ -2,23 +2,23 @@ package de.htwg.se.menschaergerdichnicht.model.fieldComponent
 
 import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.TargetField
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Player
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.{ FlatSpec, Matchers }
 
 /**
-  * Created by svloeger on 13.06.2017.
-  */
-class TargetFieldSpec extends FlatSpec with Matchers{
+ * Created by svloeger on 13.06.2017.
+ */
+class TargetFieldSpec extends FlatSpec with Matchers {
   val player = Player("test", 0)
 
-  "A TargetField" should "have a player" in{
+  "A TargetField" should "have a player" in {
     player.target.player should be(player)
   }
 
-  "A TargetField.targetField" should "be ArrayBuffer" in{
+  "A TargetField.targetField" should "be ArrayBuffer" in {
     TargetField(player).targetField
   }
 
-  "A TargetField.targetField" should "have a length of 4" in{
+  "A TargetField.targetField" should "have a length of 4" in {
     player.target.targetField.length
     assert(player.target.targetField.length == 4)
   }
@@ -26,7 +26,7 @@ class TargetFieldSpec extends FlatSpec with Matchers{
   "A TargetField" should "return false" in {
     player.target.isFull(player)
   }
-  it should "return true" in{
+  it should "return true" in {
     player.target.targetField(0).setToken(player.tokens(0))
     player.target.targetField(1).setToken(player.tokens(1))
     player.target.targetField(2).setToken(player.tokens(2))

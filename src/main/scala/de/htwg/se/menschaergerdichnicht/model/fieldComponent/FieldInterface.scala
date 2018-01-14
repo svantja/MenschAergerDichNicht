@@ -1,12 +1,12 @@
 package de.htwg.se.menschaergerdichnicht.model.fieldComponent
 
-import de.htwg.se.menschaergerdichnicht.model.playerComponent.{PlayerInterface, PlayersInterface, TokenInterface}
+import de.htwg.se.menschaergerdichnicht.model.playerComponent.{ PlayerInterface, PlayersInterface, TokenInterface }
 
 import scala.collection.mutable.ArrayBuffer
 
 /**
-  * Created by Anastasia on 25.06.17.
-  */
+ * Created by Anastasia on 25.06.17.
+ */
 trait FieldInterface {
   var tokenId: Int
   def setToken(token: TokenInterface)

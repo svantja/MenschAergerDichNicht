@@ -11,12 +11,12 @@ import de.htwg.se.menschaergerdichnicht.model.fieldComponent.fieldBaseImpl.Playi
 import de.htwg.se.menschaergerdichnicht.model.playerComponent.playerBaseImpl.Players
 import play.api.libs.json.JsValue
 
-import scala.util.{Success, Try}
+import scala.util.{ Success, Try }
 
 /**
-  * Created by Anastasia on 25.06.17.
-  */
-case class ControllerMock() extends ControllerInterface{
+ * Created by Anastasia on 25.06.17.
+ */
+case class ControllerMock() extends ControllerInterface {
 
   val injector = Guice.createInjector(new MenschAergerDichNichtModule)
   var players = Players()

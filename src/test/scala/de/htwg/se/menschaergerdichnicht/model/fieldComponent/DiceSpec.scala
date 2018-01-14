@@ -7,16 +7,16 @@ import org.scalatest._
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class DiceSpec extends FlatSpec with Matchers{
+class DiceSpec extends FlatSpec with Matchers {
 
-  "A Dice" should "return values between 0 and 6" in{
+  "A Dice" should "return values between 0 and 6" in {
     val player = Player("test", 0)
     val w = Dice()
     assert(!(w.rollDice(player) > 6))
     assert(!(w.rollDice(player) < 0))
   }
 
-  "A Dice.dice" should "be integer" in{
+  "A Dice.dice" should "be integer" in {
     val w = Dice()
     w.dice
   }

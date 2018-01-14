@@ -1,15 +1,15 @@
 package de.htwg.se.menschaergerdichnicht.aview.tui
 
-import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.{ControllerInterface, GameState}
+import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.{ ControllerInterface, GameState }
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.GameState._
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.menschaergerdichnicht.util.Observer
 import scala.collection.mutable.ArrayBuffer
 import com.typesafe.scalalogging.LazyLogging
 /**
-  * Created by Anastasia on 01.05.17.
-  */
-class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
+ * Created by Anastasia on 01.05.17.
+ */
+class Tui(controller: ControllerInterface) extends Observer with LazyLogging {
 
   //controller.add(this)
 
@@ -21,20 +21,21 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
   var home_two = ArrayBuffer("o", "o", "o", "o")
   var home_three = ArrayBuffer("o", "o", "o", "o")
   var home_four = ArrayBuffer("o", "o", "o", "o")
-  var playing_field = ArrayBuffer( "O", "O", "O", "O", "O", "O", "O", "O", "O","O", "O", "O", "O", "O", "O", "O", "O", "O",
-    "O", "O", "O", "O", "O", "O", "O", "O", "O","O", "O", "O", "O", "O", "O", "O", "O", "O","O", "O", "O", "O")
+  var playing_field = ArrayBuffer("O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O",
+    "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O")
   var field = ArrayBuffer(
     home_one(0), home_one(1), " ", " ", playing_field(8), playing_field(9), playing_field(10), " ", " ", home_two(0), home_two(1), //11
     home_one(2), home_one(3), " ", " ", playing_field(7), "o", playing_field(11), " ", " ", home_two(2), home_two(3), //22
     " ", " ", " ", " ", playing_field(6), "o", playing_field(12), " ", " ", " ", " ", //33
     " ", " ", " ", " ", playing_field(5), "o", playing_field(13), " ", " ", " ", " ", //44
-    playing_field(0), playing_field(1), playing_field(2), playing_field(3), playing_field(4), " ", playing_field(14),playing_field(15), playing_field(16), playing_field(17), playing_field(18), //55
+    playing_field(0), playing_field(1), playing_field(2), playing_field(3), playing_field(4), " ", playing_field(14), playing_field(15), playing_field(16), playing_field(17), playing_field(18), //55
     playing_field(39), "o", "o", "o", "o", " ", "o", "o", "o", "o", playing_field(19), //66
     playing_field(38), playing_field(37), playing_field(36), playing_field(35), playing_field(34), "o", playing_field(24), playing_field(23), playing_field(22), playing_field(21), playing_field(20), //77
     " ", " ", " ", " ", playing_field(33), "o", playing_field(25), " ", " ", " ", " ", //88
     " ", " ", " ", " ", playing_field(32), "o", playing_field(26), " ", " ", " ", " ", //99
     home_four(0), home_four(1), " ", " ", playing_field(31), "o", playing_field(27), " ", " ", home_three(0), home_three(1), //110
-    home_four(2), home_four(3), " ", " ", playing_field(30), playing_field(29), playing_field(28), " ", " ", home_three(2), home_three(3))
+    home_four(2), home_four(3), " ", " ", playing_field(30), playing_field(29), playing_field(28), " ", " ", home_three(2), home_three(3)
+  )
 
   printTui()
 
@@ -60,14 +61,14 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
   }
 
   def strToInt(s: String, default: Int): Int = {
-    try{
+    try {
       s.toInt
     } catch {
       case _: Exception => default
     }
   }
 
-  def paintStartFields(numPlayer: Int): ArrayBuffer[String] ={
+  def paintStartFields(numPlayer: Int): ArrayBuffer[String] = {
     var f = field
     var home_1 = home_one
     var home_2 = home_two
@@ -75,7 +76,7 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
     var home_4 = home_four
     numPlayer match {
       case 1 => {
-        for(i<-0 until home_1.length) home_1(i) = "r"
+        for (i <- 0 until home_1.length) home_1(i) = "r"
         f(0) = home_1(0)
         f(1) = home_1(1)
         f(11) = home_1(2)
@@ -83,8 +84,8 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
 
       }
       case 2 => {
-        for(i<-0 until home_1.length) home_1(i) = "r"
-        for(i<-0 until home_2.length) home_2(i) = "b"
+        for (i <- 0 until home_1.length) home_1(i) = "r"
+        for (i <- 0 until home_2.length) home_2(i) = "b"
 
         f(0) = home_1(0)
         f(1) = home_1(1)
@@ -96,9 +97,9 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
         f(21) = home_2(3)
       }
       case 3 => {
-        for(i<-0 until home_1.length) home_1(i) = "r"
-        for(i<-0 until home_2.length) home_2(i) = "b"
-        for(i<-0 until home_3.length) home_3(i) = "g"
+        for (i <- 0 until home_1.length) home_1(i) = "r"
+        for (i <- 0 until home_2.length) home_2(i) = "b"
+        for (i <- 0 until home_3.length) home_3(i) = "g"
 
         f(0) = home_1(0)
         f(1) = home_1(1)
@@ -115,10 +116,10 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
 
       }
       case 4 => {
-        for(i<-0 until home_1.length) home_1(i) = "r"
-        for(i<-0 until home_2.length) home_2(i) = "b"
-        for(i<-0 until home_3.length) home_3(i) = "g"
-        for(i<-0 until home_4.length) home_4(i) = "y"
+        for (i <- 0 until home_1.length) home_1(i) = "r"
+        for (i <- 0 until home_2.length) home_2(i) = "b"
+        for (i <- 0 until home_3.length) home_3(i) = "g"
+        for (i <- 0 until home_4.length) home_4(i) = "y"
 
         f(0) = home_1(0)
         f(1) = home_1(1)
@@ -142,24 +143,28 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
     return f
   }
 
-  def printPlaying(): ArrayBuffer[String] ={
+  def printPlaying(): ArrayBuffer[String] = {
     var f = field
     val pl = controller.players.getAllPlayer
-    var pf = ArrayBuffer( "O", "O", "O", "O", "O", "O", "O", "O", "O","O", "O", "O", "O", "O", "O", "O", "O", "O",
-      "O", "O", "O", "O", "O", "O", "O", "O", "O","O", "O", "O", "O", "O", "O", "O", "O", "O","O", "O", "O", "O")
-    for(p <- pl) {
-      for (t <- p.getTokens()){
+    var pf = ArrayBuffer("O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O",
+      "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O")
+    for (p <- pl) {
+      for (t <- p.getTokens()) {
         val c = t.getColor()
-        if(t.getCounter() != 0){
-          if(t.getFinished()){
+        if (t.getCounter() != 0) {
+          if (t.getFinished()) {
             println("finished")
-          } else{
+          } else {
             val pos = t.getPosition()._2
             c match {
-              case "red" => pf(pos) = "r"; home_one(t.tokenId-1) = "o"
-              case "blue" => pf(pos) = "b"; home_two(t.tokenId-5) = "o"
-              case "green" => pf(pos) = "g"; home_three(t.tokenId-9) = "o"
-              case "yellow" => pf(pos) = "y"; home_four(t.tokenId-13) = "o"
+              case "red" =>
+                pf(pos) = "r"; home_one(t.tokenId - 1) = "o"
+              case "blue" =>
+                pf(pos) = "b"; home_two(t.tokenId - 5) = "o"
+              case "green" =>
+                pf(pos) = "g"; home_three(t.tokenId - 9) = "o"
+              case "yellow" =>
+                pf(pos) = "y"; home_four(t.tokenId - 13) = "o"
               case _ => {}
             }
           }
@@ -181,17 +186,18 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
       home_one(2), home_one(3), " ", " ", pf(7), "o", pf(11), " ", " ", home_two(2), home_two(3), //22
       " ", " ", " ", " ", pf(6), "o", pf(12), " ", " ", " ", " ", //33
       " ", " ", " ", " ", pf(5), "o", pf(13), " ", " ", " ", " ", //44
-      pf(0), pf(1), pf(2), pf(3), pf(4), " ", pf(14),pf(15), pf(16), pf(17), pf(18), //55
+      pf(0), pf(1), pf(2), pf(3), pf(4), " ", pf(14), pf(15), pf(16), pf(17), pf(18), //55
       pf(39), "o", "o", "o", "o", " ", "o", "o", "o", "o", pf(19), //66
       pf(38), pf(37), pf(36), pf(35), pf(34), "o", pf(24), pf(23), pf(22), pf(21), pf(20), //77
       " ", " ", " ", " ", pf(33), "o", pf(25), " ", " ", " ", " ", //88
       " ", " ", " ", " ", pf(32), "o", pf(26), " ", " ", " ", " ", //99
       home_four(0), home_four(1), " ", " ", pf(31), "o", pf(27), " ", " ", home_three(0), home_three(1), //110
-      home_four(2), home_four(3), " ", " ", pf(30), pf(29), pf(28), " ", " ", home_three(2), home_three(3))
+      home_four(2), home_four(3), " ", " ", pf(30), pf(29), pf(28), " ", " ", home_three(2), home_three(3)
+    )
     return f
   }
 
-  override def update: Unit =  printTui()
+  override def update: Unit = printTui()
 
   def printTui(): Unit = logger.info(printingTui)
 
@@ -208,27 +214,27 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
       val p = controller.players
       val f = paintStartFields(controller.players.players.length)
       r += "\n"
-      for(i <- 0 to 10) r += "" + f(i)
+      for (i <- 0 to 10) r += "" + f(i)
       r += "\n"
-      for(i <- 11 to 21) r += "" + f(i)
+      for (i <- 11 to 21) r += "" + f(i)
       r += "\n"
-      for(i <- 22 to 32) r += "" + f(i)
+      for (i <- 22 to 32) r += "" + f(i)
       r += "\n"
-      for(i <- 33 to 43) r += "" + f(i)
+      for (i <- 33 to 43) r += "" + f(i)
       r += "\n"
-      for(i <- 44 to 54) r += "" + f(i)
+      for (i <- 44 to 54) r += "" + f(i)
       r += "\n"
-      for(i <- 55 to 65) r += "" + f(i)
+      for (i <- 55 to 65) r += "" + f(i)
       r += "\n"
-      for(i <- 66 to 76) r += "" + f(i)
+      for (i <- 66 to 76) r += "" + f(i)
       r += "\n"
-      for(i <- 77 to 87) r += "" + f(i)
+      for (i <- 77 to 87) r += "" + f(i)
       r += "\n"
-      for(i <- 88 to 98) r += "" + f(i)
+      for (i <- 88 to 98) r += "" + f(i)
       r += "\n"
-      for(i <- 99 to 109) r += "" + f(i)
+      for (i <- 99 to 109) r += "" + f(i)
       r += "\n"
-      for(i <- 110 to 120) r += "" + f(i)
+      for (i <- 110 to 120) r += "" + f(i)
       r += "\n"
     }
     if (controller.gameState == ONGOING) {
@@ -236,27 +242,27 @@ class Tui(controller: ControllerInterface) extends Observer with LazyLogging{
       println(b)
       val f = printPlaying()
       r += "\n"
-      for(i <- 0 to 10) r += "" + f(i)
+      for (i <- 0 to 10) r += "" + f(i)
       r += "\n"
-      for(i <- 11 to 21) r += "" + f(i)
+      for (i <- 11 to 21) r += "" + f(i)
       r += "\n"
-      for(i <- 22 to 32) r += "" + f(i)
+      for (i <- 22 to 32) r += "" + f(i)
       r += "\n"
-      for(i <- 33 to 43) r += "" + f(i)
+      for (i <- 33 to 43) r += "" + f(i)
       r += "\n"
-      for(i <- 44 to 54) r += "" + f(i)
+      for (i <- 44 to 54) r += "" + f(i)
       r += "\n"
-      for(i <- 55 to 65) r += "" + f(i)
+      for (i <- 55 to 65) r += "" + f(i)
       r += "\n"
-      for(i <- 66 to 76) r += "" + f(i)
+      for (i <- 66 to 76) r += "" + f(i)
       r += "\n"
-      for(i <- 77 to 87) r += "" + f(i)
+      for (i <- 77 to 87) r += "" + f(i)
       r += "\n"
-      for(i <- 88 to 98) r += "" + f(i)
+      for (i <- 88 to 98) r += "" + f(i)
       r += "\n"
-      for(i <- 99 to 109) r += "" + f(i)
+      for (i <- 99 to 109) r += "" + f(i)
       r += "\n"
-      for(i <- 110 to 120) r += "" + f(i)
+      for (i <- 110 to 120) r += "" + f(i)
       r += "\n"
       r += "\ncurrent: " + controller.players.getCurrentPlayer
     }
