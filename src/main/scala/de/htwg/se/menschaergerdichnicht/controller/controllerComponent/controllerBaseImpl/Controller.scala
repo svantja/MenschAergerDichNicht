@@ -13,7 +13,7 @@ import scala.util._
 /**
  * Created by Anastasia on 01.05.17.
  */
-case class Controller @Inject() () extends ControllerInterface {
+case class Controller () extends ControllerInterface {
 
   var players = Players()
 
