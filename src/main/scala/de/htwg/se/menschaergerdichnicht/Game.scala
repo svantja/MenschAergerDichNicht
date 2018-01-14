@@ -1,7 +1,6 @@
 package de.htwg.se.menschaergerdichnicht
 
 import com.google.inject.Guice
-import de.htwg.se.menschaergerdichnicht.aview.gui.SwingGui
 import de.htwg.se.menschaergerdichnicht.aview.tui.Tui
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.ControllerInterface
 import de.htwg.se.menschaergerdichnicht.controller.controllerComponent.controllerBaseImpl.Controller
