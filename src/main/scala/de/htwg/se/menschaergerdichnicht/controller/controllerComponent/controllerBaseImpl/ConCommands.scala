@@ -36,7 +36,7 @@ case class AddPlayer(name: String, c: Controller) extends Command {
               tokens(i).tokenId = i + 9
               tokens(i).color = "green"
             } else {
-              tokens(i).tokenId = i + 12
+              tokens(i).tokenId = i + 13
               tokens(i).color = "yellow"
             }
           }
