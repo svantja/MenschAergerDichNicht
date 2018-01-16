@@ -123,7 +123,9 @@ case class Play(c: Controller) extends Command {
 
   override def action(): Try[_] = {
     //while (true)
-    if (c.gameState != DICED) {
+    if(c.gameState == PREPARE){
+      c.gameState = ONGOING
+    }else if (c.gameState != DICED) {
       c.gameState == ONGOING
       val player = c.players.getCurrentPlayer
       if (!player.getFinished()) {
