@@ -72,6 +72,7 @@ case class NewGame(c: Controller) extends Command {
       println(p.playerId, "gelöscht")
       c.players = c.players.removePlayer()
     }
+    c.players.currentPlayer = 0
     c.gameState = PREPARE
     c.tui.update
     c.publish(new PlayersChanged)

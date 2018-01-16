@@ -95,7 +95,7 @@ object Player {
   }
 }
 
-case class Players(currentPlayer: Int = 0, players: Vector[PlayerInterface] = Vector()) extends PlayersInterface {
+case class Players(var currentPlayer: Int = 0, players: Vector[PlayerInterface] = Vector()) extends PlayersInterface {
 
   def addPlayer(player: PlayerInterface): Players = {
     copy(players = players :+ player)
